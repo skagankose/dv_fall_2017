@@ -1,6 +1,5 @@
 ## Welcome to Project Page of the Class Data Visualisation
 
-Group member are:
 - Ahmad Ajalloeian
 - Mohammad Yaghini
 - Süha Kağan Köse
