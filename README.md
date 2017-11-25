@@ -8,8 +8,6 @@ You can see the prototype of the project [here](/visual).
 
   <dt><a href="/visual">PROTOTYPE</a></dt>
 
-  <dt>Markdown in HTML</dt>
-  <dd>Does *not* work **very** well. Use HTML <em>tags</em>.</dd>
 </dl>
 
 You can use the [editor on GitHub](https://github.com/skagankose/dv_fall_2017/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
