@@ -28,7 +28,7 @@ In order to emphasise the importance of RTS/SRG/SSR in bringing the Swiss togeth
 ### Note(s)
 This visualization is meant to complement this project: [https://github.com/m-yaghini/ada17/tree/master/project-master](https://github.com/m-yaghini/ada17/tree/master/project-master)
 
-## Requirements
+## Project Information
 
 - Setup a website on Github pages
 - Write the story around the visualization and screencast its presentation in a 2-min video
@@ -53,3 +53,16 @@ This visualization is meant to complement this project: [https://github.com/m-ya
 - What is learned about the data by using the visualizations?
 - How the question is answered?
 - How well does the visualization work, and how can it be further improved?
+
+
+### Schedule
+- Proposals (via google form) (Week 9)
+- Functional project prototype review (Week 11)
+- Final project with screencast, story telling and peer-evaluations (Week 13)
+- Project presentations (Week 14)
+
+### Grading
+- Visualization (35%)
+- Technical Implementation (15%)
+- Website, presentation, screencast (15%)
+- Process book (35%)
