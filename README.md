@@ -1,13 +1,12 @@
 ## Welcome to GitHub Pages
 
-You can see the prototype of the project [here](/visual).
+You can see the prototype of the project [here](/dv_fall_2017/visual).
 
 <dl>
   <dt>Definition list</dt>
   <dd>Is something people use sometimes.</dd>
 
   <dt><a href="/visual">PROTOTYPE</a></dt>
-
 </dl>
 
 You can use the [editor on GitHub](https://github.com/skagankose/dv_fall_2017/edit/master/README.md) to maintain and preview the content for your website in Markdown files.

@@ -184,7 +184,7 @@
 
       layer.on({ click: showName})
       layer.on({ mouseout: removeLine})
-      layer.on({ mouseover: drawLine})
+      layer.on({ click: drawLine})
   }
 
   geojson = L.geoJson(swiss_data, {style: style, onEachFeature: onEachFeature}).addTo(map);
