@@ -34,3 +34,22 @@ This visualization is meant to complement this project: [https://github.com/m-ya
 - Write the story around the visualization and screencast its presentation in a 2-min video
 - Host the code and data on Github with the process book as a PDF file
 - Add a README file that explains the technical setup and intented usage
+
+### Screencast
+- Demonstrate what to do with the visualization
+- Talk about the main contributions rather than on technical details
+- 2 min video not more (max +5 sec)
+
+### Process Book
+- Overview, motivation, target audience
+- Related work and inspiration
+- What am I trying to show this?
+- Where data come from and what are processing steps?
+- What visualization have used to gain insights on the data?
+- What are the different visualizations considered?
+- Justify the design decisions using the perceptual and design principles
+- Describe the intent and functionality of the interactive visualizations
+- Provide clear and well-referenced images showing the key design and interaction elements
+- What is learned about the data by using the visualizations?
+- How the question is answered?
+- How well does the visualization work, and how can it be further improved?
