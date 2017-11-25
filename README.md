@@ -1,4 +1,4 @@
-## Welcome to GitHub Pages
+## Welcome to Project of for the class Data Visualisation
 
 You can see the prototype of the project [here](/dv_fall_2017/visual).
 
