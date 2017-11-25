@@ -4,7 +4,9 @@
 - Mohammad Yaghini
 - Süha Kağan Köse
 
-The prototype can be reached from [here](/dv_fall_2017/visual).
+The visualzaiton can be reached from [here](/dv_fall_2017/visual).
+The process book can be reached from [here](/dv_fall_2017/book).
+Note that both of them are still under construction.
 
 ## Visualising the TV Mirror
 ### Evolution and Importance of the National Swiss Radio/TV Broadcasts in the Course of the Last Century
