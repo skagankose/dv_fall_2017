@@ -27,3 +27,10 @@ In order to emphasise the importance of RTS/SRG/SSR in bringing the Swiss togeth
 
 ### Note(s)
 This visualization is meant to complement this project: [https://github.com/m-yaghini/ada17/tree/master/project-master](https://github.com/m-yaghini/ada17/tree/master/project-master)
+
+## Requirements
+
+- Setup a website on Github pages
+- Write the story around the visualization and screencast its presentation in a 2-min video
+- Host the code and data on Github with the process book as a PDF file
+- Add a README file that explains the technical setup and intented usage
