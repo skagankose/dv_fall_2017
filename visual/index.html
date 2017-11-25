@@ -108,15 +108,6 @@
       geojson.resetStyle(e.target);
   }
 
-  function showName(e) {
-     lat = e.target.getCenter().lat;
-     lng = e.target.getCenter().lng
-     var popup = L.popup()
-      .setLatLng([lat,lng])
-      .setContent(e.target.feature.properties.name)
-      .openOn(map);
-  }
-
   var polyLine;
 
   function removeLine(e) {
@@ -148,6 +139,15 @@
     });
 
     map.addLayer(polyLine);
+  }
+
+  function showName(e) {
+     lat = e.target.getCenter().lat;
+     lng = e.target.getCenter().lng
+     var popup = L.popup()
+      .setLatLng([lat,lng])
+      .setContent(e.target.feature.properties.name)
+      .openOn(map);
   }
   // Listener END
 

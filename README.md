@@ -1,10 +1,10 @@
 ## Welcome to Project Page of the Class Data Visualization
 
-The prototype can be reached from [here](/dv_fall_2017/visual).
-
 - Ahmad Ajalloeian
 - Mohammad Yaghini
 - Süha Kağan Köse
+
+The prototype can be reached from [here](/dv_fall_2017/visual).
 
 ## Visualising the TV Mirror
 ### Evolution and Importance of the National Swiss Radio/TV Broadcasts in the Course of the Last Century
