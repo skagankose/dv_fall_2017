@@ -5,7 +5,9 @@
 - Süha Kağan Köse
 
 The visualzaiton can be reached from [here](/dv_fall_2017/visual).
+
 The process book can be reached from [here](/dv_fall_2017/book).
+
 Note that both of them are still under construction.
 
 ## Visualising the TV Mirror
