@@ -6,7 +6,7 @@ You can see the prototype of the project [here](/visual).
   <dt>Definition list</dt>
   <dd>Is something people use sometimes.</dd>
 
-  <dt<a href="/visual">PROTOTYPE</a></dt>
+  <dt><a href="/visual">PROTOTYPE</a></dt>
 
   <dt>Markdown in HTML</dt>
   <dd>Does *not* work **very** well. Use HTML <em>tags</em>.</dd>
