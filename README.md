@@ -1,12 +1,11 @@
 ## Welcome to Project Page of the Class Data Visualization
 
-- Ahmad Ajalloeian
-- Mohammad Yaghini
-- Süha Kağan Köse
+We are [Ahmad Ajalloeian](https://github.com/#), [Mohammad Yaghini](https://github.com/m-yaghini) and [Süha Kağan Köse](https://github.com/skagankose).
 
-The visualization can be reached from [here](/dv_fall_2017/visual).
 
+The visualization can be reached from [here](/dv_fall_2017/visual).\
 The process book can be reached from [here](/dv_fall_2017/book).
+Note that both project and process book are still under construction.
 
 ## Visualising the TV Mirror
 ### Evolution and Importance of the National Swiss Radio/TV Broadcasts in the Course of the Last Century
