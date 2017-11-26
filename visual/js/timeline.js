@@ -1,3 +1,4 @@
+// Dummy Slider START
 var years_data = d3.range(0, 17).map(function (d) { return new Date(2000 + d, 10, 3); });
 var slider = d3.sliderHorizontal()
   .min(d3.min(years_data))
@@ -19,3 +20,4 @@ var g = d3.select("div#slider").append("svg")
 g.call(slider);
 
 d3.select("span#value").text(d3.timeFormat('%Y')(slider.value()));
+// Dummy Slider END
