@@ -1,3 +1,6 @@
+body {
+  font-family: Verdana;
+}
 #map { height: 600px; }
 .info {
   padding: 6px 8px;

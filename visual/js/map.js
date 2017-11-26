@@ -95,7 +95,7 @@
   info.update = function (properties) {
       this._div.innerHTML = (properties ?
           '<b>' + properties.name + '</b><br />' + properties.density + ' Connection Density'
-          : '<h4>Swiss Connection Map</h4>' +  '<span style="font-size:15px;color:gray;">Hover Over a Canton</span>');
+          : '<h4>Swiss TV Mirror Map</h4>' +  '<span style="font-size:15px;color:gray;">Hover Over a Canton</span>');
   };
 
   info.addTo(map);

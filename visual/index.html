@@ -14,7 +14,11 @@
   crossorigin=""></script>
 
   <!-- D3 -->
-  <script src="https://d3js.org/d3.v4.js"></script>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="https://unpkg.com/d3-simple-slider@0.2.0/build/d3-simple-slider.js"></script>
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 
   <!-- Custom CSS -->
   <link rel="stylesheet" href="css/timeline.css">
@@ -23,12 +27,27 @@
  </head>
  <body>
 
-   <h2 style="font-family:Verdana;"> Project Prototype for the class Data Visualization </h2>
+   <br/>
+   <div class="container">
+      <div class="row text-center">
+        <div class="col-sm-12">
+           <h2> Swiss TV Mirror Map for the Year <span id="value"></span> </h2>
+         </div>
+       </div>
+     </div>
 
   <div id="map"></div>
 
+  <div class="container">
+     <div class="row text-center">
+       <div class="col-sm-12">
+         <div id="slider"></div>
+       </div>
+     </div>
+   </div>
+
   <script src="data/switzerland.js"></script>
   <script src="js/map.js"></script>
-  <!-- <script src="js/timeline.js"></script> -->
+  <script src="js/timeline.js"></script>
 
  </body>
