@@ -2,7 +2,7 @@
 
 Our group members are [Ahmad Ajalloeian](https://github.com/#), [Mohammad Yaghini](https://github.com/m-yaghini) and [Süha Kağan Köse](https://github.com/skagankose).<br />
 The visualization can be reached from [here](/dv_fall_2017/visual).<br/>
-The process book can be reached from [here](/dv_fall_2017/book).<br/>
+The process book can be reached from [here](/dv_fall_2017/process_book).<br/>
 Note that both project and process book are still under construction.
 
 ## Visualising the TV Mirror
@@ -15,6 +15,14 @@ Our main motivation is the sheer amount and scope of the structured data provide
 
 More importantly, given that in March 2017 the Swiss will decide by popular vote whether to abolish the “Billag” (which also supports RTS), such a study is very much relevant and timely. An interactive and easy-to-understand visualization has the potential to showcase the added value of this public organization over the course of the past century.
 
+### Target Audience
+Given the last point, our target audience is the general public.  Ideally, we want our results to be accessible to the electorate, while being accurate and meaningful for the informed citizen.
+
+### Related Work
+This is an inspiring visualization/data story made for a campaign:
+[http://letsfreecongress.org](http://letsfreecongress.org)
+But since have Geographical and Temporal data, something like this would be ideal:  
+[https://carto.com/learn/guides/styling/displaying-temporal-data-with-heatmaps](https://carto.com/learn/guides/styling/displaying-temporal-data-with-heatmaps)
 
 ### What to Show
 Ideally, we would want most of our charts have an interactive timeline. So that the evolution of each metric be meaningfully visualised.    
@@ -22,7 +30,6 @@ Ideally, we would want most of our charts have an interactive timeline. So that 
 Moreover, since we have geographical data, we would like to have an interactive map, also with a timeline, that shows the places of interest in the broadcasts.
 
 In order to emphasise the importance of RTS/SRG/SSR in bringing the Swiss together, we have thought of a similar map, but instead with arrows (a field map) that connect the areas of interest together. (For the records that have  more than one “geographical theme”— this is a feature in the dataset—  associated with them.)
-
 
 ### Note(s)
 This visualization is meant to complement this project: [https://github.com/m-yaghini/ada17/tree/master/project-master](https://github.com/m-yaghini/ada17/tree/master/project-master)
