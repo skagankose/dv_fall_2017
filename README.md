@@ -1,4 +1,4 @@
-## Welcome to Project Page of the Class Data Visualization
+## Project Page for the Class Data Visualization
 
 Our group members are [Ahmad Ajalloeian](https://github.com/#), [Mohammad Yaghini](https://github.com/m-yaghini) and [Süha Kağan Köse](https://github.com/skagankose).<br />
 The visualization can be reached from [here](/dv_fall_2017/visual).<br/>
