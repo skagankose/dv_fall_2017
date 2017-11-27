@@ -1,5 +1,5 @@
 // Assign Dummy Density and Lines
-const MAX_NEWS_NUMBER = 20;
+const MAX_NEWS_NUMBER = 4;
 
 for (var i = 0; i < swiss_data.features.length; i++) {
     swiss_data.features[i].properties.density = Math.round((i * 100 / 30 + 10) * 100) / 100;
