@@ -1,4 +1,6 @@
 // Assign Dummy Density and Lines
+const MAX_NEWS_NUMBER = 20;
+
 for (var i = 0; i < swiss_data.features.length; i++) {
     swiss_data.features[i].properties.density = Math.round((i * 100 / 30 + 10) * 100) / 100;
     swiss_data.features[i].properties.connected = [Math.abs(i - 5),
@@ -73,7 +75,7 @@ const obj_to_map = ( obj => {
     return mp;
 });
 
-var locationMarker = L.icon({
+const locationMarker = L.icon({
     iconUrl: 'data/location_marker.png',
     iconSize: [40, 40], // size of the icon
     iconAnchor: [20, 35], // point of the icon which will correspond to marker's location
@@ -89,30 +91,93 @@ for (let [key, value] of loc2coordMap) {
         {icon: locationMarker}).bindPopup(key));
 }
 
-var locations = L.layerGroup(locationList)
+const locations = L.layerGroup(locationList);
 // Adding Location Markers END
 
 
+// Adding News Polygones
+
+const obj2Arr = obj => Object.keys(obj).map(function (key) {
+    return obj[key];
+});
+
+const obj2Map = ( obj => {
+    let mp = new Map;
+    Object.keys(obj).forEach(k => {
+        mp.set(k, obj[k])
+    });
+    return mp;
+});
+
+// for (j=0; j < 4; j++) {
+//     let polygonPoints = [];
+//     let locs = supedgeArr[j];
+//     for (let i=0; i <locs.length; i++) {
+//         console.log(locs[i]);
+//         console.log(loc2coordMap.get(locs[i]));
+//         // loc_coord = loc2coordMap.get(locs[i]);
+//         polygonPoints.push(L.LatLng(locs[i]));
+//     }
+//     let polygon = new L.Polygon(polygonPoints);
+//     Polygons.push(polygon);
+// }
+
+newsMap = obj2Map(supededges);
+loc2coordMap = obj2Map(loc2coord);
+let mapIter = newsMap.entries();
+console.log(newsMap);
+
+let Polygons = [];
+
+for (count = 0; count < MAX_NEWS_NUMBER; count++) {
+    let polygonPoints = [];
+    let [thisNewsID, thisNewsLocations] = mapIter.next().value;
+    // console.log(thisNewsID, thisNewsLocations)
+    for (let loc of thisNewsLocations) {
+        let thisLocationCoordinates = loc2coordMap.get(loc);
+        // console.log([thisNewsID, loc, thisLocationCoordinates]);
+        let [Lat, Lng] = thisLocationCoordinates;
+        // console.log([Lat, Lng]);
+        let point = L.latLng({lat: Lat, lng: Lng});
+        polygonPoints.push(point);
+    }
+    let polygon = new L.Polygon(polygonPoints);
+    Polygons.push(polygon);
+}
+
+console.log(Polygons);
+let newsLayer = L.layerGroup(Polygons);
+// Adding News Polygones END
+
+
 // Create the Main Map Object
-var map = L.map('map', {
+const map = L.map('map', {
     center: [46.818, 8.227],
     zoom: 8,
-    layers: [light]
-})
+    layers: [light],
+    opacity: 1,
+});
 
 // Layer Control
-var baseMaps = {
+const baseMaps = {
     "Simple": light,
     "Default": streets,
-}
-var overlayMaps = {
+};
+
+
+// let newsLayers = _.extend({}, Polygons);
+// console.log(newsLayers);
+
+const overlayMaps = {
     "Markers": cantons,
-    "Locations": locations
-}
+    "Locations": locations,
+    "News": newsLayer,
+};
+
 L.control.layers(baseMaps, overlayMaps).addTo(map);
 
 // Listener START
-var info = L.control();
+let info = L.control();
 
 info.onAdd = function (map) {
     this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
@@ -193,10 +258,11 @@ function showName(e) {
         .setContent(e.target.feature.properties.name)
         .openOn(map);
 }
+
 // Listener END
 
 // Add .geojson to the Map
-geojson = L.geoJson(swiss_data).addTo(map);
+// geojson = L.geoJson(swiss_data).addTo(map);
 
 // Color Map START
 function getColor(d) {
@@ -212,12 +278,13 @@ function getColor(d) {
 function style(feature) {
     return {
         fillColor: getColor(feature.properties.density),
-        weight: 1,
-        opacity: 1,
+        weight: 0.5,
+        opacity: 0.5,
         color: 'black',
-        fillOpacity: 1
+        fillOpacity: 0.2
     };
 }
+
 // Color Map END
 
 // Add a Legend
@@ -249,8 +316,8 @@ function onEachFeature(feature, layer) {
     });
 
     // layer.on({ click: showName})
-    layer.on({mouseout: removeLine})
-    layer.on({click: drawLine})
+    // layer.on({mouseout: removeLine})
+    // layer.on({click: drawLine})
 }
 
 geojson = L.geoJson(swiss_data, {style: style, onEachFeature: onEachFeature}).addTo(map);
