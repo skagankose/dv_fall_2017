@@ -1,5 +1,5 @@
 // Assign Dummy Density and Lines
-const MAX_NEWS_NUMBER = 20;
+const MAX_NEWS_NUMBER = 30;
 
 for (var i = 0; i < swiss_data.features.length; i++) {
     swiss_data.features[i].properties.density = Math.round((i * 100 / 30 + 10) * 100) / 100;
@@ -65,8 +65,7 @@ for (var i = 0; i < swiss_data.features.length; i++) {
 var cantons = L.layerGroup(cantons_list)
 // Add Markers Layer END
 
-
-// Adding Location Markers
+// Adding Location Markers START
 const obj_to_map = ( obj => {
     let mp = new Map;
     Object.keys(obj).forEach(k => {
@@ -95,11 +94,12 @@ const locations = L.layerGroup(locationList);
 // Adding Location Markers END
 
 
-// Adding News Polygones
-
+// Adding News Polygones START
+/*
 const obj2Arr = obj => Object.keys(obj).map(function (key) {
     return obj[key];
 });
+*/
 
 const obj2Map = ( obj => {
     let mp = new Map;
@@ -109,30 +109,32 @@ const obj2Map = ( obj => {
     return mp;
 });
 
-// for (j=0; j < 4; j++) {
-//     let polygonPoints = [];
-//     let locs = supedgeArr[j];
-//     for (let i=0; i <locs.length; i++) {
-//         console.log(locs[i]);
-//         console.log(loc2coordMap.get(locs[i]));
-//         // loc_coord = loc2coordMap.get(locs[i]);
-//         polygonPoints.push(L.LatLng(locs[i]));
-//     }
-//     let polygon = new L.Polygon(polygonPoints);
-//     Polygons.push(polygon);
-// }
+/*
+for (j=0; j < 4; j++) {
+    let polygonPoints = [];
+    let locs = supedgeArr[j];
+    for (let i=0; i <locs.length; i++) {
+        console.log(locs[i]);
+        console.log(loc2coordMap.get(locs[i]));
+        // loc_coord = loc2coordMap.get(locs[i]);
+        polygonPoints.push(L.LatLng(locs[i]));
+    }
+    let polygon = new L.Polygon(polygonPoints);
+    Polygons.push(polygon);
+}
+*/
 
 newsMap = obj2Map(supededges);
 loc2coordMap = obj2Map(loc2coord);
 let mapIter = newsMap.entries();
-console.log(newsMap);
+// console.log(newsMap);
 
 let Polygons = [];
 
 for (count = 0; count < MAX_NEWS_NUMBER; count++) {
     let polygonPoints = [];
     let [thisNewsID, thisNewsLocations] = mapIter.next().value;
-    // console.log(thisNewsID, thisNewsLocations)
+    // console.log(thisNewsID, thisNewsLocations);
     for (let loc of thisNewsLocations) {
         let thisLocationCoordinates = loc2coordMap.get(loc);
         // console.log([thisNewsID, loc, thisLocationCoordinates]);
@@ -145,10 +147,9 @@ for (count = 0; count < MAX_NEWS_NUMBER; count++) {
     Polygons.push(polygon);
 }
 
-console.log(Polygons);
+// console.log(Polygons);
 let newsLayer = L.layerGroup(Polygons);
 // Adding News Polygones END
-
 
 // Create the Main Map Object
 const map = L.map('map', {
@@ -217,6 +218,7 @@ function resetHighlight(e) {
     info.update();
 }
 
+/*
 var polyLine;
 
 function removeLine(e) {
@@ -258,7 +260,60 @@ function showName(e) {
         .setContent(e.target.feature.properties.name)
         .openOn(map);
 }
+*/
 
+
+// Draw SuperEdge on Click START
+var dummyLayer;
+
+function removeSuperEdge(e) {
+    try {
+        map.removeLayer(dummyLayer);
+    } catch (err) {
+        // pass
+    }
+}
+
+function drawPolygon(e, canton_list) {
+
+  var drawnItems = new L.FeatureGroup();
+  cornerPoints = []
+
+  for (let set_of_cantons of canton_list) {
+
+    let lines = e.target.feature.properties.connected;
+    let points = [];
+    for (canton of set_of_cantons) {
+        let [lat, lng] = loc2coord[canton];
+        let point = L.latLng({lat: lat, lng: lng});
+        points.push(point);
+      };
+
+      cornerPoints.push(new L.Polygon(points, {
+          color: 'black',
+          weight: 3,
+          opacity: 0.7,
+          smoothFactor: 1,
+      }));
+  };
+
+  for (points of cornerPoints) {
+    drawnItems.addLayer(points);
+  }
+
+  dummyLayer = drawnItems;
+  map.addLayer(dummyLayer);
+
+}
+
+
+function drawSuperEdge (e) {
+  // Get Connections of the Target "e"
+  let cantons_to_connect = [["Vaud",  "Zurich", "Obwald"],
+    ["Vaud",  "JURA (MONTAGNE)", "Appenzell (cantons)"]];
+  drawPolygon(e, cantons_to_connect);
+}
+// Draw SuperEdge on Click END
 // Listener END
 
 // Add .geojson to the Map
@@ -267,12 +322,12 @@ function showName(e) {
 // Color Map START
 function getColor(d) {
     return d > 95 ? '#123f5a' :
-        d > 90 ? '#235d72' :
-            d > 70 ? '#3a7c89' :
-                d > 50 ? '#559c9e' :
-                    d > 30 ? '#7bbcb0' :
-                        d > 0 ? '#a5dbc2' :
-                            '#d2fbd4';
+              d > 90 ? '#235d72' :
+                  d > 70 ? '#3a7c89' :
+                      d > 50 ? '#559c9e' :
+                          d > 30 ? '#7bbcb0' :
+                              d > 0 ? '#a5dbc2' :
+                                        '#d2fbd4';
 }
 
 function style(feature) {
@@ -281,13 +336,12 @@ function style(feature) {
         weight: 0.5,
         opacity: 0.5,
         color: 'black',
-        fillOpacity: 0.2
+        fillOpacity: 0.7
     };
 }
-
 // Color Map END
 
-// Add a Legend
+// Add a Legend START
 var legend = L.control({position: 'bottomright'});
 
 legend.onAdd = function (map) {
@@ -307,6 +361,12 @@ legend.onAdd = function (map) {
 };
 
 legend.addTo(map);
+// Add a Legend END
+
+// Debug Function
+function getInfo(e) {
+  console.log(e);
+}
 
 // Active Listeners
 function onEachFeature(feature, layer) {
@@ -315,9 +375,13 @@ function onEachFeature(feature, layer) {
         mouseout: resetHighlight,
     });
 
+    layer.on({click: getInfo});
+    layer.on({click: drawSuperEdge});
+    layer.on({mouseout: removeSuperEdge});
     // layer.on({ click: showName})
-    // layer.on({mouseout: removeLine})
     // layer.on({click: drawLine})
+    // layer.on({mouseout: removeLine})
+
 }
 
 geojson = L.geoJson(swiss_data, {style: style, onEachFeature: onEachFeature}).addTo(map);
