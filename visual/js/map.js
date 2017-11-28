@@ -137,6 +137,7 @@ let newsLayer = L.layerGroup(Polygons);
 
 // Create the Main Map Object
 const map = L.map('map', {
+    closePopupOnClick: false,
     center: [46.818, 8.227],
     zoom: 8,
     layers: [light],
@@ -249,13 +250,13 @@ function showName(e) {
 
 
 // Draw SuperEdge on Click -START
-var dummyLayer;
+var polygonLayer;
 var concaveLayer;
 
 function removeSuperEdge(e) {
     try {
         map.removeLayer(concaveLayer);
-        map.removeLayer(dummyLayer);
+        map.removeLayer(polygonLayer);
     } catch (err) {
         // pass
     }
@@ -263,19 +264,6 @@ function removeSuperEdge(e) {
 
 // Draw SuperEdges Given List of Connections
 // Display Name of Corner Points
-function displayNames (e, canton_list) {
-
-  for (set_of_cantons of canton_list) {
-    for (canton of set_of_cantons) {
-        let [lat, lng] = cantonCoordinates[canton];
-        var popup = L.popup()
-            .setLatLng([lat, lng])
-            .setContent(canton);
-        }
-    }
-}
-
-
 // Draw One Big Polygon
 function drawConcaveHull(e, canton_list) {
 
@@ -295,7 +283,6 @@ function drawConcaveHull(e, canton_list) {
       opacity: 0.7,
       fillOpacity: 0.2,
       smoothFactor: 1,
-   // dashArray: '10',
   })
 
   map.addLayer(concaveLayer);
@@ -329,9 +316,38 @@ function drawPolygon(e, canton_list) {
     drawnItems.addLayer(points);
   }
 
-  dummyLayer = drawnItems;
-  map.addLayer(dummyLayer);
+  polygonLayer = drawnItems;
+  map.addLayer(polygonLayer);
 
+}
+
+var markerLayer = new L.FeatureGroup();
+
+function displayNames (e, canton_list) {
+
+  markerLayer = new L.FeatureGroup();
+
+  let marker_list = [];
+  for (set_of_cantons of canton_list) {
+    for (canton of set_of_cantons) {
+
+          var marker = L.popup({
+                        closeButton: false,
+                        autoClose: false
+                      })
+                      .setLatLng(cantonCoordinates[canton])
+                      .setContent(canton);
+
+        markerLayer.addLayer(marker);
+    }
+  }
+
+  map.addLayer(markerLayer);
+
+}
+
+function removeMarkers() {
+  map.removeLayer(markerLayer);
 }
 
 function drawSuperEdge (e) {
@@ -359,8 +375,10 @@ function drawSuperEdge (e) {
   }
   */
 
+  // Get Connection from an External File
+  // We only took first 3 connections for demonstration purposes.
   canton_name = e.target.feature.properties.name;
-  var connection_list = cantonConnections[canton_name].slice(1, 5);
+  var connection_list = cantonConnections[canton_name].slice(1, 3);
 
   // Can either draw multiple polygons or a concave hull
   // drawPolygon(e, connection_list);
@@ -430,6 +448,7 @@ function onEachFeature(feature, layer) {
     layer.on({click: getInfo});
     layer.on({mouseover: drawSuperEdge});
     layer.on({mouseout: removeSuperEdge});
+    layer.on({mouseout: removeMarkers});
     // layer.on({ click: showName})
     // layer.on({click: drawLine})
     // layer.on({mouseout: removeLine})
