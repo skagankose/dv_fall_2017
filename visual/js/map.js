@@ -315,7 +315,7 @@ function drawSuperEdge (e) {
   // Get Connections of the Target "e"
   // Get Random Connections for Prototype
   connection_list = [];
-  for (var i = 0; i < 1; i++) {
+  for (var i = 0; i < 2; i++) {
     connection = [];
     for (var j = 0; j < 2; j++) {
       let rand = Math.floor(Math.random() * Object.keys(loc2coord).length);
