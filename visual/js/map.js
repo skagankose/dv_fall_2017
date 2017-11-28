@@ -93,7 +93,6 @@ for (let [key, value] of loc2coordMap) {
 const locations = L.layerGroup(locationList);
 // Adding Location Markers END
 
-
 // Adding News Polygones START
 /*
 const obj2Arr = obj => Object.keys(obj).map(function (key) {
@@ -165,7 +164,6 @@ const baseMaps = {
     "Default": streets,
 };
 
-
 // let newsLayers = _.extend({}, Polygons);
 // console.log(newsLayers);
 
@@ -186,7 +184,7 @@ info.onAdd = function (map) {
     return this._div;
 };
 
-// method that we will use to update the control based on feature properties passed
+// Method that we will use to update the control based on feature properties passed
 info.update = function (properties) {
     this._div.innerHTML = (properties ?
         '<b>' + properties.name + '</b><br />' + properties.density + ' Connection Density'
@@ -219,6 +217,7 @@ function resetHighlight(e) {
 }
 
 /*
+// Draw Edge on Click -START
 var polyLine;
 
 function removeLine(e) {
@@ -260,6 +259,7 @@ function showName(e) {
         .setContent(e.target.feature.properties.name)
         .openOn(map);
 }
+// Draw Edge on Click -END
 */
 
 
@@ -282,10 +282,10 @@ function drawPolygon(e, canton_list) {
 
   for (set_of_cantons of canton_list) {
 
-    let lines = e.target.feature.properties.connected;
     let points = [];
-    // Push the Clicked Canton Itself
-    let initial = L.latLng({lat: e.latlng.lat, lng: e.latlng.lng});
+    // Add the Clicked Canton Itself
+    let coor = e.target.feature.properties.center;
+    let initial = L.latLng({lat: coor[0], lng: coor[1]});
     points.push(initial)
     for (canton of set_of_cantons) {
         let [lat, lng] = loc2coord[canton];
@@ -315,12 +315,17 @@ function drawSuperEdge (e) {
   // Get Connections of the Target "e"
   // Get Random Connections for Prototype
   connection_list = [];
-  for (var i = 0; i < 1; i++) {
+  for (var i = 0; i < 2; i++) {
     connection = [];
-    for (var j = 0; j < 2; j++) {
-      let rand = Math.floor(Math.random() * Object.keys(loc2coord).length);
+    let n = 0;
+    while (n < 2) {
+      let rand = Math.ceil(Math.random() * Object.keys(loc2coord).length);
       let rand_loc = Object.keys(loc2coord)[rand];
-      connection.push(rand_loc);
+      [lat, lng] = loc2coord[Object.keys(loc2coord)[rand]];
+      if (lat < 49 && lat > 45 && lng < 11 && lng > 5) {
+        connection.push(rand_loc);
+        n += 1;
+        }
     }
     connection_list.push(connection);
   }
@@ -330,7 +335,6 @@ function drawSuperEdge (e) {
 }
 // Draw SuperEdge on Click -END
 // Listener END
-
 
 // Color Map START
 function getColor(d) {
@@ -378,7 +382,7 @@ legend.addTo(map);
 
 // Debug Function
 function getInfo(e) {
-  // console.log(e);
+  console.log(e);
 }
 
 // Active Listeners
@@ -389,7 +393,7 @@ function onEachFeature(feature, layer) {
     });
 
     layer.on({click: getInfo});
-    layer.on({click: drawSuperEdge});
+    layer.on({mouseover: drawSuperEdge});
     layer.on({mouseout: removeSuperEdge});
     // layer.on({ click: showName})
     // layer.on({click: drawLine})
