@@ -282,10 +282,10 @@ function drawPolygon(e, canton_list) {
 
   for (set_of_cantons of canton_list) {
 
-    let lines = e.target.feature.properties.connected;
     let points = [];
-    // Push the Clicked Canton Itself
-    let initial = L.latLng({lat: e.latlng.lat, lng: e.latlng.lng});
+    // Add the Clicked Canton Itself
+    let coor = e.target.feature.properties.center;
+    let initial = L.latLng({lat: coor[0], lng: coor[1]});
     points.push(initial)
     for (canton of set_of_cantons) {
         let [lat, lng] = loc2coord[canton];
