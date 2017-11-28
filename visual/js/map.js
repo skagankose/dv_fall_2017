@@ -317,10 +317,15 @@ function drawSuperEdge (e) {
   connection_list = [];
   for (var i = 0; i < 2; i++) {
     connection = [];
-    for (var j = 0; j < 2; j++) {
-      let rand = Math.floor(Math.random() * Object.keys(loc2coord).length);
+    let n = 0;
+    while (n < 2) {
+      let rand = Math.ceil(Math.random() * Object.keys(loc2coord).length);
       let rand_loc = Object.keys(loc2coord)[rand];
-      connection.push(rand_loc);
+      [lat, lng] = loc2coord[Object.keys(loc2coord)[rand]];
+      if (lat < 49 && lat > 45 && lng < 11 && lng > 5) {
+        connection.push(rand_loc);
+        n += 1;
+        }
     }
     connection_list.push(connection);
   }
@@ -388,7 +393,7 @@ function onEachFeature(feature, layer) {
     });
 
     layer.on({click: getInfo});
-    layer.on({click: drawSuperEdge});
+    layer.on({mouseover: drawSuperEdge});
     layer.on({mouseout: removeSuperEdge});
     // layer.on({ click: showName})
     // layer.on({click: drawLine})
