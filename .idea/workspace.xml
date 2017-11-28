@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aede88de-c274-4da2-8297-9230b37184a1" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/visual/index.html" afterPath="$PROJECT_DIR$/visual/index.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -19,8 +20,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/visual/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="702">
-              <caret line="51" column="58" lean-forward="true" selection-start-line="51" selection-start-column="58" selection-end-line="51" selection-end-column="58" />
+            <state relative-caret-position="792">
+              <caret line="57" column="3" lean-forward="true" selection-start-line="57" selection-start-column="3" selection-end-line="57" selection-end-column="3" />
               <folding />
             </state>
           </provider>
@@ -32,20 +33,10 @@
             <state relative-caret-position="165">
               <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
               <folding>
-                <marker date="1511755647317" expanded="true" signature="5623:5649" ph="..." />
-                <marker date="1511755647317" expanded="true" signature="8175:8186" ph="..." />
-                <marker date="1511755647317" expanded="true" signature="8270:8277" ph="–" />
+                <marker date="1511871701517" expanded="true" signature="5614:5640" ph="..." />
+                <marker date="1511871701517" expanded="true" signature="9864:9875" ph="..." />
+                <marker date="1511871701517" expanded="true" signature="9959:9966" ph="–" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="superedge_locations_year.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/visual/data/superedge_locations_year.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="20" lean-forward="false" selection-start-line="0" selection-start-column="6" selection-end-line="0" selection-end-column="20" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -53,7 +44,7 @@
       <file leaf-file-name="EcmaScript.js" pinned="false" current-in-tab="false">
         <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/EcmaScript.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1260">
+            <state relative-caret-position="186">
               <caret line="84" column="17" lean-forward="false" selection-start-line="84" selection-start-column="17" selection-end-line="84" selection-end-column="17" />
               <folding />
             </state>
@@ -89,10 +80,10 @@
       <list>
         <option value="$PROJECT_DIR$/visual/data/loc2coord_dict.json" />
         <option value="$PROJECT_DIR$/visual/data/loc2coord_dict.js" />
-        <option value="$PROJECT_DIR$/visual/js/map.js" />
         <option value="$PROJECT_DIR$/visual/data/superedge_locations.json" />
         <option value="$PROJECT_DIR$/visual/data/superedge_locations_dates.json" />
         <option value="$PROJECT_DIR$/visual/data/superedge_locations_year.json" />
+        <option value="$PROJECT_DIR$/visual/js/map.js" />
         <option value="$PROJECT_DIR$/visual/index.html" />
       </list>
     </option>
@@ -205,12 +196,12 @@
       <option name="presentableId" value="Default" />
       <updated>1511720671403</updated>
       <workItem from="1511720672900" duration="17830000" />
-      <workItem from="1511812862208" duration="617000" />
+      <workItem from="1511812862208" duration="1729000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="18447000" />
+    <option name="totallyTimeSpent" value="19559000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
@@ -286,9 +277,9 @@
         <state relative-caret-position="165">
           <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
           <folding>
-            <marker date="1511755647317" expanded="true" signature="5623:5649" ph="..." />
-            <marker date="1511755647317" expanded="true" signature="8175:8186" ph="..." />
-            <marker date="1511755647317" expanded="true" signature="8270:8277" ph="–" />
+            <marker date="1511871701517" expanded="true" signature="5614:5640" ph="..." />
+            <marker date="1511871701517" expanded="true" signature="9864:9875" ph="..." />
+            <marker date="1511871701517" expanded="true" signature="9959:9966" ph="–" />
           </folding>
         </state>
       </provider>
@@ -304,6 +295,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
           <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -322,14 +314,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/visual/data/switzerland.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="4" lean-forward="false" selection-start-line="0" selection-start-column="4" selection-end-line="0" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/visual/data/superedge_locations.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -342,14 +326,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="6" lean-forward="false" selection-start-line="0" selection-start-column="6" selection-end-line="0" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/EcmaScript.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1260">
-          <caret line="84" column="17" lean-forward="false" selection-start-line="84" selection-start-column="17" selection-end-line="84" selection-end-column="17" />
           <folding />
         </state>
       </provider>
@@ -378,18 +354,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/visual/js/map.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding>
-            <marker date="1511755647317" expanded="true" signature="5623:5649" ph="..." />
-            <marker date="1511755647317" expanded="true" signature="8175:8186" ph="..." />
-            <marker date="1511755647317" expanded="true" signature="8270:8277" ph="–" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/visual/data/superedge_locations_year.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -398,18 +362,46 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/visual/data/superedge_locations_year.js">
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/EcmaScript.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="84" column="17" lean-forward="false" selection-start-line="84" selection-start-column="17" selection-end-line="84" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/visual/data/switzerland.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="0" column="20" lean-forward="false" selection-start-line="0" selection-start-column="6" selection-end-line="0" selection-end-column="20" />
+          <caret line="0" column="4" lean-forward="false" selection-start-line="0" selection-start-column="4" selection-end-line="0" selection-end-column="4" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/visual/data/superedge_locations_year.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="0" column="176" lean-forward="true" selection-start-line="0" selection-start-column="176" selection-end-line="0" selection-end-column="176" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/visual/js/map.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+          <folding>
+            <marker date="1511871701517" expanded="true" signature="5614:5640" ph="..." />
+            <marker date="1511871701517" expanded="true" signature="9864:9875" ph="..." />
+            <marker date="1511871701517" expanded="true" signature="9959:9966" ph="–" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/visual/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="702">
-          <caret line="51" column="58" lean-forward="true" selection-start-line="51" selection-start-column="58" selection-end-line="51" selection-end-column="58" />
+        <state relative-caret-position="792">
+          <caret line="57" column="3" lean-forward="true" selection-start-line="57" selection-start-column="3" selection-end-line="57" selection-end-column="3" />
           <folding />
         </state>
       </provider>
