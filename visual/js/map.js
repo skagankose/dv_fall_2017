@@ -263,7 +263,7 @@ function showName(e) {
 */
 
 
-// Draw SuperEdge on Click START
+// Draw SuperEdge on Click -START
 var dummyLayer;
 
 function removeSuperEdge(e) {
@@ -274,15 +274,19 @@ function removeSuperEdge(e) {
     }
 }
 
+// Draw SuperEdges Given List of Connections
 function drawPolygon(e, canton_list) {
 
   var drawnItems = new L.FeatureGroup();
   cornerPoints = []
 
-  for (let set_of_cantons of canton_list) {
+  for (set_of_cantons of canton_list) {
 
     let lines = e.target.feature.properties.connected;
     let points = [];
+    // Push the Clicked Canton Itself
+    let initial = L.latLng({lat: e.latlng.lat, lng: e.latlng.lng});
+    points.push(initial)
     for (canton of set_of_cantons) {
         let [lat, lng] = loc2coord[canton];
         let point = L.latLng({lat: lat, lng: lng});
@@ -309,15 +313,24 @@ function drawPolygon(e, canton_list) {
 
 function drawSuperEdge (e) {
   // Get Connections of the Target "e"
-  let cantons_to_connect = [["Vaud",  "Zurich", "Obwald"],
-    ["Vaud",  "JURA (MONTAGNE)", "Appenzell (cantons)"]];
-  drawPolygon(e, cantons_to_connect);
+  // Get Random Connections for Prototype
+  connection_list = [];
+  for (var i = 0; i < 1; i++) {
+    connection = [];
+    for (var j = 0; j < 2; j++) {
+      let rand = Math.floor(Math.random() * Object.keys(loc2coord).length);
+      let rand_loc = Object.keys(loc2coord)[rand];
+      connection.push(rand_loc);
+    }
+    connection_list.push(connection);
+  }
+
+  drawPolygon(e, connection_list);
+
 }
-// Draw SuperEdge on Click END
+// Draw SuperEdge on Click -END
 // Listener END
 
-// Add .geojson to the Map
-// geojson = L.geoJson(swiss_data).addTo(map);
 
 // Color Map START
 function getColor(d) {
@@ -365,7 +378,7 @@ legend.addTo(map);
 
 // Debug Function
 function getInfo(e) {
-  console.log(e);
+  // console.log(e);
 }
 
 // Active Listeners
