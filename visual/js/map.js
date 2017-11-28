@@ -381,7 +381,7 @@ function drawSuperEdge (e) {
   var connection_list = cantonConnections[canton_name].slice(1, 3);
 
   // Can either draw multiple polygons or a concave hull
-  drawPolygon(e, connection_list);
+  // drawPolygozn(e, connection_list);
   drawConcaveHull(e, connection_list);
   displayNames(e, connection_list);
 
