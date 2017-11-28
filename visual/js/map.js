@@ -275,6 +275,32 @@ function removeSuperEdge(e) {
 }
 
 // Draw SuperEdges Given List of Connections
+// Draw One Big Polygon
+function drawOnePolygon(e, canton_list) {
+
+  var cornerPoints = [];
+  let coor = e.target.feature.properties.center;
+  let initial = L.latLng({lat: coor[0], lng: coor[1]});
+  cornerPoints.push(initial)
+  for (set_of_cantons of canton_list) {
+    for (canton of set_of_cantons) {
+        let [lat, lng] = loc2coord[canton];
+        let point = L.latLng({lat: lat, lng: lng});
+        cornerPoints.push(point);
+    }
+  }
+
+  dummyLayer = new L.Polygon(cornerPoints, {
+      color: 'black',
+      weight: 3,
+      opacity: 0.7,
+      smoothFactor: 1,
+  })
+
+  map.addLayer(dummyLayer);
+}
+
+// Draw Multiple Polygons
 function drawPolygon(e, canton_list) {
 
   var drawnItems = new L.FeatureGroup();
@@ -310,6 +336,14 @@ function drawPolygon(e, canton_list) {
 
 }
 
+/*
+for (var i = 0; i < 10000; i++) {
+  let rand = Math.ceil(Math.random() * Object.keys(loc2coord).length);
+  console.log(rand);
+  console.log(Object.keys(loc2coord)[rand]);
+  console.log(loc2coord[Object.keys(loc2coord)[rand]]);
+}
+*/
 
 function drawSuperEdge (e) {
   // Get Connections of the Target "e"
@@ -319,10 +353,12 @@ function drawSuperEdge (e) {
     connection = [];
     let n = 0;
     while (n < 2) {
-      let rand = Math.ceil(Math.random() * Object.keys(loc2coord).length);
-      let rand_loc = Object.keys(loc2coord)[rand];
-      [lat, lng] = loc2coord[Object.keys(loc2coord)[rand]];
-      if (lat < 49 && lat > 45 && lng < 11 && lng > 5) {
+      var k = Object.keys(loc2coord)
+      let rand = Math.floor(Math.random() * k.length);
+      let rand_loc = k[rand];
+      lat = loc2coord[k[rand]][0];
+      lng = loc2coord[k[rand]][1];
+      if (lat < 48 && lat > 46 && lng < 10 && lng > 5) {
         connection.push(rand_loc);
         n += 1;
         }
