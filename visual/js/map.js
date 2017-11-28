@@ -32,6 +32,12 @@ swiss_data.features[10].properties.center = [47.208, 7.532] // Solothurn
 swiss_data.features[12].properties.center = [47.441, 7.764] // Basel Landschaft
 swiss_data.features[16].properties.center = [47.424, 9.376] // St. Gallen
 swiss_data.features[14].properties.center = [47.366, 9.300] // Appenzell Ausserhoden
+
+cantonCoordinates["Vaud"] = [46.561, 6.536] // Vaud
+cantonCoordinates["Solothurn"] = [47.208, 7.532] // Solothurn
+cantonCoordinates["Basel Landschaft"] = [47.441, 7.764] // Basel Landschaft
+cantonCoordinates["St. Gallen"] = [47.424, 9.376] // St. Gallen
+cantonCoordinates["Appenzell Ausserhoden"] = [47.366, 9.300] // Appenzell Ausserhoden
 // Calculate Centers END
 
 var geojson;
@@ -94,12 +100,6 @@ const locations = L.layerGroup(locationList);
 // Adding Location Markers END
 
 // Adding News Polygones START
-/*
-const obj2Arr = obj => Object.keys(obj).map(function (key) {
-    return obj[key];
-});
-*/
-
 const obj2Map = ( obj => {
     let mp = new Map;
     Object.keys(obj).forEach(k => {
@@ -107,21 +107,6 @@ const obj2Map = ( obj => {
     });
     return mp;
 });
-
-/*
-for (j=0; j < 4; j++) {
-    let polygonPoints = [];
-    let locs = supedgeArr[j];
-    for (let i=0; i <locs.length; i++) {
-        console.log(locs[i]);
-        console.log(loc2coordMap.get(locs[i]));
-        // loc_coord = loc2coordMap.get(locs[i]);
-        polygonPoints.push(L.LatLng(locs[i]));
-    }
-    let polygon = new L.Polygon(polygonPoints);
-    Polygons.push(polygon);
-}
-*/
 
 newsMap = obj2Map(superEdges);
 loc2coordMap = obj2Map(loc2coord);
@@ -216,7 +201,7 @@ function resetHighlight(e) {
     info.update();
 }
 
-/*
+/* DRAWS SINGLE EDGES
 // Draw Edge on Click -START
 var polyLine;
 
@@ -250,6 +235,7 @@ function drawLine(e) {
 
     map.addLayer(polyLine);
 }
+// Draw Edge on Click -END
 
 function showName(e) {
     lat = e.target.getCenter().lat;
@@ -259,7 +245,6 @@ function showName(e) {
         .setContent(e.target.feature.properties.name)
         .openOn(map);
 }
-// Draw Edge on Click -END
 */
 
 
@@ -277,16 +262,27 @@ function removeSuperEdge(e) {
 }
 
 // Draw SuperEdges Given List of Connections
-// Draw One Big Polygon
-function drawOnePolygon(e, canton_list) {
+// Display Name of Corner Points
+function displayNames (e, canton_list) {
 
-  var cornerPoints = [];
-  let coor = e.target.feature.properties.center;
-  let initial = L.latLng({lat: coor[0], lng: coor[1]});
-  cornerPoints.push(initial)
   for (set_of_cantons of canton_list) {
     for (canton of set_of_cantons) {
-        let [lat, lng] = loc2coord[canton];
+        let [lat, lng] = cantonCoordinates[canton];
+        var popup = L.popup()
+            .setLatLng([lat, lng])
+            .setContent(canton);
+        }
+    }
+}
+
+
+// Draw One Big Polygon
+function drawConcaveHull(e, canton_list) {
+
+  var cornerPoints = [];
+  for (set_of_cantons of canton_list) {
+    for (canton of set_of_cantons) {
+        let [lat, lng] = cantonCoordinates[canton];
         let point = L.latLng({lat: lat, lng: lng});
         cornerPoints.push(point);
     }
@@ -314,12 +310,8 @@ function drawPolygon(e, canton_list) {
   for (set_of_cantons of canton_list) {
 
     let points = [];
-    // Add the Clicked Canton Itself
-    let coor = e.target.feature.properties.center;
-    let initial = L.latLng({lat: coor[0], lng: coor[1]});
-    points.push(initial)
     for (canton of set_of_cantons) {
-        let [lat, lng] = loc2coord[canton];
+        let [lat, lng] = cantonCoordinates[canton];
         let point = L.latLng({lat: lat, lng: lng});
         points.push(point);
       };
@@ -342,23 +334,13 @@ function drawPolygon(e, canton_list) {
 
 }
 
-/*
-for (var i = 0; i < 10000; i++) {
-  let rand = Math.ceil(Math.random() * Object.keys(loc2coord).length);
-  console.log(rand);
-  console.log(Object.keys(loc2coord)[rand]);
-  console.log(loc2coord[Object.keys(loc2coord)[rand]]);
-}
-*/
-
 function drawSuperEdge (e) {
   // Get Connections of the Target "e"
   // Get Random Connections for Prototype
 
-  canton_name = e.target.feature.properties.name;
-  console.log(canton_name);
-
-  connection_list = [];
+  /* RANDOMLY GENERATES CONNECTIONS
+  // Randomly Generated Canton List
+  var connection_list = [];
   for (var i = 0; i < 3; i++) {
     connection = [];
     let n = 0;
@@ -375,9 +357,15 @@ function drawSuperEdge (e) {
     }
     connection_list.push(connection);
   }
+  */
 
+  canton_name = e.target.feature.properties.name;
+  var connection_list = cantonConnections[canton_name].slice(1, 5);
+
+  // Can either draw multiple polygons or a concave hull
   // drawPolygon(e, connection_list);
-  drawOnePolygon(e, connection_list);
+  drawConcaveHull(e, connection_list);
+  displayNames(e, connection_list);
 
 }
 // Draw SuperEdge on Click -END
