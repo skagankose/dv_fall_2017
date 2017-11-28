@@ -123,7 +123,7 @@ for (j=0; j < 4; j++) {
 }
 */
 
-newsMap = obj2Map(supededges);
+newsMap = obj2Map(superEdges);
 loc2coordMap = obj2Map(loc2coord);
 let mapIter = newsMap.entries();
 // console.log(newsMap);
@@ -265,9 +265,11 @@ function showName(e) {
 
 // Draw SuperEdge on Click -START
 var dummyLayer;
+var concaveLayer;
 
 function removeSuperEdge(e) {
     try {
+        map.removeLayer(concaveLayer);
         map.removeLayer(dummyLayer);
     } catch (err) {
         // pass
@@ -290,14 +292,17 @@ function drawOnePolygon(e, canton_list) {
     }
   }
 
-  dummyLayer = new L.Polygon(cornerPoints, {
+  var latLngs = new ConcaveHull(cornerPoints).getLatLngs();
+  concaveLayer = new L.Polygon(latLngs, {
       color: 'black',
       weight: 3,
       opacity: 0.7,
+      fillOpacity: 0.2,
       smoothFactor: 1,
+   // dashArray: '10',
   })
 
-  map.addLayer(dummyLayer);
+  map.addLayer(concaveLayer);
 }
 
 // Draw Multiple Polygons
@@ -321,9 +326,10 @@ function drawPolygon(e, canton_list) {
 
       cornerPoints.push(new L.Polygon(points, {
           color: 'black',
-          weight: 3,
-          opacity: 0.7,
+          weight: 0,
+          opacity: 0.1,
           smoothFactor: 1,
+
       }));
   };
 
@@ -348,8 +354,12 @@ for (var i = 0; i < 10000; i++) {
 function drawSuperEdge (e) {
   // Get Connections of the Target "e"
   // Get Random Connections for Prototype
+
+  canton_name = e.target.feature.properties.name;
+  console.log(canton_name);
+
   connection_list = [];
-  for (var i = 0; i < 2; i++) {
+  for (var i = 0; i < 3; i++) {
     connection = [];
     let n = 0;
     while (n < 2) {
@@ -366,7 +376,8 @@ function drawSuperEdge (e) {
     connection_list.push(connection);
   }
 
-  drawPolygon(e, connection_list);
+  // drawPolygon(e, connection_list);
+  drawOnePolygon(e, connection_list);
 
 }
 // Draw SuperEdge on Click -END
