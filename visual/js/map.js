@@ -93,7 +93,6 @@ for (let [key, value] of loc2coordMap) {
 const locations = L.layerGroup(locationList);
 // Adding Location Markers END
 
-
 // Adding News Polygones START
 /*
 const obj2Arr = obj => Object.keys(obj).map(function (key) {
@@ -165,7 +164,6 @@ const baseMaps = {
     "Default": streets,
 };
 
-
 // let newsLayers = _.extend({}, Polygons);
 // console.log(newsLayers);
 
@@ -186,7 +184,7 @@ info.onAdd = function (map) {
     return this._div;
 };
 
-// method that we will use to update the control based on feature properties passed
+// Method that we will use to update the control based on feature properties passed
 info.update = function (properties) {
     this._div.innerHTML = (properties ?
         '<b>' + properties.name + '</b><br />' + properties.density + ' Connection Density'
@@ -219,6 +217,7 @@ function resetHighlight(e) {
 }
 
 /*
+// Draw Edge on Click -START
 var polyLine;
 
 function removeLine(e) {
@@ -260,6 +259,7 @@ function showName(e) {
         .setContent(e.target.feature.properties.name)
         .openOn(map);
 }
+// Draw Edge on Click -END
 */
 
 
@@ -331,7 +331,6 @@ function drawSuperEdge (e) {
 // Draw SuperEdge on Click -END
 // Listener END
 
-
 // Color Map START
 function getColor(d) {
     return d > 95 ? '#123f5a' :
@@ -378,7 +377,7 @@ legend.addTo(map);
 
 // Debug Function
 function getInfo(e) {
-  // console.log(e);
+  console.log(e);
 }
 
 // Active Listeners
