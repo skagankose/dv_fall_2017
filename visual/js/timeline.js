@@ -1,5 +1,8 @@
 // Dummy Slider START
-var years_data = d3.range(0, 3).map(function (d) { return new Date(1970 + d, 10, 3); });
+// IMPROVE > SLIDER STARTS AT 1970
+// IMPROVE > SHOULD INCLUDE ALL THE YEARS
+var num_years = 3;
+var years_data = d3.range(0, num_years).map(function (d) { return new Date(1970 + d, 10, 3); });
 var slider = d3.sliderHorizontal()
   .min(d3.min(years_data))
   .max(d3.max(years_data))
@@ -22,5 +25,3 @@ g.call(slider);
 
 d3.select("span#value").text(d3.timeFormat('%Y')(slider.value()));
 // Dummy Slider END
-
-// FIX > SLIDER STARTS AT 1970

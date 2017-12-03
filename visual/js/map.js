@@ -2,9 +2,11 @@
 const MAX_NEWS_NUMBER = 30;
 var YEAR = '1970';
 
-// Assign Density WRT Connection Count
+// Assign Density WRT. Connection Count
 for (var i = 0; i < swiss_data.features.length; i++) {
     var canton_name = swiss_data.features[i].properties.name;
+
+    // IMPROVE > NOT JUST ONE YEAR
     swiss_data.features[i].properties.density = cantonConnections[canton_name][YEAR].length;
 }
 
@@ -97,7 +99,7 @@ for (let [key, value] of loc2coordMap) {
 const locations = L.layerGroup(locationList);
 // Adding Location Markers END
 
-// Adding News Polygones START
+// Adding News Polygons START
 const obj2Map = ( obj => {
     let mp = new Map;
     Object.keys(obj).forEach(k => {
@@ -131,7 +133,7 @@ for (count = 0; count < MAX_NEWS_NUMBER; count++) {
 
 // console.log(Polygons);
 let newsLayer = L.layerGroup(Polygons);
-// Adding News Polygones END
+// Adding News Polygons END
 
 // Create the Main Map Object
 const map = L.map('map', {
@@ -202,8 +204,14 @@ var polygonLayer;
 var concaveLayer;
 
 function removeSuperEdge(e) {
-    try { map.removeLayer(polygonLayer); } catch (err) {};
-    try { map.removeLayer(concaveLayer); } catch (err) {};
+    // Manually Delete Layers
+    // try { map.removeLayer(polygonLayer); } catch (err) {};
+    // try { map.removeLayer(concaveLayer); } catch (err) {};
+
+    // Delete All Layers except Initials
+    map.eachLayer(function (layer) {
+      if (layer._leaflet_id > 150) {map.removeLayer(layer);};
+    });
 }
 
 // Draw SuperEdges Given List of Connections
@@ -297,6 +305,7 @@ function removeMarkers() {
 }
 
 // We only took first 3 connections for demonstration purposes.
+// IMPROVE > CHOOSE NUMBER OF CONNECTIONS
 const numConnections = 3;
 
 function drawSuperEdge (e) {
