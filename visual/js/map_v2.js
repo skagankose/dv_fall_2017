@@ -1,13 +1,13 @@
 // Assign Dummy Density and Lines
 const MAX_NEWS_NUMBER = 30;
+var YEAR = '1970';
 
+// Assign Density WRT. Connection Count
 for (var i = 0; i < swiss_data.features.length; i++) {
-    swiss_data.features[i].properties.density = Math.round((i * 100 / 30 + 10) * 100) / 100;
-    swiss_data.features[i].properties.connected = [Math.abs(i - 5),
-        Math.abs(i - 6),
-        Math.abs(i - 14),
-        Math.abs(i - 20),
-        Math.abs(i - 2),]
+    var canton_name = swiss_data.features[i].properties.name;
+
+    // IMPROVE > NOT JUST ONE YEAR
+    swiss_data.features[i].properties.density = cantonConnections[canton_name][YEAR].length;
 }
 
 // Calculate Centers START
@@ -99,7 +99,7 @@ for (let [key, value] of loc2coordMap) {
 const locations = L.layerGroup(locationList);
 // Adding Location Markers END
 
-// Adding News Polygones START
+// Adding News Polygons START
 const obj2Map = ( obj => {
     let mp = new Map;
     Object.keys(obj).forEach(k => {
@@ -133,7 +133,7 @@ for (count = 0; count < MAX_NEWS_NUMBER; count++) {
 
 // console.log(Polygons);
 let newsLayer = L.layerGroup(Polygons);
-// Adding News Polygones END
+// Adding News Polygons END
 
 // Create the Main Map Object
 const map = L.map('map', {
@@ -149,9 +149,6 @@ const baseMaps = {
     "Simple": light,
     "Default": streets,
 };
-
-// let newsLayers = _.extend({}, Polygons);
-// console.log(newsLayers);
 
 const overlayMaps = {
     "Markers": cantons,
@@ -202,64 +199,15 @@ function resetHighlight(e) {
     info.update();
 }
 
-/* DRAWS SINGLE EDGES
-// Draw Edge on Click -START
-var polyLine;
-
-function removeLine(e) {
-    try {
-        map.removeLayer(polyLine);
-    } catch (err) {
-        // pass
-    }
-}
-
-function drawLine(e) {
-    let lines = e.target.feature.properties.connected;
-    let pointList = [];
-
-    // Add Lines
-    for (var i = 0; i < lines.length; i++) {
-        let pointA = new L.LatLng(e.target.getCenter().lat, e.target.getCenter().lng);
-        let pointB = new L.LatLng(swiss_data.features[lines[i]].properties.center[0], swiss_data.features[lines[i]].properties.center[1]);
-        pointList.push(pointA);
-        pointList.push(pointB);
-    }
-
-    // Draw Added Lines
-    polyLine = new L.Polyline(pointList, {
-        color: 'black',
-        weight: 3,
-        opacity: 0.7,
-        smoothFactor: 1,
-    });
-
-    map.addLayer(polyLine);
-}
-// Draw Edge on Click -END
-
-function showName(e) {
-    lat = e.target.getCenter().lat;
-    lng = e.target.getCenter().lng
-    var popup = L.popup()
-        .setLatLng([lat, lng])
-        .setContent(e.target.feature.properties.name)
-        .openOn(map);
-}
-*/
-
-
 // Draw SuperEdge on Click -START
 var polygonLayer;
 var concaveLayer;
 
 function removeSuperEdge(e) {
-    try {
-        map.removeLayer(concaveLayer);
-        map.removeLayer(polygonLayer);
-    } catch (err) {
-        // pass
-    }
+    // Manually Delete Layers
+    try { map.removeLayer(polygonLayer); } catch (err) {};
+    try { map.removeLayer(concaveLayer); } catch (err) {};
+
 }
 
 // Draw SuperEdges Given List of Connections
@@ -280,8 +228,9 @@ function drawConcaveHull(e, canton_list) {
   concaveLayer = new L.Polygon(latLngs, {
       color: 'black',
       weight: 3,
-      opacity: 0.7,
-      fillOpacity: 0.2,
+      opacity: 1,
+      fillColor: "MAROON",
+      fillOpacity: 0.3,
       smoothFactor: 1,
   })
 
@@ -304,11 +253,12 @@ function drawPolygon(e, canton_list) {
       };
 
       cornerPoints.push(new L.Polygon(points, {
-          color: 'red',
-          weight: 0,
-          opacity: 0.1,
+          color: 'black',
+          weight: 3,
+          opacity: 1,
+          fillColor: 'MAROON',
+          fillOpacity: 0.3,
           smoothFactor: 1,
-
       }));
   };
 
@@ -350,39 +300,19 @@ function removeMarkers() {
   map.removeLayer(markerLayer);
 }
 
+// We only took first 3 connections for demonstration purposes.
+// IMPROVE > CHOOSE NUMBER OF CONNECTIONS
+const numConnections = 3;
+
 function drawSuperEdge (e) {
   // Get Connections of the Target "e"
-  // Get Random Connections for Prototype
-
-  /* RANDOMLY GENERATES CONNECTIONS
-  // Randomly Generated Canton List
-  var connection_list = [];
-  for (var i = 0; i < 3; i++) {
-    connection = [];
-    let n = 0;
-    while (n < 2) {
-      var k = Object.keys(loc2coord)
-      let rand = Math.floor(Math.random() * k.length);
-      let rand_loc = k[rand];
-      lat = loc2coord[k[rand]][0];
-      lng = loc2coord[k[rand]][1];
-      if (lat < 48 && lat > 46 && lng < 10 && lng > 5) {
-        connection.push(rand_loc);
-        n += 1;
-        }
-    }
-    connection_list.push(connection);
-  }
-  */
-
-  // Get Connection from an External File
-  // We only took first 3 connections for demonstration purposes.
+  // Get Connections from an External File
   canton_name = e.target.feature.properties.name;
-  var connection_list = cantonConnections[canton_name].slice(1, 3);
+  var connection_list = cantonConnections[canton_name][YEAR].slice(1, numConnections);
 
   // Can either draw multiple polygons or a concave hull
-  // drawPolygon(e, connection_list);
   drawConcaveHull(e, connection_list);
+  drawPolygon(e, connection_list);
   displayNames(e, connection_list);
 
 }
@@ -390,14 +320,15 @@ function drawSuperEdge (e) {
 // Listener END
 
 // Color Map START
+// PROCESS BOOK > INTERVAL & COLOR CHOICE
 function getColor(d) {
-    return d > 95 ? '#123f5a' :
-              d > 90 ? '#235d72' :
-                  d > 70 ? '#3a7c89' :
-                      d > 50 ? '#559c9e' :
-                          d > 30 ? '#7bbcb0' :
-                              d > 0 ? '#a5dbc2' :
-                                        '#d2fbd4';
+    return d > 400 ? '#123f5a':
+           d > 300 ? '#235d72':
+           d > 200 ? '#3a7c89':
+           d > 100 ? '#559c9e':
+           d > 50 ? '#7bbcb0':
+           d > 0   ? '#a5dbc2':
+                    '#d2fbd4';
 }
 
 function style(feature) {
@@ -417,7 +348,7 @@ var legend = L.control({position: 'bottomright'});
 legend.onAdd = function (map) {
 
     var div = L.DomUtil.create('div', 'info legend'),
-        grades = [0, 30, 50, 70, 90, 95],
+        grades = [0, 100, 300, 500, 700, 900],
         labels = [];
 
     // loop through our density intervals and generate a label with a colored square for each interval
@@ -433,25 +364,13 @@ legend.onAdd = function (map) {
 legend.addTo(map);
 // Add a Legend END
 
-// Debug Function
-function getInfo(e) {
-  console.log(e);
-}
-
 // Active Listeners
 function onEachFeature(feature, layer) {
-    layer.on({
-        mouseover: highlightFeature,
-        mouseout: resetHighlight,
-    });
-
-    layer.on({click: getInfo});
+    layer.on({mouseover: highlightFeature});
     layer.on({click: drawSuperEdge});
+    layer.on({mouseout: resetHighlight});
     layer.on({mouseout: removeSuperEdge});
     layer.on({mouseout: removeMarkers});
-    // layer.on({ click: showName})
-    // layer.on({click: drawLine})
-    // layer.on({mouseout: removeLine})
 
 }
 

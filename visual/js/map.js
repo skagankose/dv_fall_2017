@@ -71,70 +71,6 @@ for (var i = 0; i < swiss_data.features.length; i++) {
 var cantons = L.layerGroup(cantons_list)
 // Add Markers Layer END
 
-// Adding Location Markers START
-const obj_to_map = ( obj => {
-    let mp = new Map;
-    Object.keys(obj).forEach(k => {
-        mp.set(k, obj[k])
-    });
-    return mp;
-});
-
-const locationMarker = L.icon({
-    iconUrl: 'data/location_marker.png',
-    iconSize: [40, 40], // size of the icon
-    iconAnchor: [20, 35], // point of the icon which will correspond to marker's location
-    popupAnchor: [0, -30]  // point from which the popup should open relative to the iconAnchor
-});
-
-loc2coordMap = obj_to_map(loc2coord);
-
-let locationList = [];
-
-for (let [key, value] of loc2coordMap) {
-    locationList.push(L.marker(value,
-        {icon: locationMarker}).bindPopup(key));
-}
-
-const locations = L.layerGroup(locationList);
-// Adding Location Markers END
-
-// Adding News Polygons START
-const obj2Map = ( obj => {
-    let mp = new Map;
-    Object.keys(obj).forEach(k => {
-        mp.set(k, obj[k])
-    });
-    return mp;
-});
-
-newsMap = obj2Map(superEdges);
-loc2coordMap = obj2Map(loc2coord);
-let mapIter = newsMap.entries();
-// console.log(newsMap);
-
-let Polygons = [];
-
-for (count = 0; count < MAX_NEWS_NUMBER; count++) {
-    let polygonPoints = [];
-    let [thisNewsID, thisNewsLocations] = mapIter.next().value;
-    // console.log(thisNewsID, thisNewsLocations);
-    for (let loc of thisNewsLocations) {
-        let thisLocationCoordinates = loc2coordMap.get(loc);
-        // console.log([thisNewsID, loc, thisLocationCoordinates]);
-        let [Lat, Lng] = thisLocationCoordinates;
-        // console.log([Lat, Lng]);
-        let point = L.latLng({lat: Lat, lng: Lng});
-        polygonPoints.push(point);
-    }
-    let polygon = new L.Polygon(polygonPoints);
-    Polygons.push(polygon);
-}
-
-// console.log(Polygons);
-let newsLayer = L.layerGroup(Polygons);
-// Adding News Polygons END
-
 // Create the Main Map Object
 const map = L.map('map', {
     closePopupOnClick: false,
@@ -152,8 +88,6 @@ const baseMaps = {
 
 const overlayMaps = {
     "Markers": cantons,
-    "Locations": locations,
-    "News": newsLayer,
 };
 
 L.control.layers(baseMaps, overlayMaps).addTo(map);
