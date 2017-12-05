@@ -238,20 +238,26 @@ function removeMarkers() {
   map.removeLayer(markerLayer);
 }
 
+function toInt(n){ return Math.round(Number(n)); };
+
 // We only took first 3 connections for demonstration purposes.
 // IMPROVE > CHOOSE NUMBER OF CONNECTIONS
-const numConnections = 3;
 
 function drawSuperEdge (e) {
   // Get Connections of the Target "e"
   // Get Connections from an External File
   canton_name = e.target.feature.properties.name;
-  var connection_list = cantonConnections[canton_name][YEAR].slice(1, numConnections);
+  var total_num_news = cantonConnections[canton_name][YEAR].length
+  choosed_num_news = toInt(total_num_news/5)
+  console.log(choosed_num_news);
+  if (choosed_num_news > 1) {
+    var connection_list = cantonConnections[canton_name][YEAR].slice(1, choosed_num_news);
 
-  // Can either draw multiple polygons or a concave hull
-  drawConcaveHull(e, connection_list);
-  drawPolygon(e, connection_list);
-  displayNames(e, connection_list);
+    // Can either draw multiple polygons or a concave hull
+    drawConcaveHull(e, connection_list);
+    drawPolygon(e, connection_list);
+    displayNames(e, connection_list);
+  };
 
 }
 // Draw SuperEdge on Click -END
