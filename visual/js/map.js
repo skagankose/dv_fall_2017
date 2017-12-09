@@ -1,6 +1,6 @@
 // Assign Dummy Density and Lines
 const MAX_NEWS_NUMBER = 30;
-var YEAR = '1970';
+var YEAR = '1990';
 
 // Assign Density WRT. Connection Count
 for (var i = 0; i < swiss_data.features.length; i++) {
@@ -248,10 +248,10 @@ function drawSuperEdge (e) {
   // Get Connections from an External File
   canton_name = e.target.feature.properties.name;
   var total_num_news = cantonConnections[canton_name][YEAR].length
-  choosed_num_news = toInt(total_num_news/5)
+  choosed_num_news = toInt(total_num_news)
   console.log(choosed_num_news);
-  if (choosed_num_news > 1) {
-    var connection_list = cantonConnections[canton_name][YEAR].slice(1, choosed_num_news);
+  if (choosed_num_news > 0) {
+    var connection_list = cantonConnections[canton_name][YEAR].slice(0, choosed_num_news);
 
     // Can either draw multiple polygons or a concave hull
     drawConcaveHull(e, connection_list);
@@ -266,11 +266,11 @@ function drawSuperEdge (e) {
 // Color Map START
 // PROCESS BOOK > INTERVAL & COLOR CHOICE
 function getColor(d) {
-    return d > 400 ? '#123f5a':
-           d > 300 ? '#235d72':
-           d > 200 ? '#3a7c89':
-           d > 100 ? '#559c9e':
-           d > 50 ? '#7bbcb0':
+    return d > 40 ? '#123f5a':
+           d > 30 ? '#235d72':
+           d > 20 ? '#3a7c89':
+           d > 10 ? '#559c9e':
+           d > 5 ? '#7bbcb0':
            d > 0   ? '#a5dbc2':
                     '#d2fbd4';
 }
@@ -292,7 +292,7 @@ var legend = L.control({position: 'bottomright'});
 legend.onAdd = function (map) {
 
     var div = L.DomUtil.create('div', 'info legend'),
-        grades = [0, 100, 300, 500, 700, 900],
+        grades = [0, 10, 30, 50, 70, 90],
         labels = [];
 
     // loop through our density intervals and generate a label with a colored square for each interval

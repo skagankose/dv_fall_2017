@@ -1,7 +1,7 @@
 // Dummy Slider START
 // IMPROVE > SLIDER STARTS AT 1970
 // IMPROVE > SHOULD INCLUDE ALL THE YEARS
-var num_years = 25;
+var num_years = 28;
 var years_data = d3.range(0, num_years).map(function (d) { return new Date(1990 + d, 10, 3); });
 var slider = d3.sliderHorizontal()
   .min(d3.min(years_data))
