@@ -9,7 +9,10 @@ for (var i = 0; i < swiss_data.features.length; i++) {
     // IMPROVE > NOT JUST ONE YEAR
     swiss_data.features[i].properties.density = cantonConnections[canton_name][YEAR].length;
 }
-
+//function to change densities by year
+function get_density(canton,year){
+  return cantonConnections[canton][year].length
+}
 // Calculate Centers START
 function find_center(co) {
     center_x = 0;
@@ -104,7 +107,7 @@ info.onAdd = function (map) {
 // Method that we will use to update the control based on feature properties passed
 info.update = function (properties) {
     this._div.innerHTML = (properties ?
-        '<b>' + properties.name + '</b><br />' + properties.density + ' Connection Density'
+        '<b>' + properties.name + '</b><br />' + get_density(properties.name,YEAR) + ' Connection Density'
         : '<h4>Swiss TV Mirror Map</h4>' + '<span style="font-size:15px;color:gray;">Hover Over a Canton</span>');
 };
 
@@ -277,7 +280,7 @@ function getColor(d) {
 
 function style(feature) {
     return {
-        fillColor: getColor(feature.properties.density),
+        fillColor: getColor(get_density(feature.properties.name,YEAR)),
         weight: 0.5,
         opacity: 0.5,
         color: 'black',
