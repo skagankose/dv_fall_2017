@@ -13,8 +13,10 @@ var slider = d3.sliderHorizontal()
   .on('onchange', val => {
     d3.select("span#value").text(d3.timeFormat('%Y')(val));
     YEAR  = d3.timeFormat('%Y')(val);
-    // map.removeLayer(geojson)
-    geojson = L.geoJson(swiss_data, {style: style, onEachFeature: onEachFeature}).addTo(map);
+    // map.removeLayer(geojson);
+    // geojson.resetStyle();
+    geojson.setStyle(style);
+    // geojson = L.geoJson(swiss_data, {style: style, onEachFeature: onEachFeature}).addTo(map);
   });
 
 var g = d3.select("div#slider").append("svg")
