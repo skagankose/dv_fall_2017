@@ -1,8 +1,8 @@
 ## Project Page for the Class Data Visualization
 
 We are [Ahmad Ajalloeian](https://github.com/#), [Mohammad Yaghini](https://github.com/m-yaghini) and [Süha Kağan Köse](https://github.com/skagankose).<br />
-The visualization can be reached from [here](/dv_fall_2017/visual).<br/>
-The process book can be reached from [here](/process_book.pdf).<br/>
+The visualization can be reached from [here](https://skagankose.github.io/dv_fall_2017/visual/).<br/>
+The process book can be reached from [here](https://skagankose.github.io/dv_fall_2017/process_book.pdf).<br/>
 Note that both project and process book are still under construction.<br/>
 The actual repository that contains all the code can be reached from [here](https://github.com/m-yaghini/tv_mirror_viz).
 
