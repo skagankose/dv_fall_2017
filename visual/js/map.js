@@ -269,13 +269,13 @@ function drawSuperEdge (e) {
 // Color Map START
 // PROCESS BOOK > INTERVAL & COLOR CHOICE
 function getColor(d) {
-    return d > 40 ? '#123f5a':
-           d > 30 ? '#235d72':
-           d > 20 ? '#3a7c89':
-           d > 10 ? '#559c9e':
-           d > 5 ? '#7bbcb0':
-           d > 0   ? '#a5dbc2':
-                    '#d2fbd4';
+    return d > 40 ? '#401E1E':
+           d > 30 ? '#5E3D52':
+           d > 20 ? '#566A88':
+           d > 10 ? '#329C9D':
+           d > 5 ? '#67C687':
+           d > 0   ? '#D8E366':
+                    '#fafbf9';
 }
 
 function style(feature) {
