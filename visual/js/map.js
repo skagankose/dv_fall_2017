@@ -299,6 +299,11 @@ function removeOptions(selectbox)
         selectbox.remove(i);
     }
 }
+//clear description
+function clear_description(){
+  var input = document.getElementById('description');
+  input.innerHTML = '';
+}
 // Color Map START
 // PROCESS BOOK > INTERVAL & COLOR CHOICE
 function getColor(d) {
@@ -353,6 +358,7 @@ legend.addTo(map);
 function onEachFeature(feature, layer) {
     layer.on({mouseover: highlightFeature});
     layer.on({click: drawSuperEdge});
+    layer.on({click: clear_description});
     layer.on({click: show_menu});
     layer.on({mouseout: resetHighlight});
     layer.on({mouseout: removeSuperEdge});
