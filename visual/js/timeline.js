@@ -13,8 +13,8 @@ var slider = d3.sliderHorizontal()
   .on('onchange', val => {
     d3.select("span#value").text(d3.timeFormat('%Y')(val));
     YEAR  = d3.timeFormat('%Y')(val);
-    removeOptions(select)
-    clear_description()
+    // removeOptions(select)
+    // clear_description()
     // map.removeLayer(geojson);
     // geojson.resetStyle();
     geojson.setStyle(style);
