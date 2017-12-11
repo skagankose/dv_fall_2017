@@ -1,7 +1,8 @@
 // Assign Dummy Density and Lines
 const MAX_NEWS_NUMBER = 30;
 var YEAR = '1990';
-
+// import * as excerpts from '../data/excerpts_filtered.js';
+// console.log(excerpts['28'])
 // Assign Density WRT. Connection Count
 for (var i = 0; i < swiss_data.features.length; i++) {
     var canton_name = swiss_data.features[i].properties.name;
@@ -158,7 +159,7 @@ function drawConcaveHull(e, canton_list) {
 
   var cornerPoints = [];
   for (set_of_cantons of canton_list) {
-    for (canton of set_of_cantons) {
+    for (canton of set_of_cantons['news']) {
         let [lat, lng] = cantonCoordinates[canton];
         let point = L.latLng({lat: lat, lng: lng});
         cornerPoints.push(point);
@@ -187,7 +188,7 @@ function drawPolygon(e, canton_list) {
   for (set_of_cantons of canton_list) {
 
     let points = [];
-    for (canton of set_of_cantons) {
+    for (canton of set_of_cantons['news']) {
         let [lat, lng] = cantonCoordinates[canton];
         let point = L.latLng({lat: lat, lng: lng});
         points.push(point);
@@ -220,7 +221,7 @@ function displayNames (e, canton_list) {
 
   let marker_list = [];
   for (set_of_cantons of canton_list) {
-    for (canton of set_of_cantons) {
+    for (canton of set_of_cantons['news']) {
 
           var marker = L.popup({
                         closeButton: false,
@@ -265,7 +266,39 @@ function drawSuperEdge (e) {
 }
 // Draw SuperEdge on Click -END
 // Listener END
-
+// filter excerpts for canton
+function filter_excerpts (e) {
+  canton_name = e.target.feature.properties.name;
+  var total_news = cantonConnections[canton_name][YEAR]
+  var options = []
+  for (news of total_news){
+    options.push(excerpts[news['id']]['excerpt'])
+  }
+  // console.log(options)
+  return options
+}
+// show a drop down menu
+function show_menu (e) {
+  var select = document.getElementById("selectNumber");
+  removeOptions(select);
+  var options = filter_excerpts(e);
+  for(var i = 0; i < options.length; i++) {
+      var opt = options[i].slice(0,20)+'...';
+      var el = document.createElement("option");
+      el.textContent = opt;
+      el.value = options[i];
+      select.appendChild(el);
+}
+}
+//remove options from list
+function removeOptions(selectbox)
+{
+    var i;
+    for(i = selectbox.options.length - 1 ; i > 0 ; i--)
+    {
+        selectbox.remove(i);
+    }
+}
 // Color Map START
 // PROCESS BOOK > INTERVAL & COLOR CHOICE
 function getColor(d) {
@@ -288,7 +321,12 @@ function style(feature) {
     };
 }
 // Color Map END
-
+//show the description of the news
+var select = document.getElementById('selectNumber');
+var input = document.getElementById('description');
+select.onchange = function() {
+    input.innerHTML = select.value;
+}
 // Add a Legend START
 var legend = L.control({position: 'bottomright'});
 
@@ -315,6 +353,7 @@ legend.addTo(map);
 function onEachFeature(feature, layer) {
     layer.on({mouseover: highlightFeature});
     layer.on({click: drawSuperEdge});
+    layer.on({click: show_menu});
     layer.on({mouseout: resetHighlight});
     layer.on({mouseout: removeSuperEdge});
     layer.on({mouseout: removeMarkers});
