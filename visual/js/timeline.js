@@ -17,6 +17,7 @@ var slider = d3.sliderHorizontal()
     clear_description()
     removeSuperEdge(E)
     removeMarkers(E)
+    E = null;
     // map.removeLayer(geojson);
     // geojson.resetStyle();
     geojson.setStyle(style);

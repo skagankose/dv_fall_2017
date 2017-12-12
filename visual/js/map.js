@@ -2,6 +2,7 @@
 const MAX_NEWS_NUMBER = 30;
 var YEAR = '1990';
 var E;
+var ID='all';
 // import * as excerpts from '../data/excerpts_filtered.js';
 // console.log(excerpts['28'])
 // Assign Density WRT. Connection Count
@@ -248,21 +249,37 @@ function toInt(n){ return Math.round(Number(n)); };
 // We only took first 3 connections for demonstration purposes.
 // IMPROVE > CHOOSE NUMBER OF CONNECTIONS
 
-function drawSuperEdge (e) {
+function drawSuperEdge (e,id) {
   // Get Connections of the Target "e"
   // Get Connections from an External File
   canton_name = e.target.feature.properties.name;
   var total_num_news = cantonConnections[canton_name][YEAR].length
   choosed_num_news = toInt(total_num_news)
   console.log(choosed_num_news);
-  if (choosed_num_news > 0) {
-    var connection_list = cantonConnections[canton_name][YEAR].slice(0, choosed_num_news);
+  if (id=='all'){
+    if (choosed_num_news > 0) {
+      var connection_list = cantonConnections[canton_name][YEAR].slice(0, choosed_num_news);
 
-    // Can either draw multiple polygons or a concave hull
-    drawConcaveHull(e, connection_list);
-    drawPolygon(e, connection_list);
-    displayNames(e, connection_list);
-  };
+      // Can either draw multiple polygons or a concave hull
+      drawConcaveHull(e, connection_list);
+      drawPolygon(e, connection_list);
+      displayNames(e, connection_list);
+    };
+  }
+  else {
+    for (news of cantonConnections[canton_name][YEAR]) {
+      if (news['id']==id){
+        connection_list = [news]
+        break
+      }
+    }
+    removeSuperEdge(E)
+    removeMarkers(E)
+    console.log(connection_list)
+    drawConcaveHull(E, connection_list);
+    drawPolygon(E, connection_list);
+    displayNames(E, connection_list);
+  }
 
 }
 // Draw SuperEdge on Click -END
@@ -334,19 +351,21 @@ var input = document.getElementById('description');
 select.onchange = function() {
     input.innerHTML = select.value.split(',').slice(1);
     // console.log(select.value.split(',').slice(1))
-    state = E.target.feature.properties.name;
-    for (news of cantonConnections[state][YEAR]) {
-      if (news['id']==select.value.split(',').slice(0,1)){
-        connection_list = [news]
-        break
-      }
-    }
-    removeSuperEdge(E)
-    removeMarkers(E)
-    console.log(connection_list)
-    drawConcaveHull(E, connection_list);
-    drawPolygon(E, connection_list);
-    displayNames(E, connection_list);
+    // state = E.target.feature.properties.name;
+    // for (news of cantonConnections[state][YEAR]) {
+    //   if (news['id']==select.value.split(',').slice(0,1)){
+    //     connection_list = [news]
+    //     break
+    //   }
+    // }
+    // removeSuperEdge(E)
+    // removeMarkers(E)
+    // console.log(connection_list)
+    // drawConcaveHull(E, connection_list);
+    // drawPolygon(E, connection_list);
+    // displayNames(E, connection_list);
+    drawSuperEdge(E,select.value.split(',').slice(0,1))
+    ID = select.value.split(',').slice(0,1);
 }
 // Add a Legend START
 var legend = L.control({position: 'bottomright'});
@@ -373,12 +392,22 @@ legend.addTo(map);
 // Active Listeners
 function onEachFeature(feature, layer) {
     layer.on({mouseover: highlightFeature});
-    layer.on({click: drawSuperEdge});
+    layer.on({click: removeSuperEdge});
+    layer.on({click: removeMarkers});
+    layer.on({click: function (e) {
+                ID='all';
+            }});
+    layer.on({click: function (e) {
+                drawSuperEdge(e,'all');
+                E=null;
+            }});
     layer.on({click: clear_description});
     layer.on({click: show_menu});
     layer.on({mouseout: resetHighlight});
     layer.on({mouseout: removeSuperEdge});
-    layer.on({mouseout: removeMarkers});
+    layer.on({mouseout: function (e) {
+                drawSuperEdge(E,ID);
+            }});
 
 }
 
