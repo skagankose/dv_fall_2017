@@ -1,6 +1,7 @@
 // Assign Dummy Density and Lines
 const MAX_NEWS_NUMBER = 30;
 var YEAR = '1990';
+var E;
 // import * as excerpts from '../data/excerpts_filtered.js';
 // console.log(excerpts['28'])
 // Assign Density WRT. Connection Count
@@ -272,18 +273,19 @@ function filter_excerpts (e) {
   var total_news = cantonConnections[canton_name][YEAR]
   var options = []
   for (news of total_news){
-    options.push(excerpts[news['id']]['excerpt'])
+    options.push([news['id'],excerpts[news['id']]['excerpt']])
   }
   // console.log(options)
   return options
 }
 // show a drop down menu
 function show_menu (e) {
+  E=e;
   var select = document.getElementById("selectNumber");
   removeOptions(select);
   var options = filter_excerpts(e);
   for(var i = 0; i < options.length; i++) {
-      var opt = options[i].slice(0,20)+'...';
+      var opt = options[i][1].slice(0,20)+'...';
       var el = document.createElement("option");
       el.textContent = opt;
       el.value = options[i];
@@ -330,7 +332,21 @@ function style(feature) {
 var select = document.getElementById('selectNumber');
 var input = document.getElementById('description');
 select.onchange = function() {
-    input.innerHTML = select.value;
+    input.innerHTML = select.value.split(',').slice(1);
+    // console.log(select.value.split(',').slice(1))
+    state = E.target.feature.properties.name;
+    for (news of cantonConnections[state][YEAR]) {
+      if (news['id']==select.value.split(',').slice(0,1)){
+        connection_list = [news]
+        break
+      }
+    }
+    removeSuperEdge(E)
+    removeMarkers(E)
+    console.log(connection_list)
+    drawConcaveHull(E, connection_list);
+    drawPolygon(E, connection_list);
+    displayNames(E, connection_list);
 }
 // Add a Legend START
 var legend = L.control({position: 'bottomright'});

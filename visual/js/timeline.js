@@ -15,6 +15,8 @@ var slider = d3.sliderHorizontal()
     YEAR  = d3.timeFormat('%Y')(val);
     removeOptions(select)
     clear_description()
+    removeSuperEdge(E)
+    removeMarkers(E)
     // map.removeLayer(geojson);
     // geojson.resetStyle();
     geojson.setStyle(style);
