@@ -171,7 +171,32 @@ function drawConcaveHull(e, canton_list) {
   var latLngs = new ConcaveHull(cornerPoints).getLatLngs();
   concaveLayer = new L.Polygon(latLngs, {
       color: 'black',
-      weight: 3,
+      weight: 1,
+      opacity: 1,
+      fillColor: "GRAY",
+      fillOpacity: 0.3,
+      smoothFactor: 1,
+  })
+
+  map.addLayer(concaveLayer);
+}
+
+//draw concave hull for news
+function drawConcaveHull_news(e, canton_list) {
+
+  var cornerPoints = [];
+  for (set_of_cantons of canton_list) {
+    for (canton of set_of_cantons['news']) {
+        let [lat, lng] = cantonCoordinates[canton];
+        let point = L.latLng({lat: lat, lng: lng});
+        cornerPoints.push(point);
+    }
+  }
+
+  var latLngs = new ConcaveHull(cornerPoints).getLatLngs();
+  concaveLayer = new L.Polygon(latLngs, {
+      color: 'black',
+      weight: 1,
       opacity: 1,
       fillColor: "MAROON",
       fillOpacity: 0.3,
@@ -180,7 +205,6 @@ function drawConcaveHull(e, canton_list) {
 
   map.addLayer(concaveLayer);
 }
-
 // Draw Multiple Polygons
 function drawPolygon(e, canton_list) {
 
@@ -198,7 +222,7 @@ function drawPolygon(e, canton_list) {
 
       cornerPoints.push(new L.Polygon(points, {
           color: 'black',
-          weight: 3,
+          weight: 1,
           opacity: 1,
           fillColor: 'MAROON',
           fillOpacity: 0.3,
@@ -262,7 +286,7 @@ function drawSuperEdge (e,id) {
 
       // Can either draw multiple polygons or a concave hull
       drawConcaveHull(e, connection_list);
-      drawPolygon(e, connection_list);
+      // drawPolygon(e, connection_list);
       displayNames(e, connection_list);
     };
   }
@@ -276,8 +300,8 @@ function drawSuperEdge (e,id) {
     removeSuperEdge(E)
     removeMarkers(E)
     console.log(connection_list)
-    drawConcaveHull(E, connection_list);
-    drawPolygon(E, connection_list);
+    drawConcaveHull_news(E, connection_list);
+    // drawPolygon(E, connection_list);
     displayNames(E, connection_list);
   }
 
