@@ -350,13 +350,13 @@ function clear_description(){
 // Color Map START
 // PROCESS BOOK > INTERVAL & COLOR CHOICE
 function getColor(d) {
-    return d > 40 ? '#401E1E':
-           d > 30 ? '#5E3D52':
-           d > 20 ? '#566A88':
-           d > 10 ? '#329C9D':
-           d > 5 ? '#67C687':
-           d > 0   ? '#D8E366':
-                    '#fafbf9';
+    return d > 40 ? '#084594':
+           d > 30 ? '#2171b5':
+           d > 20 ? '#4292c6':
+           d > 10 ? '#6baed6':
+           d > 5 ? '#9ecae1':
+           d > 0   ? '#c6dbef':
+                    '#eff3ff';
 }
 
 function style(feature) {
