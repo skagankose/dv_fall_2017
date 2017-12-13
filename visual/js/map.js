@@ -119,19 +119,23 @@ info.addTo(map);
 function highlightFeature(e) {
     var layer = e.target;
 
-    layer.setStyle({
-        weight: 3,
-        color: 'black',
-        opacity: 1,
-        dashArray: '',
-        fillOpacity: 1,
-    })
+    if (get_density(e.target.feature.properties.name,YEAR) > 0) {
 
-    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-        layer.bringToFront();
+      layer.setStyle({
+          weight: 3,
+          color: 'black',
+          opacity: 1,
+          dashArray: '',
+          fillOpacity: 1,
+      })
+
+      if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+          layer.bringToFront();
+      }
+
+      info.update(layer.feature.properties);
+
     }
-
-    info.update(layer.feature.properties);
 }
 
 function resetHighlight(e) {
@@ -393,7 +397,7 @@ function removeOptions(selectbox)
 //clear description
 function clear_description(){
   var input = document.getElementById('description');
-  input.innerHTML = '';
+  input.innerHTML = 'Excerpt of the selected new will appear here.';
 }
 // Color Map START
 // PROCESS BOOK > INTERVAL & COLOR CHOICE
@@ -402,9 +406,9 @@ function getColor(d) {
            d > 30 ? '#2171b5':
            d > 20 ? '#4292c6':
            d > 10 ? '#6baed6':
-           d > 5 ? '#9ecae1':
+           d > 5  ? '#9ecae1':
            d > 0   ? '#c6dbef':
-                    '#eff3ff';
+                     '#e7e7e7';
 }
 
 function style(feature) {
@@ -421,7 +425,11 @@ function style(feature) {
 var select = document.getElementById('selectNumber');
 var input = document.getElementById('description');
 select.onchange = function() {
-    input.innerHTML = select.value.split(',').slice(1);
+    if (select.value == "All") {
+      input.innerHTML = 'Excerpt of the selected new will appear here.';
+    } else {
+      input.innerHTML = select.value.split(',').slice(1);
+      }
     // console.log(select.value.split(',').slice(1))
     // state = E.target.feature.properties.name;
     // for (news of cantonConnections[state][YEAR]) {
@@ -445,7 +453,7 @@ var legend = L.control({position: 'bottomright'});
 legend.onAdd = function (map) {
 
     var div = L.DomUtil.create('div', 'info legend'),
-        grades = [0, 10, 30, 50, 70, 90],
+        grades = [0, 5, 10, 20, 30, 40]
         labels = [];
 
     // loop through our density intervals and generate a label with a colored square for each interval

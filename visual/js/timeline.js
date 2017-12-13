@@ -7,11 +7,11 @@ var slider = d3.sliderHorizontal()
   .min(d3.min(years_data))
   .max(d3.max(years_data))
   .step(1000 * 60 * 60 * 24 * 365)
-  .width(900)
+  .width(1050)
   .tickFormat(d3.timeFormat('%Y'))
   .tickValues(years_data)
   .on('onchange', val => {
-    d3.select("span#value").text(d3.timeFormat('%Y')(val));
+    d3.select("#value").text(d3.timeFormat('%Y')(val));
     YEAR  = d3.timeFormat('%Y')(val);
     removeOptions(select)
     clear_description()
@@ -32,5 +32,11 @@ var g = d3.select("div#slider").append("svg")
 
 g.call(slider);
 
-d3.select("span#value").text(d3.timeFormat('%Y')(slider.value()));
+d3.select("#value").text(d3.timeFormat('%Y')(slider.value()));
 // Dummy Slider END
+
+
+function popup_function() {
+    var popup = document.getElementById("myPopup");
+    popup.classList.toggle("show");
+}
