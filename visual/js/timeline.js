@@ -18,10 +18,10 @@ var slider = d3.sliderHorizontal()
     removeSuperEdge(E)
     removeMarkers(E)
     E = null;
-    // map.removeLayer(geojson);
-    // geojson.resetStyle();
     geojson.setStyle(style);
-    // geojson = L.geoJson(swiss_data, {style: style, onEachFeature: onEachFeature}).addTo(map);
+
+    removeNewsLayer()
+    drawNewsDots()
 
   });
 
