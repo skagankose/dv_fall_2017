@@ -353,12 +353,14 @@ color: #777;
 	border-bottom-color: #c2c2c2;
 }
 
+h1{font-size:30px !important;}
+
 #value {
-	font-size:25px;
 	border:solid 1px;
 	border-color: #c2c2c2;
 	background-color: white;
 	color: black;
+	font-size:25px;
 }
 
 #bottom_map {
