@@ -156,7 +156,7 @@ function removeSuperEdge(e) {
 
 // Draw SuperEdges Given List of Connections
 // Display Name of Corner Points
-// Draw One Big Polygon
+// Draw a Concave Hull
 function drawConcaveHull(e, canton_list) {
 
   var cornerPoints = [];
@@ -180,32 +180,7 @@ function drawConcaveHull(e, canton_list) {
 
   map.addLayer(concaveLayer);
 }
-
-//draw concave hull for news
-function drawConcaveHull_news(e, canton_list) {
-
-  var cornerPoints = [];
-  for (set_of_cantons of canton_list) {
-    for (canton of set_of_cantons['news']) {
-        let [lat, lng] = cantonCoordinates[canton];
-        let point = L.latLng({lat: lat, lng: lng});
-        cornerPoints.push(point);
-    }
-  }
-
-  var latLngs = new ConcaveHull(cornerPoints).getLatLngs();
-  concaveLayer = new L.Polygon(latLngs, {
-      color: 'black',
-      weight: 1,
-      opacity: 1,
-      fillColor: "MAROON",
-      fillOpacity: 0.3,
-      smoothFactor: 1,
-  })
-
-  map.addLayer(concaveLayer);
-}
-// Draw Multiple Polygons
+// Draw a Polygon
 function drawPolygon(e, canton_list) {
 
   var drawnItems = new L.FeatureGroup();
@@ -224,7 +199,64 @@ function drawPolygon(e, canton_list) {
           color: 'black',
           weight: 1,
           opacity: 1,
-          fillColor: 'MAROON',
+          fillColor: 'gray',
+          fillOpacity: 0.3,
+          smoothFactor: 1,
+      }));
+  };
+
+  for (points of cornerPoints) {
+    drawnItems.addLayer(points);
+  }
+
+  polygonLayer = drawnItems;
+  map.addLayer(polygonLayer);
+
+}
+// draw concave hull for news
+function drawConcaveHull_news(e, canton_list) {
+
+  var cornerPoints = [];
+  for (set_of_cantons of canton_list) {
+    for (canton of set_of_cantons['news']) {
+        let [lat, lng] = cantonCoordinates[canton];
+        let point = L.latLng({lat: lat, lng: lng});
+        cornerPoints.push(point);
+    }
+  }
+
+  var latLngs = new ConcaveHull(cornerPoints).getLatLngs();
+  concaveLayer = new L.Polygon(latLngs, {
+      color: 'black',
+      weight: 1,
+      opacity: 1,
+      fillColor: "black",
+      fillOpacity: 0.3,
+      smoothFactor: 1,
+  })
+
+  map.addLayer(concaveLayer);
+}
+// draw polygon for news
+function drawPolygon_news(e, canton_list) {
+
+  var drawnItems = new L.FeatureGroup();
+  cornerPoints = []
+
+  for (set_of_cantons of canton_list) {
+
+    let points = [];
+    for (canton of set_of_cantons['news']) {
+        let [lat, lng] = cantonCoordinates[canton];
+        let point = L.latLng({lat: lat, lng: lng});
+        points.push(point);
+      };
+
+      cornerPoints.push(new L.Polygon(points, {
+          color: 'black',
+          weight: 1,
+          opacity: 1,
+          fillColor: 'black',
           fillOpacity: 0.3,
           smoothFactor: 1,
       }));
@@ -245,10 +277,12 @@ function displayNames (e, canton_list) {
 
   markerLayer = new L.FeatureGroup();
 
-  let marker_list = [];
+  let already_drawn = [];
   for (set_of_cantons of canton_list) {
     for (canton of set_of_cantons['news']) {
-
+        // check if cnaton name already drawn
+        if (!already_drawn.includes(canton)) {
+          already_drawn.push(canton);
           var marker = L.popup({
                         closeButton: false,
                         autoClose: false
@@ -257,6 +291,7 @@ function displayNames (e, canton_list) {
                       .setContent(canton);
 
         markerLayer.addLayer(marker);
+      }
     }
   }
 
@@ -270,39 +305,50 @@ function removeMarkers() {
 
 function toInt(n){ return Math.round(Number(n)); };
 
-// We only took first 3 connections for demonstration purposes.
-// IMPROVE > CHOOSE NUMBER OF CONNECTIONS
-
 function drawSuperEdge (e,id) {
   // Get Connections of the Target "e"
   // Get Connections from an External File
   canton_name = e.target.feature.properties.name;
-  var total_num_news = cantonConnections[canton_name][YEAR].length
-  choosed_num_news = toInt(total_num_news)
-  console.log(choosed_num_news);
-  if (id=='all'){
-    if (choosed_num_news > 0) {
-      var connection_list = cantonConnections[canton_name][YEAR].slice(0, choosed_num_news);
 
-      // Can either draw multiple polygons or a concave hull
-      drawConcaveHull(e, connection_list);
-      // drawPolygon(e, connection_list);
-      displayNames(e, connection_list);
-    };
-  }
-  else {
-    for (news of cantonConnections[canton_name][YEAR]) {
-      if (news['id']==id){
-        connection_list = [news]
-        break
-      }
+  // news related to the choosen new
+  for (news of cantonConnections[canton_name][YEAR]) {
+    if (news['id']==id){
+      connection_list_news = [news]
+      break
     }
+  }
+
+  // news related to the current canton in current year
+  var connection_list = cantonConnections[canton_name][YEAR];
+
+  // number of cantons related to the current canton in current year
+  let canton_count = 0;
+  for (i of connection_list) {canton_count += i["news"].length};
+
+  if (cantonConnections[canton_name][YEAR].length > 0) {
+
+    // clear non-used layers
     removeSuperEdge(E)
     removeMarkers(E)
-    console.log(connection_list)
-    drawConcaveHull_news(E, connection_list);
-    // drawPolygon(E, connection_list);
-    displayNames(E, connection_list);
+    if (id=='all' || id=='All'){
+
+      // draw all the connections related to current canton in current year
+      if (canton_count <= 3) { drawPolygon(e, connection_list);
+      } else { drawConcaveHull(e, connection_list); }
+      displayNames(e, connection_list);
+
+    } else {
+
+      // re-draw all the connections related to current canton in current year
+      if (canton_count <= 3) { drawPolygon(e, connection_list);
+      } else { drawConcaveHull(e, connection_list); }
+
+      // draw all the connections related to current new
+      if (connection_list_news[0]["news"].length <= 3) {
+        drawPolygon_news(E, connection_list_news);
+      } else { drawConcaveHull_news(E, connection_list_news);}
+      displayNames(E, connection_list_news);
+    }
   }
 
 }
@@ -319,9 +365,11 @@ function filter_excerpts (e) {
   // console.log(options)
   return options
 }
+
+
 // show a drop down menu
 function show_menu (e) {
-  E=e;
+  E = Object.assign({}, e);
   var select = document.getElementById("selectNumber");
   removeOptions(select);
   var options = filter_excerpts(e);
@@ -428,10 +476,10 @@ function onEachFeature(feature, layer) {
     layer.on({click: clear_description});
     layer.on({click: show_menu});
     layer.on({mouseout: resetHighlight});
-    layer.on({mouseout: removeSuperEdge});
-    layer.on({mouseout: function (e) {
-                drawSuperEdge(E,ID);
-            }});
+    // layer.on({mouseout: removeSuperEdge});
+    // layer.on({mouseout: function (e) {
+    //             drawSuperEdge(E,ID);
+    //         }});
 
 }
 
