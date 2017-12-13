@@ -5,7 +5,7 @@ var slider = d3.sliderHorizontal()
   .min(d3.min(years_data))
   .max(d3.max(years_data))
   .step(1000 * 60 * 60 * 24 * 365)
-  .width(1050)
+  .width(850)
   .tickFormat(d3.timeFormat('%Y'))
   .tickValues(years_data)
   .on('onchange', val => {
@@ -25,6 +25,8 @@ var slider = d3.sliderHorizontal()
 
   });
 
+
+
 var g = d3.select("div#slider").append("svg")
   .attr("width", 1100)
   .attr("height", 100)
@@ -32,6 +34,14 @@ var g = d3.select("div#slider").append("svg")
   .attr("transform", "translate(30,30)");
 
 g.call(slider);
+d3.select("a#setValue2").on("click", () => slider.value(new_value));
+
+// Slide slider according to clicked object
+function sliderSlider (evt) {
+  year = parseInt(evt.originalTarget.attributes.value.value);
+  new_value = new Date(year, 10, 10);
+  slider.value(new_value);
+}
 
 d3.select("#value").text(d3.timeFormat('%Y')(slider.value()));
 // Slider END

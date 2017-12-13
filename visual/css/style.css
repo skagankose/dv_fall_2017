@@ -384,6 +384,12 @@ h1{font-size:30px !important;}
 	margin-bottom: 20px;
 }
 
+.eventCard {
+	border-right:dotted 1px;
+	height:170px;
+	font-size:15px;
+}
+
 /*#slider {
 	border:solid 1px;
 	border-color: #c2c2c2;
