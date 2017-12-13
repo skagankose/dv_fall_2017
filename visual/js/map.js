@@ -378,7 +378,7 @@ function show_menu (e) {
   removeOptions(select);
   var options = filter_excerpts(e);
   for(var i = 0; i < options.length; i++) {
-      var opt = options[i][1].slice(0,20)+'...';
+      var opt = options[i][1].slice(0,130)+'...';
       var el = document.createElement("option");
       el.textContent = opt;
       el.value = options[i];

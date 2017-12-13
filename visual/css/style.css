@@ -33,10 +33,10 @@ h4 {
 	font-size: 14px;
 	letter-spacing: 1px;
 	margin-bottom: 20px;
-	text-transform: uppercase;
+	/*text-transform: uppercase;*/
 }
 h5 {
-	text-transform: uppercase;
+	/*text-transform: uppercase;*/
 	font-weight: 700;
 	line-height: 20px;
 }
@@ -348,7 +348,7 @@ color: #777;
 }
 
 #header {
-	background:#f0f0f0;
+	background:#f7f7f7cc;
 	border-bottom:dotted 2.5px;
 	border-bottom-color: #c2c2c2;
 }
@@ -364,7 +364,7 @@ h1{font-size:30px !important;}
 }
 
 #bottom_map {
-	background:#f0f0f0;
+	background:#f7f7f7cc;
 	border-top:dotted 2.5px;
 	border-top-color: #c2c2c2;
 	border-bottom:solid 1px;
@@ -384,12 +384,16 @@ h1{font-size:30px !important;}
 	margin-bottom: 20px;
 }
 
-#slider {
+/*#slider {
 	border:solid 1px;
 	border-color: #c2c2c2;
 	font-size:20px;
 	background-color: white;
 	color: black;
+}*/
+
+#slider_title {
+	font-family: "Geneva"
 }
 
 #dropdown_menu {
