@@ -5,7 +5,7 @@ var slider = d3.sliderHorizontal()
   .min(d3.min(years_data))
   .max(d3.max(years_data))
   .step(1000 * 60 * 60 * 24 * 365)
-  .width(1050)
+  .width(1000)
   .tickFormat(d3.timeFormat('%Y'))
   .tickValues(years_data)
   .on('onchange', val => {
@@ -18,12 +18,14 @@ var slider = d3.sliderHorizontal()
     removeSuperEdge(E)
     removeMarkers(E)
     E = null;
-    // map.removeLayer(geojson);
-    // geojson.resetStyle();
     geojson.setStyle(style);
-    // geojson = L.geoJson(swiss_data, {style: style, onEachFeature: onEachFeature}).addTo(map);
+
+    removeNewsLayer()
+    drawNewsDots()
 
   });
+
+
 
 var g = d3.select("div#slider").append("svg")
   .attr("width", 1100)
@@ -32,6 +34,26 @@ var g = d3.select("div#slider").append("svg")
   .attr("transform", "translate(30,30)");
 
 g.call(slider);
+starting_value = new Date(1990, 12, 12);
+slider.value(starting_value);
+// d3.select("a#setValue2").on("click", () => slider.value(new_value));
+
+
+
+// Slide slider according to clicked object
+function sliderSlider (e) {
+
+  try {
+    year = parseInt(e.originalTarget.attributes.value.value);
+    new_value = new Date(year, 10, 10);
+    slider.value(new_value);
+  } catch (err) {
+  year = parseInt(e.srcElement.getAttribute("value"));
+  new_value = new Date(year, 10, 10);
+  slider.value(new_value);
+
+  };
+}
 
 d3.select("#value").text(d3.timeFormat('%Y')(slider.value()));
 // Slider END

@@ -110,7 +110,7 @@ info.onAdd = function (map) {
 // Method that we will use to update the control based on feature properties passed
 info.update = function (properties) {
     this._div.innerHTML = (properties ?
-        '<b>' + properties.name + '</b><br />' + get_density(properties.name,YEAR) + ' Connection Density'
+        '<b>' + properties.name + '</b><br />' + get_density(properties.name,YEAR) + ' Connections'
         : '<h4>Swiss TV Mirror Map</h4>' + '<span style="font-size:15px;color:gray;">Hover Over a Canton</span>');
 };
 
@@ -147,6 +147,37 @@ function resetHighlight(e) {
 var polygonLayer;
 var concaveLayer;
 
+
+// NEWS DOTS START
+var newsLayer = new L.FeatureGroup();
+function drawNewsDots () {
+
+
+  newsLayer = new L.FeatureGroup();
+
+  let already_drawn = [];
+  for (loc of yearlyConnections[YEAR]) {
+      // check if canton name already drawn
+      if (!already_drawn.includes(loc)) {
+        already_drawn.push(loc);
+
+        var greenIcon = L.icon({
+            iconUrl: 'data/dot.png',
+            iconSize:     [30, 30], // size of the icon
+            iconAnchor:   [15, 17], // point of the icon which will correspond to marker's location
+        });
+
+        var marker  = L.marker(loc2coord[loc], {icon: greenIcon});
+
+       newsLayer.addLayer(marker);
+       }
+  }
+  map.addLayer(newsLayer);
+}
+
+function removeNewsLayer() {map.removeLayer(newsLayer);}
+// NEWS DOTS END
+
 function removeSuperEdge(e) {
     // Manually Delete Layers
     // try { map.removeLayer(polygonLayer); } catch (err) {};
@@ -166,7 +197,8 @@ function drawConcaveHull(e, canton_list) {
   var cornerPoints = [];
   for (set_of_cantons of canton_list) {
     for (canton of set_of_cantons['news']) {
-        let [lat, lng] = cantonCoordinates[canton];
+        // let [lat, lng] = cantonCoordinates[canton];
+        let [lat, lng] = loc2coord[canton];
         let point = L.latLng({lat: lat, lng: lng});
         cornerPoints.push(point);
     }
@@ -184,6 +216,7 @@ function drawConcaveHull(e, canton_list) {
 
   map.addLayer(concaveLayer);
 }
+
 // Draw a Polygon
 function drawPolygon(e, canton_list) {
 
@@ -194,7 +227,8 @@ function drawPolygon(e, canton_list) {
 
     let points = [];
     for (canton of set_of_cantons['news']) {
-        let [lat, lng] = cantonCoordinates[canton];
+        // let [lat, lng] = cantonCoordinates[canton];
+        let [lat, lng] = loc2coord[canton];
         let point = L.latLng({lat: lat, lng: lng});
         points.push(point);
       };
@@ -223,7 +257,8 @@ function drawConcaveHull_news(e, canton_list) {
   var cornerPoints = [];
   for (set_of_cantons of canton_list) {
     for (canton of set_of_cantons['news']) {
-        let [lat, lng] = cantonCoordinates[canton];
+        // let [lat, lng] = cantonCoordinates[canton];
+        let [lat, lng] = loc2coord[canton];
         let point = L.latLng({lat: lat, lng: lng});
         cornerPoints.push(point);
     }
@@ -251,7 +286,8 @@ function drawPolygon_news(e, canton_list) {
 
     let points = [];
     for (canton of set_of_cantons['news']) {
-        let [lat, lng] = cantonCoordinates[canton];
+        // let [lat, lng] = cantonCoordinates[canton];
+        let [lat, lng] = loc2coord[canton];
         let point = L.latLng({lat: lat, lng: lng});
         points.push(point);
       };
@@ -277,7 +313,7 @@ function drawPolygon_news(e, canton_list) {
 
 var markerLayer = new L.FeatureGroup();
 
-function displayNames (e, canton_list) {
+function displayNames (e, canton_list, is_raw=false) {
 
   markerLayer = new L.FeatureGroup();
 
@@ -287,12 +323,22 @@ function displayNames (e, canton_list) {
         // check if cnaton name already drawn
         if (!already_drawn.includes(canton)) {
           already_drawn.push(canton);
+
+          if (is_raw) {
           var marker = L.popup({
                         closeButton: false,
                         autoClose: false
                       })
-                      .setLatLng(cantonCoordinates[canton])
+                      .setLatLng(loc2coord[canton])
                       .setContent(canton);
+          } else {
+            var marker = L.popup({
+                          closeButton: false,
+                          autoClose: false
+                        })
+                        .setLatLng(cantonCoordinates[canton])
+                        .setContent(canton);
+          }
 
         markerLayer.addLayer(marker);
       }
@@ -315,7 +361,7 @@ function drawSuperEdge (e,id) {
   canton_name = e.target.feature.properties.name;
 
   // news related to the choosen new
-  for (news of cantonConnections[canton_name][YEAR]) {
+  for (news of cantonRawConnections[canton_name][YEAR]) {
     if (news['id']==id){
       connection_list_news = [news]
       break
@@ -324,12 +370,14 @@ function drawSuperEdge (e,id) {
 
   // news related to the current canton in current year
   var connection_list = cantonConnections[canton_name][YEAR];
+  var raw_connection_list = cantonRawConnections[canton_name][YEAR];
 
   // number of cantons related to the current canton in current year
   let canton_count = 0;
   for (i of connection_list) {canton_count += i["news"].length};
 
-  if (cantonConnections[canton_name][YEAR].length > 0) {
+  number_of_connections = cantonConnections[canton_name][YEAR].length;
+  if (number_of_connections > 0) {
 
     // clear non-used layers
     removeSuperEdge(E)
@@ -337,21 +385,21 @@ function drawSuperEdge (e,id) {
     if (id=='all' || id=='All'){
 
       // draw all the connections related to current canton in current year
-      if (canton_count <= 3) { drawPolygon(e, connection_list);
-      } else { drawConcaveHull(e, connection_list); }
-      displayNames(e, connection_list);
+      if (canton_count <= 3) { drawPolygon(e, raw_connection_list);
+      } else { drawConcaveHull(e, raw_connection_list); }
+      displayNames(e, connection_list, false);
 
     } else {
 
       // re-draw all the connections related to current canton in current year
-      if (canton_count <= 3) { drawPolygon(e, connection_list);
-      } else { drawConcaveHull(e, connection_list); }
+      if (canton_count <= 3) { drawPolygon(e, raw_connection_list);
+      } else { drawConcaveHull(e, raw_connection_list); }
 
       // draw all the connections related to current new
       if (connection_list_news[0]["news"].length <= 3) {
         drawPolygon_news(E, connection_list_news);
       } else { drawConcaveHull_news(E, connection_list_news);}
-      displayNames(E, connection_list_news);
+      displayNames(E, connection_list_news, true);
     }
   }
 
