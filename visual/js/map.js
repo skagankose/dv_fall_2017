@@ -110,7 +110,7 @@ info.onAdd = function (map) {
 // Method that we will use to update the control based on feature properties passed
 info.update = function (properties) {
     this._div.innerHTML = (properties ?
-        '<b>' + properties.name + '</b><br />' + get_density(properties.name,YEAR) + ' Connection Density'
+        '<b>' + properties.name + '</b><br />' + get_density(properties.name,YEAR) + ' Connections'
         : '<h4>Swiss TV Mirror Map</h4>' + '<span style="font-size:15px;color:gray;">Hover Over a Canton</span>');
 };
 
@@ -119,19 +119,23 @@ info.addTo(map);
 function highlightFeature(e) {
     var layer = e.target;
 
-    layer.setStyle({
-        weight: 3,
-        color: 'black',
-        opacity: 1,
-        dashArray: '',
-        fillOpacity: 1,
-    })
+    if (get_density(e.target.feature.properties.name,YEAR) > 0) {
 
-    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-        layer.bringToFront();
+      layer.setStyle({
+          weight: 3,
+          color: 'black',
+          opacity: 1,
+          dashArray: '',
+          fillOpacity: 1,
+      })
+
+      if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+          layer.bringToFront();
+      }
+
+      info.update(layer.feature.properties);
+
     }
-
-    info.update(layer.feature.properties);
 }
 
 function resetHighlight(e) {
@@ -142,6 +146,37 @@ function resetHighlight(e) {
 // Draw SuperEdge on Click -START
 var polygonLayer;
 var concaveLayer;
+
+
+// NEWS DOTS START
+var newsLayer = new L.FeatureGroup();
+function drawNewsDots () {
+
+
+  newsLayer = new L.FeatureGroup();
+
+  let already_drawn = [];
+  for (loc of yearlyConnections[YEAR]) {
+      // check if canton name already drawn
+      if (!already_drawn.includes(loc)) {
+        already_drawn.push(loc);
+
+        var greenIcon = L.icon({
+            iconUrl: 'data/dot.png',
+            iconSize:     [30, 30], // size of the icon
+            iconAnchor:   [15, 17], // point of the icon which will correspond to marker's location
+        });
+
+        var marker  = L.marker(loc2coord[loc], {icon: greenIcon});
+
+       newsLayer.addLayer(marker);
+       }
+  }
+  map.addLayer(newsLayer);
+}
+
+function removeNewsLayer() {map.removeLayer(newsLayer);}
+// NEWS DOTS END
 
 function removeSuperEdge(e) {
     // Manually Delete Layers
@@ -156,13 +191,14 @@ function removeSuperEdge(e) {
 
 // Draw SuperEdges Given List of Connections
 // Display Name of Corner Points
-// Draw One Big Polygon
+// Draw a Concave Hull
 function drawConcaveHull(e, canton_list) {
 
   var cornerPoints = [];
   for (set_of_cantons of canton_list) {
     for (canton of set_of_cantons['news']) {
-        let [lat, lng] = cantonCoordinates[canton];
+        // let [lat, lng] = cantonCoordinates[canton];
+        let [lat, lng] = loc2coord[canton];
         let point = L.latLng({lat: lat, lng: lng});
         cornerPoints.push(point);
     }
@@ -171,9 +207,9 @@ function drawConcaveHull(e, canton_list) {
   var latLngs = new ConcaveHull(cornerPoints).getLatLngs();
   concaveLayer = new L.Polygon(latLngs, {
       color: 'black',
-      weight: 3,
+      weight: 1,
       opacity: 1,
-      fillColor: "MAROON",
+      fillColor: "GRAY",
       fillOpacity: 0.3,
       smoothFactor: 1,
   })
@@ -181,7 +217,7 @@ function drawConcaveHull(e, canton_list) {
   map.addLayer(concaveLayer);
 }
 
-// Draw Multiple Polygons
+// Draw a Polygon
 function drawPolygon(e, canton_list) {
 
   var drawnItems = new L.FeatureGroup();
@@ -191,16 +227,76 @@ function drawPolygon(e, canton_list) {
 
     let points = [];
     for (canton of set_of_cantons['news']) {
-        let [lat, lng] = cantonCoordinates[canton];
+        // let [lat, lng] = cantonCoordinates[canton];
+        let [lat, lng] = loc2coord[canton];
         let point = L.latLng({lat: lat, lng: lng});
         points.push(point);
       };
 
       cornerPoints.push(new L.Polygon(points, {
           color: 'black',
-          weight: 3,
+          weight: 1,
           opacity: 1,
-          fillColor: 'MAROON',
+          fillColor: 'gray',
+          fillOpacity: 0.3,
+          smoothFactor: 1,
+      }));
+  };
+
+  for (points of cornerPoints) {
+    drawnItems.addLayer(points);
+  }
+
+  polygonLayer = drawnItems;
+  map.addLayer(polygonLayer);
+
+}
+// draw concave hull for news
+function drawConcaveHull_news(e, canton_list) {
+
+  var cornerPoints = [];
+  for (set_of_cantons of canton_list) {
+    for (canton of set_of_cantons['news']) {
+        // let [lat, lng] = cantonCoordinates[canton];
+        let [lat, lng] = loc2coord[canton];
+        let point = L.latLng({lat: lat, lng: lng});
+        cornerPoints.push(point);
+    }
+  }
+
+  var latLngs = new ConcaveHull(cornerPoints).getLatLngs();
+  concaveLayer = new L.Polygon(latLngs, {
+      color: 'black',
+      weight: 1,
+      opacity: 1,
+      fillColor: "black",
+      fillOpacity: 0.3,
+      smoothFactor: 1,
+  })
+
+  map.addLayer(concaveLayer);
+}
+// draw polygon for news
+function drawPolygon_news(e, canton_list) {
+
+  var drawnItems = new L.FeatureGroup();
+  cornerPoints = []
+
+  for (set_of_cantons of canton_list) {
+
+    let points = [];
+    for (canton of set_of_cantons['news']) {
+        // let [lat, lng] = cantonCoordinates[canton];
+        let [lat, lng] = loc2coord[canton];
+        let point = L.latLng({lat: lat, lng: lng});
+        points.push(point);
+      };
+
+      cornerPoints.push(new L.Polygon(points, {
+          color: 'black',
+          weight: 1,
+          opacity: 1,
+          fillColor: 'black',
           fillOpacity: 0.3,
           smoothFactor: 1,
       }));
@@ -217,22 +313,35 @@ function drawPolygon(e, canton_list) {
 
 var markerLayer = new L.FeatureGroup();
 
-function displayNames (e, canton_list) {
+function displayNames (e, canton_list, is_raw=false) {
 
   markerLayer = new L.FeatureGroup();
 
-  let marker_list = [];
+  let already_drawn = [];
   for (set_of_cantons of canton_list) {
     for (canton of set_of_cantons['news']) {
+        // check if cnaton name already drawn
+        if (!already_drawn.includes(canton)) {
+          already_drawn.push(canton);
 
+          if (is_raw) {
           var marker = L.popup({
                         closeButton: false,
                         autoClose: false
                       })
-                      .setLatLng(cantonCoordinates[canton])
+                      .setLatLng(loc2coord[canton])
                       .setContent(canton);
+          } else {
+            var marker = L.popup({
+                          closeButton: false,
+                          autoClose: false
+                        })
+                        .setLatLng(cantonCoordinates[canton])
+                        .setContent(canton);
+          }
 
         markerLayer.addLayer(marker);
+      }
     }
   }
 
@@ -246,39 +355,52 @@ function removeMarkers() {
 
 function toInt(n){ return Math.round(Number(n)); };
 
-// We only took first 3 connections for demonstration purposes.
-// IMPROVE > CHOOSE NUMBER OF CONNECTIONS
-
 function drawSuperEdge (e,id) {
   // Get Connections of the Target "e"
   // Get Connections from an External File
   canton_name = e.target.feature.properties.name;
-  var total_num_news = cantonConnections[canton_name][YEAR].length
-  choosed_num_news = toInt(total_num_news)
-  console.log(choosed_num_news);
-  if (id=='all'){
-    if (choosed_num_news > 0) {
-      var connection_list = cantonConnections[canton_name][YEAR].slice(0, choosed_num_news);
 
-      // Can either draw multiple polygons or a concave hull
-      drawConcaveHull(e, connection_list);
-      drawPolygon(e, connection_list);
-      displayNames(e, connection_list);
-    };
-  }
-  else {
-    for (news of cantonConnections[canton_name][YEAR]) {
-      if (news['id']==id){
-        connection_list = [news]
-        break
-      }
+  // news related to the choosen new
+  for (news of cantonRawConnections[canton_name][YEAR]) {
+    if (news['id']==id){
+      connection_list_news = [news]
+      break
     }
+  }
+
+  // news related to the current canton in current year
+  var connection_list = cantonConnections[canton_name][YEAR];
+  var raw_connection_list = cantonRawConnections[canton_name][YEAR];
+
+  // number of cantons related to the current canton in current year
+  let canton_count = 0;
+  for (i of connection_list) {canton_count += i["news"].length};
+
+  number_of_connections = cantonConnections[canton_name][YEAR].length;
+  if (number_of_connections > 0) {
+
+    // clear non-used layers
     removeSuperEdge(E)
     removeMarkers(E)
-    console.log(connection_list)
-    drawConcaveHull(E, connection_list);
-    drawPolygon(E, connection_list);
-    displayNames(E, connection_list);
+    if (id=='all' || id=='All'){
+
+      // draw all the connections related to current canton in current year
+      if (canton_count <= 3) { drawPolygon(e, raw_connection_list);
+      } else { drawConcaveHull(e, raw_connection_list); }
+      displayNames(e, connection_list, false);
+
+    } else {
+
+      // re-draw all the connections related to current canton in current year
+      if (canton_count <= 3) { drawPolygon(e, raw_connection_list);
+      } else { drawConcaveHull(e, raw_connection_list); }
+
+      // draw all the connections related to current new
+      if (connection_list_news[0]["news"].length <= 3) {
+        drawPolygon_news(E, connection_list_news);
+      } else { drawConcaveHull_news(E, connection_list_news);}
+      displayNames(E, connection_list_news, true);
+    }
   }
 
 }
@@ -295,14 +417,16 @@ function filter_excerpts (e) {
   // console.log(options)
   return options
 }
+
+
 // show a drop down menu
 function show_menu (e) {
-  E=e;
+  E = Object.assign({}, e);
   var select = document.getElementById("selectNumber");
   removeOptions(select);
   var options = filter_excerpts(e);
   for(var i = 0; i < options.length; i++) {
-      var opt = options[i][1].slice(0,20)+'...';
+      var opt = options[i][1].slice(0,130)+'...';
       var el = document.createElement("option");
       el.textContent = opt;
       el.value = options[i];
@@ -321,18 +445,18 @@ function removeOptions(selectbox)
 //clear description
 function clear_description(){
   var input = document.getElementById('description');
-  input.innerHTML = '';
+  input.innerHTML = 'Excerpt of the selected new will appear here.';
 }
 // Color Map START
 // PROCESS BOOK > INTERVAL & COLOR CHOICE
 function getColor(d) {
-    return d > 40 ? '#401E1E':
-           d > 30 ? '#5E3D52':
-           d > 20 ? '#566A88':
-           d > 10 ? '#329C9D':
-           d > 5 ? '#67C687':
-           d > 0   ? '#D8E366':
-                    '#fafbf9';
+    return d > 40 ? '#084594':
+           d > 30 ? '#2171b5':
+           d > 20 ? '#4292c6':
+           d > 10 ? '#6baed6':
+           d > 5  ? '#9ecae1':
+           d > 0   ? '#c6dbef':
+                     '#e7e7e7';
 }
 
 function style(feature) {
@@ -349,7 +473,11 @@ function style(feature) {
 var select = document.getElementById('selectNumber');
 var input = document.getElementById('description');
 select.onchange = function() {
-    input.innerHTML = select.value.split(',').slice(1);
+    if (select.value == "All") {
+      input.innerHTML = 'Excerpt of the selected new will appear here.';
+    } else {
+      input.innerHTML = select.value.split(',').slice(1);
+      }
     // console.log(select.value.split(',').slice(1))
     // state = E.target.feature.properties.name;
     // for (news of cantonConnections[state][YEAR]) {
@@ -373,7 +501,7 @@ var legend = L.control({position: 'bottomright'});
 legend.onAdd = function (map) {
 
     var div = L.DomUtil.create('div', 'info legend'),
-        grades = [0, 10, 30, 50, 70, 90],
+        grades = [0, 5, 10, 20, 30, 40]
         labels = [];
 
     // loop through our density intervals and generate a label with a colored square for each interval
@@ -404,10 +532,10 @@ function onEachFeature(feature, layer) {
     layer.on({click: clear_description});
     layer.on({click: show_menu});
     layer.on({mouseout: resetHighlight});
-    layer.on({mouseout: removeSuperEdge});
-    layer.on({mouseout: function (e) {
-                drawSuperEdge(E,ID);
-            }});
+    // layer.on({mouseout: removeSuperEdge});
+    // layer.on({mouseout: function (e) {
+    //             drawSuperEdge(E,ID);
+    //         }});
 
 }
 
