@@ -80,11 +80,15 @@ var cantons = L.layerGroup(cantons_list)
 // Create the Main Map Object
 const map = L.map('map', {
     closePopupOnClick: false,
-    center: [46.818, 8.227],
+    center: [46.8, 8.8],
     zoom: 8,
     layers: [light],
     opacity: 1,
+    zoomControl:false,
 });
+
+map.dragging.disable()
+map.scrollWheelZoom.disable()
 
 // Layer Control
 const baseMaps = {
@@ -426,7 +430,7 @@ function show_menu (e) {
   removeOptions(select);
   var options = filter_excerpts(e);
   for(var i = 0; i < options.length; i++) {
-      var opt = options[i][1].slice(0,130)+'...';
+      var opt = options[i][1].slice(0,40)+'...';
       var el = document.createElement("option");
       el.textContent = opt;
       el.value = options[i];

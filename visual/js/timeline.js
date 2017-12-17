@@ -1,11 +1,11 @@
 // Slider START
-var num_years = 28;
-var years_data = d3.range(0, num_years).map(function (d) { return new Date(1990 + d, 10, 3); });
+var num_years = 38;
+var years_data = d3.range(0, num_years).map(function (d) { return new Date(1980 + d, 10, 3); });
 var slider = d3.sliderHorizontal()
   .min(d3.min(years_data))
   .max(d3.max(years_data))
   .step(1000 * 60 * 60 * 24 * 365)
-  .width(1000)
+  .width(1470)
   .tickFormat(d3.timeFormat('%Y'))
   .tickValues(years_data)
   .on('onchange', val => {
@@ -28,7 +28,7 @@ var slider = d3.sliderHorizontal()
 
 
 var g = d3.select("div#slider").append("svg")
-  .attr("width", 1100)
+  .attr("width", 1600)
   .attr("height", 100)
   .append("g")
   .attr("transform", "translate(30,30)");
@@ -63,3 +63,39 @@ function popup_function() {
     var popup = document.getElementById("myPopup");
     popup.classList.toggle("show");
 }
+
+(function($) {
+    $.fn.clickToggle = function(func1, func2) {
+        var funcs = [func1, func2];
+        this.data('toggleclicked', 0);
+        this.click(function() {
+            var data = $(this).data();
+            var tc = data.toggleclicked;
+            $.proxy(funcs[tc], this)();
+            data.toggleclicked = (tc + 1) % 2;
+        });
+        return this;
+    };
+}(jQuery));
+
+$('#news_title').clickToggle(function() {
+  $("#description").animate({
+      height: "415px"
+  }, 400);
+},
+function() {
+  $("#description").animate({
+      height: "216px"
+  }, 200);
+});
+
+$('#news_details').clickToggle(function() {
+  $("#selectNumber").animate({
+      height: "415px"
+  }, 400);
+},
+function() {
+  $("#selectNumber").animate({
+      height: "200px"
+  }, 200);
+});

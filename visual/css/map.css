@@ -1,7 +1,9 @@
 body {
   font-family: "Geneva";
 }
-#map { height: 500px; }
+#map {
+  height: 530px;
+  margin-right: -32px;}
 .info {
   padding: 6px 8px;
   font: 18px/20px "Geneva";

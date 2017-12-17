@@ -8,6 +8,7 @@ body, html {
 	font-weight: 400;
 	width: 100% !important;
 	height: 100% !important;
+	zoom: 0.97 !important;
 }
 
 h1 {
@@ -350,7 +351,7 @@ color: #777;
 
 #header {
 	background:#f7f7f7cc;
-	border-bottom:dotted 2.5px;
+	border-bottom:solid 0.1px;
 	border-bottom-color: #c2c2c2;
 }
 
@@ -367,9 +368,9 @@ h1{font-size:30px !important;}
 
 #bottom_map {
 	background:#f7f7f7cc;
-	border-top:dotted 2.5px;
+	border-top:solid 0.1px;
 	border-top-color: #c2c2c2;
-	border-bottom:solid 1px;
+	border-bottom:solid 0.1px;
 	border-bottom-color: #c2c2c2;b
 }
 
@@ -382,8 +383,9 @@ h1{font-size:30px !important;}
 }
 
 #footer_div {
-	margin-top: 15px;
-	margin-bottom: 20px;
+	font-size:13px;
+	margin-top: 13px;
+	margin-bottom: 10px;
 }
 
 .eventCard {
@@ -402,4 +404,9 @@ h1{font-size:30px !important;}
 
 #dropdown_menu {
 	font-size:15px;
+}
+
+#multiple_choice {
+/*height:300px;
+margin:-20px;"*/
 }

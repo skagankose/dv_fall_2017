@@ -27,7 +27,7 @@
 
   <!-- D3 -->
   <script src="https://d3js.org/d3.v4.min.js"></script>
-  <script src="https://unpkg.com/d3-simple-slider@0.2.0/build/d3-simple-slider.js"></script>
+  <script src="js/SimpleSlider.js"></script>
   <script src="js/ConcaveHull.js"></script>
 
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -50,6 +50,7 @@
   <!-- W3 -->
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <script src="https://use.fontawesome.com/aa539bf0ef.js"></script>
+  <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
 
 
  </head>
@@ -69,8 +70,8 @@
          </div>
        </div>
      </div>
-     <br><br>
- <div class="row text-center" style="border:none;margin-right:1px;margin-left:1px;">
+     <br>
+ <div class="row text-center" style="border:none;">
  <div class="col-sm-12">
  <div class="card">
    <div class="card-header" role="tab" id="headingOne">
@@ -81,7 +82,7 @@
      </h5>
    </div>
 
-   <div id="collapseThree" class="collapse show" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
+   <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
      <div class="card-body">
        <div class="row">
 
@@ -209,15 +210,73 @@
 </div>
 </div>
 
-  <div id="map"></div>
+<div class="row">
+  <div class="col-sm-3" style="margin-right:-30px;">
+
+      <div class="card">
+        <div class="card-header" role="tab" id="headingOneV2">
+          <h5 class="mb-0">
+            <a id="news_title" data-toggle="collapse" href="#collapseOneV2" aria-expanded="true" aria-controls="collapseOneV2">
+              <span value="open" id="slider_title"> News Related to Selected Canton </span>
+            </a>
+          </h5>
+        </div>
+
+        <div id="collapseOneV2" class="collapse show" role="tabpanel" aria-labelledby="headingOneV2" data-parent="#accordion">
+          <div class="card-body">
+            <div class="form-group">
+            <select style="height:200px;
+                           width:112%;
+                           margin-left:-20px;
+                           margin-top:-20px;
+                           margin-bottom:-36px;" multiple class="form-control"  id="selectNumber" id="exampleFormControlSelect2">
+              <option>All</option>
+            </select>
+          </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" role="tab" id="headingTwoV2">
+          <h5 class="mb-0">
+            <a id="news_details" class="collapsed" data-toggle="collapse" href="#collapseTwoV2" aria-expanded="false" aria-controls="collapseTwoV2">
+              <span id="slider_title"> News Details</span>
+            </a>
+          </h5>
+        </div>
+        <div id="collapseTwoV2" class="collapse show" role="tabpanel" aria-labelledby="headingTwoV2" data-parent="#accordion">
+          <div class="card-body">
+
+            <div class="form-group">
+              <textarea style="resize: none;
+                             height:216px;
+                             width:112%;
+                             margin-left:-20px;
+                             margin-top:-20px;
+                             margin-bottom:-36px;"
+                             class="form-control" id="description" id="exampleFormControlTextarea1" rows="3">
+                Excerpt of the selected new will appear here.
+              </textarea>
+            </div>
+
+
+
+          </div>
+        </div>
+      </div>
+
+  </div>
+  <div class="col-sm-9">
+    <div id="map"></div>
+  </div>
+</div>
 
  <div id="bottom_map">
 
-    <div class="container">
+    <!-- <div class="container"> -->
       <div class="row text-center">
         <div class="col-sm-12">
 
-          <br><br>
           <div class="card">
             <div class="card-header" role="tab" id="headingOne">
               <h5 class="mb-0">
@@ -234,48 +293,11 @@
             </div>
           </div>
 
-            <div class="card">
-              <div class="card-header" role="tab" id="headingOne">
-                <h5 class="mb-0">
-                  <a data-toggle="collapse" href="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
-                    <span id="slider_title"> News Related to Selected Canton </span>
-                  </a>
-                </h5>
-              </div>
-
-              <div id="collapseFour" class="collapse show" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
-                <div class="card-body">
-                    <div class="form-group">
-                    <select style="height:300px;" multiple class="form-control"  id="selectNumber" id="exampleFormControlSelect2">
-                      <option>All</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-           <div class="card">
-             <div class="card-header" role="tab" id="headingOne">
-               <h5 class="mb-0">
-                 <a data-toggle="collapse" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                   <span id="slider_title"> News Details</span>
-                 </a>
-               </h5>
-             </div>
-
-             <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
-               <div class="card-body">
-                 <span id="description">
-                   Excerpt of the selected new will appear here.
-                </span>
-               </div>
-             </div>
-           </div>
          <br><br>
+         <br>
 
         </div>
       </div>
-    </div>
 
   </div>
 
