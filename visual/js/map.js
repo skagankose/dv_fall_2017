@@ -319,7 +319,8 @@ function drawPolygon_news(e, canton_list) {
 function onClick(e) {
     connection_id = this.options["id"];
     var input = document.getElementById('description');
-    input.innerHTML = excerpts[connection_id]["excerpt"]
+    if (excerpts[connection_id]["excerpt"] == '') {input.innerHTML = 'No Excerpt Avaliable!';}
+    else {input.innerHTML = excerpts[connection_id]["excerpt"];}
     drawSuperEdge(E,connection_id);
     // window.location.href = "#collapseOneV2";
     document.getElementById('selectNumber').value = connection_id+","+excerpts[connection_id]["excerpt"]
@@ -448,7 +449,8 @@ function show_menu (e) {
   removeOptions(select);
   var options = filter_excerpts(e);
   for(var i = 0; i < options.length; i++) {
-      var opt = options[i][1].slice(0,40)+'...';
+      if (options[i][1] == '') { var opt = '-';}
+      else { var opt = options[i][1].slice(0,40)+'...';}
       var el = document.createElement("option");
       el.textContent = opt;
       el.value = options[i];
@@ -498,7 +500,8 @@ select.onchange = function() {
     if (select.value == "All") {
       input.innerHTML = 'Excerpt of the selected new will appear here.';
     } else {
-      input.innerHTML = select.value.split(',').slice(1);
+      if (select.value.split(',').slice(1) == '') { input.innerHTML = "No Excerpt Avaliable!"}
+      else { input.innerHTML = select.value.split(',').slice(1);}
       }
     // console.log(select.value.split(',').slice(1))
     // state = E.target.feature.properties.name;
