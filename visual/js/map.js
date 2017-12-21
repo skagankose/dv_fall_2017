@@ -323,6 +323,8 @@ function onClick(e) {
     drawSuperEdge(E,connection_id);
     // window.location.href = "#collapseOneV2";
     document.getElementById('selectNumber').value = connection_id+","+excerpts[connection_id]["excerpt"]
+
+    if ($("#news_title").attr("aria-expanded")=="true"){$("#slider_title_news").click();}
 }
 
 
