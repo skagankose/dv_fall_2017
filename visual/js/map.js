@@ -10,11 +10,11 @@ for (var i = 0; i < swiss_data.features.length; i++) {
     var canton_name = swiss_data.features[i].properties.name;
 
     // IMPROVE > NOT JUST ONE YEAR
-    swiss_data.features[i].properties.density = cantonConnections[canton_name][YEAR].length;
+    swiss_data.features[i].properties.density = cantonRawConnections[canton_name][YEAR].length;
 }
 //function to change densities by year
 function get_density(canton,year){
-  return cantonConnections[canton][year].length
+  return cantonRawConnections[canton][year].length
 }
 
 // Calculate Centers START
@@ -331,7 +331,7 @@ function onClick(e) {
     // window.location.href = "#collapseOneV2";
     document.getElementById('selectNumber').value = connection_id+","+excerpts[connection_id]["excerpt"]
 
-    if ($("#news_title").attr("aria-expanded")=="true"){$("#slider_title_news").click();}
+    // if ($("#news_title").attr("aria-expanded")=="true"){$("#slider_title_news").click();}
 }
 
 
@@ -392,10 +392,10 @@ function drawSuperEdge (e,id) {
   }
 
   // news related to the current canton in current year
-  var connection_list = cantonConnections[canton_name][YEAR];
+  var connection_list = cantonRawConnections[canton_name][YEAR];
   var raw_connection_list = cantonRawConnections[canton_name][YEAR];
 
-  number_of_connections = cantonConnections[canton_name][YEAR].length;
+  number_of_connections = cantonRawConnections[canton_name][YEAR].length;
   if (number_of_connections > 0) {
 
     // clear non-used layers
@@ -438,7 +438,7 @@ function drawSuperEdge (e,id) {
 // filter excerpts for canton
 function filter_excerpts (e) {
   canton_name = e.target.feature.properties.name;
-  var total_news = cantonConnections[canton_name][YEAR]
+  var total_news = cantonRawConnections[canton_name][YEAR]
   var options = []
   for (news of total_news){
     options.push([news['id'],excerpts[news['id']]['excerpt']])
@@ -511,7 +511,7 @@ select.onchange = function() {
       }
     // console.log(select.value.split(',').slice(1))
     // state = E.target.feature.properties.name;
-    // for (news of cantonConnections[state][YEAR]) {
+    // for (news of cantonRawConnections[state][YEAR]) {
     //   if (news['id']==select.value.split(',').slice(0,1)){
     //     connection_list = [news]
     //     break
