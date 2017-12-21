@@ -20,8 +20,8 @@ var slider = d3.sliderHorizontal()
     E = null;
     geojson.setStyle(style);
 
-    removeNewsLayer()
-    drawNewsDots()
+    // removeNewsLayer()
+    // drawNewsDots()
 
   });
 
@@ -80,22 +80,22 @@ function popup_function() {
 
 $('#news_title').clickToggle(function() {
   $("#description").animate({
-      height: "415px"
+      height: "480px"
   }, 400);
 },
 function() {
   $("#description").animate({
-      height: "216px"
+      height: "240px"
   }, 200);
 });
 
 $('#news_details').clickToggle(function() {
   $("#selectNumber").animate({
-      height: "415px"
+      height: "480px"
   }, 400);
 },
 function() {
   $("#selectNumber").animate({
-      height: "200px"
+      height: "240px"
   }, 200);
 });

@@ -71,10 +71,10 @@ var customIcon = L.icon({
 
 for (var i = 0; i < swiss_data.features.length; i++) {
     cantons_list.push(L.marker(swiss_data.features[i].properties.center,
-        {icon: customIcon}).bindPopup("Canton Name: " + swiss_data.features[i].properties.name));
+        {icon: customIcon}).bindTooltip(swiss_data.features[i].properties.name, {offset: L.point({x: 0, y: -25})}));
 
 }
-var cantons = L.layerGroup(cantons_list)
+var cantonsLayer = L.layerGroup(cantons_list)
 // Add Markers Layer END
 
 // Create the Main Map Object
@@ -97,7 +97,7 @@ const baseMaps = {
 };
 
 const overlayMaps = {
-    "Markers": cantons,
+    "Markers": cantonsLayer,
 };
 
 L.control.layers(baseMaps, overlayMaps).addTo(map);
@@ -153,9 +153,9 @@ var concaveLayer;
 
 
 // NEWS DOTS START
+/*
 var newsLayer = new L.FeatureGroup();
 function drawNewsDots () {
-
 
   newsLayer = new L.FeatureGroup();
 
@@ -165,13 +165,12 @@ function drawNewsDots () {
       if (!already_drawn.includes(loc)) {
         already_drawn.push(loc);
 
-        var greenIcon = L.icon({
+        var blackDot = L.icon({
             iconUrl: 'data/dot.png',
-            iconSize:     [30, 30], // size of the icon
-            iconAnchor:   [15, 17], // point of the icon which will correspond to marker's location
+            iconSize:     [3, 3],
         });
 
-        var marker  = L.marker(loc2coord[loc], {icon: greenIcon});
+        var marker  = L.marker(loc2coord[loc], {icon: blackDot});
 
        newsLayer.addLayer(marker);
        }
@@ -179,7 +178,9 @@ function drawNewsDots () {
   map.addLayer(newsLayer);
 }
 
+
 function removeNewsLayer() {map.removeLayer(newsLayer);}
+*/
 // NEWS DOTS END
 
 function removeSuperEdge(e) {
@@ -189,7 +190,7 @@ function removeSuperEdge(e) {
 
     // Delete All Layers except Initials
     map.eachLayer(function (layer) {
-      if (layer._leaflet_id > 150) {map.removeLayer(layer);};
+      if (layer._leaflet_id > 130) {map.removeLayer(layer);};
     });
 }
 
@@ -315,35 +316,44 @@ function drawPolygon_news(e, canton_list) {
 
 }
 
+function onClick(e) {
+    connection_id = this.options["id"];
+    var input = document.getElementById('description');
+    input.innerHTML = excerpts[connection_id]["excerpt"]
+    drawSuperEdge(E,connection_id);
+    // window.location.href = "#collapseOneV2";
+    document.getElementById('selectNumber').value = connection_id+","+excerpts[connection_id]["excerpt"]
+}
+
+
 var markerLayer = new L.FeatureGroup();
 
 function displayNames (e, canton_list, is_raw=false) {
 
   markerLayer = new L.FeatureGroup();
 
+  var redDot = L.icon({
+      iconUrl: 'data/dot.png',
+      iconSize: [11, 11], // size of the icon
+  });
+
   let already_drawn = [];
   for (set_of_cantons of canton_list) {
+    connection_id = set_of_cantons["id"];
     for (canton of set_of_cantons['news']) {
         // check if cnaton name already drawn
         if (!already_drawn.includes(canton)) {
           already_drawn.push(canton);
 
           if (is_raw) {
-          var marker = L.popup({
-                        closeButton: false,
-                        autoClose: false
-                      })
-                      .setLatLng(loc2coord[canton])
-                      .setContent(canton);
+            var marker  = L.marker(loc2coord[canton], {icon: redDot,id: connection_id})
+                           .bindTooltip(canton)
+                           .on('click', onClick);;
           } else {
-            var marker = L.popup({
-                          closeButton: false,
-                          autoClose: false
-                        })
-                        .setLatLng(cantonCoordinates[canton])
-                        .setContent(canton);
+            var marker  = L.marker(cantonCoordinates[canton], {icon: redDot,id: connection_id})
+                           .bindTooltip(canton)
+                           .on('click', onClick);;
           }
-
         markerLayer.addLayer(marker);
       }
     }
@@ -386,23 +396,29 @@ function drawSuperEdge (e,id) {
     // clear non-used layers
     removeSuperEdge(E)
     removeMarkers(E)
+
     if (id=='all' || id=='All'){
 
       // draw all the connections related to current canton in current year
       if (canton_count <= 3) { drawPolygon(e, raw_connection_list);
       } else { drawConcaveHull(e, raw_connection_list); }
-      displayNames(e, connection_list, false);
+      // displayNames(e, connection_list, false);
+      // drawNewsDots()
+      displayNames(e, raw_connection_list, true);
 
     } else {
 
       // re-draw all the connections related to current canton in current year
       if (canton_count <= 3) { drawPolygon(e, raw_connection_list);
       } else { drawConcaveHull(e, raw_connection_list); }
+      // drawNewsDots()
+      displayNames(e, raw_connection_list, true);
 
       // draw all the connections related to current new
       if (connection_list_news[0]["news"].length <= 3) {
         drawPolygon_news(E, connection_list_news);
       } else { drawConcaveHull_news(E, connection_list_news);}
+      // drawNewsDots()
       displayNames(E, connection_list_news, true);
     }
   }
