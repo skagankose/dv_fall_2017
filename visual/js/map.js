@@ -16,6 +16,7 @@ for (var i = 0; i < swiss_data.features.length; i++) {
 function get_density(canton,year){
   return cantonConnections[canton][year].length
 }
+
 // Calculate Centers START
 function find_center(co) {
     center_x = 0;
@@ -87,8 +88,13 @@ const map = L.map('map', {
     zoomControl:false,
 });
 
+// Disable Zooming
 map.dragging.disable()
 map.scrollWheelZoom.disable()
+map.touchZoom.disable();
+map.doubleClickZoom.disable();
+map.boxZoom.disable();
+map.keyboard.disable();
 
 // Layer Control
 const baseMaps = {
@@ -389,16 +395,16 @@ function drawSuperEdge (e,id) {
   var connection_list = cantonConnections[canton_name][YEAR];
   var raw_connection_list = cantonRawConnections[canton_name][YEAR];
 
-  // number of cantons related to the current canton in current year
-  let canton_count = 0;
-  for (i of connection_list) {canton_count += i["news"].length};
-
   number_of_connections = cantonConnections[canton_name][YEAR].length;
   if (number_of_connections > 0) {
 
     // clear non-used layers
     removeSuperEdge(E)
     removeMarkers(E)
+
+    // number of cantons related to the current canton in current year
+    let canton_count = 0;
+    for (i of raw_connection_list) {canton_count += i["news"].length};
 
     if (id=='all' || id=='All'){
 
@@ -542,6 +548,10 @@ legend.onAdd = function (map) {
 legend.addTo(map);
 // Add a Legend END
 
+function expand(){
+  if ($("#news_title").attr("aria-expanded")=="false"){$("#slider_title_news").click();}
+};
+
 // Active Listeners
 function onEachFeature(feature, layer) {
     layer.on({mouseover: highlightFeature});
@@ -556,6 +566,7 @@ function onEachFeature(feature, layer) {
             }});
     layer.on({click: clear_description});
     layer.on({click: show_menu});
+    layer.on({click: expand});
     layer.on({mouseout: resetHighlight});
     // layer.on({mouseout: removeSuperEdge});
     // layer.on({mouseout: function (e) {

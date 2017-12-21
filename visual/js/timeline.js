@@ -34,7 +34,7 @@ var g = d3.select("div#slider").append("svg")
   .attr("transform", "translate(30,30)");
 
 g.call(slider);
-starting_value = new Date(1990, 12, 12);
+starting_value = new Date(1990, 06, 06);
 slider.value(starting_value);
 // d3.select("a#setValue2").on("click", () => slider.value(new_value));
 
