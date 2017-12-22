@@ -92,6 +92,11 @@
     background: #B8B8B8;
 }
 
+
+#slider-reverb .noUi-connect {
+    background: #f08080;
+}
+
 [disabled].noUi-target,
 [disabled].noUi-handle,
 [disabled] .noUi-handle {

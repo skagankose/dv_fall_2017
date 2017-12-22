@@ -7,7 +7,7 @@ var startDate = new Date("1930-01-01"),
 
 
 var margin = {top: 50, right: 100, bottom: 0, left: 50},
-    width = 1500 - margin.left - margin.right,
+    width = 1000 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
 var svg = d3.select("#vis")
@@ -15,8 +15,8 @@ var svg = d3.select("#vis")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom);
 
-var runningSpeed = 1;
-var numofGroupByDays = 5;
+var runningSpeed = 10;
+var numofGroupByDays = 30;
 
 
 // Presents (Settable Visualization Configurations)
@@ -30,7 +30,7 @@ var presentWorld = {
 var presentSwitzerland = {
     center: {lat: 46.86019101567027, lng: 8.165588378906252},
     zoom: 8,
-    radius: 0.1
+    radius: 0.2
 };
 
 var presentEurope = {
@@ -148,23 +148,50 @@ speedSlider.style.margin = '0 auto 30px';
 
 noUiSlider.create(speedSlider, {
         start: runningSpeed,
-        step: 0.5,
+        step: 1,
         connect: "lower",
         orientation: 'horizontal',
         tooltips: true,
         behaviour: "tap-drag",
         range: {
-            'min': 0.1,
+            'min': 1,
             'max': 20
         },
-        serialization: {
-            format: {
-                decimals: 0
-            }
+        format: {
+            to: function (value) {
+                return ~~value;
+            },
+            from: Number
         }
     }
 );
 
+
+// Reverb Slider
+var reverbSlider = document.getElementById('slider-reverb');
+
+reverbSlider.style.width = '200px';
+reverbSlider.style.margin = '0 auto 30px';
+
+noUiSlider.create(reverbSlider, {
+        start: numofGroupByDays,
+        step: 1,
+        connect: "lower",
+        orientation: 'horizontal',
+        tooltips: true,
+        behaviour: "tap-drag",
+        range: {
+            'min': 1,
+            'max': 90
+        },
+        format: {
+            to: function (value) {
+                return ~~value;
+            },
+            from: Number
+        }
+    }
+);
 
 ////////// slider //////////
 
@@ -331,7 +358,7 @@ d3.csv("data/heatmap_date_freq_coord_genre.csv", prepare, function (data) {
 
     $(document).ready(function () {
 
-        // Speed Control Instantiation
+        // Genre Filtering Instantiation
         $('#genreList').select2({
             closeOnSelect: false,
             width: '100%',
@@ -351,9 +378,17 @@ d3.csv("data/heatmap_date_freq_coord_genre.csv", prepare, function (data) {
         $('#genreList').select2('val', null);
 
 
+        // Speed Slider
         speedSlider.noUiSlider.on('update', function (values, handle) {
             runningSpeed = values[handle];
         });
+
+
+        // Reverb Slider
+        reverbSlider.noUiSlider.on('update', function (values, handle) {
+            numofGroupByDays = values[handle];
+        });
+
 
     });
 
@@ -426,7 +461,7 @@ function update(h) {
 
     // filter data set and redraw plot
     var newData = dataset.filter(function (d) {
-        return (d.date > h) && (d.date <= d3.timeDay.offset(h, numofGroupByDays));
+        return (d.date >= d3.timeDay.offset(h, -numofGroupByDays)) && (d.date < h);
     });
 
     // filter data set for range and redraw the plot
