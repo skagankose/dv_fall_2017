@@ -6,12 +6,12 @@ The process book can be reached from [here](https://skagankose.github.io/dv_fall
 The actual repository that contains all the code can be reached from [here](https://github.com/m-yaghini/tv_mirror_viz).
 
 ## Instructions About Visualization
-By using visualization, it is possible analyze broadcasts through years.
-You can see the density of broadcasts and exact places that are mentioned in these broadcasts.
-You can examine broadcasts related to cantons and each broadcast individually.
-Go to Visualiation and click on show instructions to learn more about features of our visualization.
+By using visualization, it is possible analyze broadcasts through years.<br/>
+You can see the density of broadcasts and exact places that are mentioned in these broadcasts.<br/>
+You can examine broadcasts related to cantons and each broadcast individually.<br/>
+Go to Visualiation and click on show instructions to learn more about features of our visualization.<br/>
 
-**Important Notes**: Set your browser's zoom level to around %70 to have the best experience! 
+**Important Notes**: Set your browser's zoom level to around %70 to have the best experience! <br/>
 
 ## Visualising the TV Mirror
 #### Evolution and Importance of the National Swiss Radio/TV Broadcasts
