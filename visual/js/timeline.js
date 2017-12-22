@@ -79,22 +79,22 @@ function popup_function() {
 
 $('#news_title').clickToggle(function() {
   $("#description").animate({
-      height: "530px"
+      height: "495px"
   }, 400);
 },
 function() {
   $("#description").animate({
-      height: "265px"
+      height: "250px"
   }, 200);
 });
 
 $('#news_details').clickToggle(function() {
   $("#selectNumber").animate({
-      height: "530px"
+      height: "495px"
   }, 400);
 },
 function() {
   $("#selectNumber").animate({
-      height: "265px"
+      height: "240px"
   }, 200);
 });

@@ -414,3 +414,17 @@ h1{font-size:30px !important;}
 #filter_controls {
 	cursor:default !important;
 }
+
+#instructions {
+    background-color: #f7f7f7;; /* Green */
+    border: none;
+    color: black;
+		border: 1px solid black; /* Green */
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+		cursor:pointer;
+		border-radius: 4px;}
+}
