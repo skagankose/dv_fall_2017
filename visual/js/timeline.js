@@ -27,6 +27,7 @@ var slider = d3.sliderHorizontal()
 var g = d3.select("div#slider").append("svg")
   .attr("width", 1600)
   .attr("height", 100)
+  .attr("id", "timeline_svg")
   .append("g")
   .attr("transform", "translate(30,30)");
 

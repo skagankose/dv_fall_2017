@@ -13,7 +13,7 @@ var margin = {top: 50, right: 100, bottom: 0, left: 50},
 var svg = d3.select("#vis")
     .append("svg")
     .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom);
+    .attr("height", "100px;");
 
 var runningSpeed = 10;
 var numofGroupByDays = 30;
