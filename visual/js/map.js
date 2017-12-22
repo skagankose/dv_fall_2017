@@ -1,4 +1,4 @@
-var YEAR = '1990';
+var YEAR = '2007';
 var E;
 var ID='all';
 var parseDate = d3.timeParse("%d/%m/%Y");
@@ -609,13 +609,17 @@ function show_menu (e) {
   removeOptions(select);
   var options = filter_excerpts(e);
   for(var i = 0; i < options.length; i++) {
-      if (options[i][1] == '') { var opt = '-';}
-      else { var opt = options[i][1].slice(0,40)+'...';}
+      if (id2title[options[i][0]].length > 40){
+        var opt = id2title[options[i][0]].slice(0,1)+id2title[options[i][0]].slice(1,40).toLowerCase()+'...';
+      }
+      else{
+        var opt = id2title[options[i][0]].slice(0,1)+id2title[options[i][0]].slice(1).toLowerCase();
+      }
       var el = document.createElement("option");
       el.textContent = opt;
       el.value = options[i];
       select.appendChild(el);
-  }
+}
 }
 
 // remove options from list

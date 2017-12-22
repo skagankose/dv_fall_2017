@@ -27,11 +27,12 @@ var slider = d3.sliderHorizontal()
 var g = d3.select("div#slider").append("svg")
   .attr("width", 1600)
   .attr("height", 100)
+  .attr("id", "timeline_svg")
   .append("g")
   .attr("transform", "translate(30,30)");
 
 g.call(slider);
-starting_value = new Date(1990, 06, 06);
+starting_value = new Date(2007, 06, 06);
 slider.value(starting_value);
 
 
@@ -78,22 +79,22 @@ function popup_function() {
 
 $('#news_title').clickToggle(function() {
   $("#description").animate({
-      height: "530px"
+      height: "495px"
   }, 400);
 },
 function() {
   $("#description").animate({
-      height: "265px"
+      height: "250px"
   }, 200);
 });
 
 $('#news_details').clickToggle(function() {
   $("#selectNumber").animate({
-      height: "530px"
+      height: "495px"
   }, 400);
 },
 function() {
   $("#selectNumber").animate({
-      height: "265px"
+      height: "240px"
   }, 200);
 });
