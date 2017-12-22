@@ -125,7 +125,7 @@ d3.csv("data/id_genre_theme_location_date.csv", prepare, function (error, data) 
     $('#genreList').select2({
         closeOnSelect: false,
         width: '100%',
-        placeholder: 'Filter on genre(s)'
+        placeholder: 'Filter on a genre'
     });
 
     // event listener for the list
