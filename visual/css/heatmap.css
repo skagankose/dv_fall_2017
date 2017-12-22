@@ -1,0 +1,104 @@
+#map-container {
+    margin: auto;
+    height: 700px;
+    width: 99%;
+}
+
+#vis {
+    margin: auto;
+    width: 50%;
+    position: relative;
+}
+
+
+#play-button {
+    /*position: absolute;*/
+    /*top: 140px;*/
+    top: 75px;
+    left: -50px;
+    background: #f08080;
+    /*padding-right: 26px;*/
+    /*border-radius: 3px;*/
+    border: none;
+    color: white;
+    margin: 0;
+    /*padding: 0 12px;*/
+    width: 60px;
+    cursor: pointer;
+    height: 30px;
+}
+
+#play-button:hover {
+    background-color: #696969;
+}
+
+.ticks {
+    font-size: 10px;
+}
+
+.track,
+.track-inset,
+.track-overlay {
+    stroke-linecap: round;
+}
+
+.track {
+    stroke: #000;
+    stroke-opacity: 0.3;
+    stroke-width: 10px;
+}
+
+.track-inset {
+    stroke: #dcdcdc;
+    stroke-width: 8px;
+}
+
+.track-overlay {
+    pointer-events: stroke;
+    stroke-width: 50px;
+    stroke: transparent;
+    cursor: crosshair;
+}
+
+.handle {
+    fill: #fff;
+    stroke: #000;
+    stroke-opacity: 0.5;
+    stroke-width: 1.25px;
+}
+
+.class-play {
+    float: left;
+    position: absolute;
+}
+
+.class-speed-handle {
+    float: left;
+    top: 0px;
+    left: 1px;
+}
+
+.presents {
+    float: left;
+    top: 100px;
+    left: 100px;
+}
+
+#slider .noUi-connect {
+    background: #f08080;
+}
+
+#slider[disabled] .noUi-connect {
+    background: #B8B8B8;
+}
+
+[disabled].noUi-target,
+[disabled].noUi-handle,
+[disabled] .noUi-handle {
+    cursor: not-allowed;
+}
+
+.noUi-vertical .noUi-handle-upper .noUi-tooltip {
+    right: unset;
+    left: 120%;
+}
