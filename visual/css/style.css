@@ -407,7 +407,10 @@ h1{font-size:30px !important;}
 	font-size:15px;
 }
 
-#multiple_choice {
-/*height:300px;
-margin:-20px;"*/
+#filter_title {
+	cursor:default !important;
+}
+
+#filter_controls {
+	cursor:default !important;
 }

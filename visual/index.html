@@ -36,12 +36,6 @@
 
   <!-- Bootstrap -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-  <!-- <link rel="stylesheet" type="text/css"  href="css/bootstrap.css"> -->
-  <!-- <link rel="stylesheet" type="text/css" href="fonts/font-awesome/css/font-awesome.css"> -->
-
-
-  <!-- Bootstrap -->
-  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous"> -->
 
   <!-- Custom CSS -->
   <link rel="stylesheet" href="css/timeline.css">
@@ -52,12 +46,9 @@
   <script src="https://use.fontawesome.com/aa539bf0ef.js"></script>
   <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
 
-  <!-- ! -->
+  <!-- Filtering -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
-
-
-
 
  </head>
  <body>
@@ -103,7 +94,7 @@
               <br>
               <p style="font-size:17px;color:black;">Joins World Bank</p>
               <hr>
-              <p style="font-size:13px;">Some descriptions and some more description.</p>
+              <p style="font-size:13px;">Switzerland joins World Bank and IMF but rejects membership of European Economic Area.</p>
             </div>
             <button onclick="sliderSlider(event)"
                     value="1992"
@@ -122,7 +113,7 @@
               <br>
               <p style="font-size:17px;color:black;">Constitution Revision</p>
               <hr>
-              <p style="font-size:13px;">Some descriptions and some more description.</p>
+              <p style="font-size:13px;">The Federal Constitution was wholly revised for the second time.</p>
             </div>
             <button onclick="sliderSlider(event)"
                     value="1999"
@@ -141,7 +132,7 @@
               <br>
               <p style="font-size:17px;color:black;">Becomes UN Member</p>
               <hr>
-              <p style="font-size:13px;">Some descriptions and some more description.</p>
+              <p style="font-size:13px;">Parliament votes overwhelmingly in favour of United Nations membership.</p>
             </div>
             <button onclick="sliderSlider(event)"
                     value="2002"
@@ -160,7 +151,7 @@
               <br>
               <p style="font-size:17px;color:black;">Joins Schengen Area</p>
               <hr>
-              <p style="font-size:13px;">Some descriptions and some more description.</p>
+              <p style="font-size:13px;">Voters in referendum support joining EU Schengen.</p>
             </div>
             <button onclick="sliderSlider(event)"
                     value="2005"
@@ -173,13 +164,13 @@
           <div class="col-lg-2 col-md-4">
           <div class="w3-card-4 w3-round" style="width:100%">
             <a onclick="sliderSlider(event)" style="cursor:pointer">
-              <img value="2009" src="img/minaret.png" alt="" style="width:100%">
+              <img value="2009" src="img/economy.png" alt="" style="width:100%">
             </a>
             <div class="w3-container w3-center">
               <br>
-              <p style="font-size:17px;color:black;">Minaret Referendum</p>
+              <p style="font-size:17px;color:black;">Returns to Growth</p>
               <hr>
-              <p style="font-size:13px;">Some descriptions and some more description.</p>
+              <p style="font-size:13px;">Swiss economy returns to growth.</p>
             </div>
             <button onclick="sliderSlider(event)"
                     value="2009"
@@ -196,9 +187,9 @@
             </a>
             <div class="w3-container w3-center">
               <br>
-              <p style="font-size:17px;color:black;">Reject Tighter Gun Control</p>
+              <p style="font-size:17px;color:black;">Rejects Tighter Gun Control</p>
               <hr>
-              <p style="font-size:13px;">Some descriptions and some more description.</p>
+              <p style="font-size:13px;">Voters in a referendum reject plans for tighter gun controls.</p>
             </div>
             <button onclick="sliderSlider(event)"
                     value="2011"
@@ -223,20 +214,21 @@
       <div class="card">
         <div class="card-header" role="tab" id="headingOneV5">
           <h5 class="mb-0">
-            <a id="filter_title" data-toggle="collapse" href="#collapseOneV5" aria-expanded="true" aria-controls="collapseOneV5">
+            <span id="filter_title">
               <span value="open" id="filter_controls">
 
+                 <br>
                  <div class="popup">
                   Filtering Controls
-                  <span class="popuptext" id="year_popup">
-                    Can't find any broadcast for the current year. Try changing the slider!
+                  <span class="popuptext" id="year_popup" style="font-family:'Geneva'";>
+                    Try Changing Timeline Slider!
                   </span>
-                  <span class="popuptext" id="no_popup">
-                    Can't find any broadcast. Try another filter!
+                  <span class="popuptext" id="no_popup" style="font-family:'Geneva'";>
+                    Try Another Filter!
                   </span>
                 </div>
               </span>
-            </a>
+            </span>
           </h5>
         </div>
 
@@ -244,17 +236,8 @@
           <div class="card-body">
             <div class="form-group">
 
-
-
-
                <select id="genreList" title="genres" multiple="multiple">
-
-                   <!--<option value="0" selected>All</option>-->
                </select>
-
-             <!-- <select id="themeList" title="themes" multiple="multiple">
-                 <option value="0" selected>All</option>
-             </select> -->
 
           </div>
           </div>
@@ -273,9 +256,9 @@
         <div id="collapseOneV2" class="collapse show" role="tabpanel" aria-labelledby="headingOneV2" data-parent="#accordion">
           <div class="card-body">
             <div class="form-group">
-            <select style="height:240px;
+            <select style="height:267px;
                            width:112%;
-                           margin-left:-31px;
+                           margin-left:-25px;
                            margin-top:-20px;
                            margin-bottom:-36px;" multiple class="form-control"  id="selectNumber" id="exampleFormControlSelect2">
               <option>All</option>
@@ -297,9 +280,9 @@
 
             <div class="form-group">
               <textarea style="resize: none;
-                             height:240px;
+                             height:267px;
                              width:112%;
-                             margin-left:-31px;
+                             margin-left:-25px;
                              margin-top:-20px;
                              margin-bottom:-36px;"
                              class="form-control" id="description" id="exampleFormControlTextarea1" rows="3">Excerpt of the selected new will appear here.
@@ -361,7 +344,6 @@
     </footer>
 
    <script src="data/loc2coord_dict.js"></script>
-   <!-- <script src="data/superedge_locations.js"></script> -->
 
      <!--  Coding Dicttionaries  -->
   <script src="data/theme2code.js"></script>
@@ -378,9 +360,7 @@
   <script src="data/canton_coordinates.js"></script>
   <script src="data/excerpts_filtered.js"></script>
   <script src="data/yearly_connections.js"></script>
-  <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>-->
   <script src="js/map.js"></script>
-  <!-- <script src="http://underscorejs.org/underscore.js"></script> -->
   <script src="js/timeline.js"></script>
 
 
