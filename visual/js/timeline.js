@@ -1,4 +1,4 @@
-// Slider START
+//////////////////// SLIDER - START ////////////////////
 var num_years = 38;
 var years_data = d3.range(0, num_years).map(function (d) { return new Date(1980 + d, 10, 3); });
 var slider = d3.sliderHorizontal()
@@ -20,9 +20,6 @@ var slider = d3.sliderHorizontal()
     E = null;
     geojson.setStyle(style);
 
-    // removeNewsLayer()
-    // drawNewsDots()
-
   });
 
 
@@ -36,11 +33,9 @@ var g = d3.select("div#slider").append("svg")
 g.call(slider);
 starting_value = new Date(1990, 06, 06);
 slider.value(starting_value);
-// d3.select("a#setValue2").on("click", () => slider.value(new_value));
 
 
-
-// Slide slider according to clicked object
+// slid slider according to clicked object
 function sliderSlider (e) {
 
   try {
@@ -56,14 +51,16 @@ function sliderSlider (e) {
 }
 
 d3.select("#value").text(d3.timeFormat('%Y')(slider.value()));
-// Slider END
+//////////////////// SLIDER - END ////////////////////
 
-// Ignore this
+// function for popups this
 function popup_function() {
     var popup = document.getElementById("myPopup");
     popup.classList.toggle("show");
 }
 
+
+// functions for expanding and collapsing menu in the left
 (function($) {
     $.fn.clickToggle = function(func1, func2) {
         var funcs = [func1, func2];
@@ -78,24 +75,25 @@ function popup_function() {
     };
 }(jQuery));
 
+
 $('#news_title').clickToggle(function() {
   $("#description").animate({
-      height: "480px"
+      height: "530px"
   }, 400);
 },
 function() {
   $("#description").animate({
-      height: "240px"
+      height: "265px"
   }, 200);
 });
 
 $('#news_details').clickToggle(function() {
   $("#selectNumber").animate({
-      height: "480px"
+      height: "530px"
   }, 400);
 },
 function() {
   $("#selectNumber").animate({
-      height: "240px"
+      height: "265px"
   }, 200);
 });

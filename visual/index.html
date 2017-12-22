@@ -2,415 +2,366 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title> TV Mirror </title>
-    <meta name="description" content="">
-    <meta name="author" content="">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> TV Mirror </title>
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-    <!-- Stylesheet
-        ================================================== -->
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
-
-
-    <!-- Leaflet's CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
-          integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
-          crossorigin=""/>
-
-    <!-- Leaflet's J -->
-    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
-            integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
-            crossorigin=""></script>
-
-    <!-- D3 -->
-    <script src="https://d3js.org/d3.v4.min.js"></script>
-    <script src="js/SimpleSlider.js"></script>
-    <script src="js/ConcaveHull.js"></script>
-
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-            crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
-            integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
-            crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
-            integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
-            crossorigin="anonymous"></script>
-
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
-          integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-    <!-- <link rel="stylesheet" type="text/css"  href="css/bootstrap.css"> -->
-    <!-- <link rel="stylesheet" type="text/css" href="fonts/font-awesome/css/font-awesome.css"> -->
+  <!-- Stylesheet
+      ================================================== -->
+  <link rel="stylesheet" type="text/css"  href="css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
 
 
-    <!-- Bootstrap -->
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous"> -->
+  <!-- Leaflet's CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css"
+  integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ=="
+  crossorigin=""/>
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/timeline.css">
-    <link rel="stylesheet" href="css/map.css">
+  <!-- Leaflet's J -->
+  <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"
+  integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
+  crossorigin=""></script>
 
-    <!-- W3 -->
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <script src="https://use.fontawesome.com/aa539bf0ef.js"></script>
-    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+  <!-- D3 -->
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="js/SimpleSlider.js"></script>
+  <script src="js/ConcaveHull.js"></script>
 
-    <!-- ! -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 
-</head>
-<body>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/timeline.css">
+  <link rel="stylesheet" href="css/map.css">
 
-<div id="header">
-    <br>
-    <div class="container">
-        <div class="row text-center">
-            <div class="col-sm-12">
-                <h1>
-                    Swiss TV Mirror Map for
-                    <span id="value_outer">
+  <!-- W3 -->
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <script src="https://use.fontawesome.com/aa539bf0ef.js"></script>
+  <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+
+  <!-- Filtering -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+ </head>
+ <body>
+
+   <div id="header">
+     <br>
+     <div class="container">
+       <div class="row text-center">
+         <div class="col-sm-12">
+           <h1>
+               Swiss TV Mirror Map for
+               <span id="value_outer">
                  <span style="margin:5px;" id="value"></span>
                </span>
-                </h1>
+           </h1>
+         </div>
+       </div>
+     </div>
+     <br>
+ <div class="row text-center" style="border:none;">
+ <div class="col-sm-12">
+ <div class="card">
+   <div class="card-header" role="tab" id="headingOne">
+     <h5 class="mb-0">
+       <a data-toggle="collapse" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+         <span id="slider_title"> Important Events </span>
+       </a>
+     </h5>
+   </div>
+
+   <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
+     <div class="card-body">
+       <div class="row">
+
+          <!-- An Event Card Block START -->
+          <!-- Set all three dates in a card... -->
+          <div class="col-lg-2 col-md-4">
+          <div class="w3-card-4 w3-round" style="width:100%">
+            <a onclick="sliderSlider(event)" style="cursor:pointer">
+              <img value="1992" src="img/imf.png" alt="" style="width:100%">
+            </a>
+            <div class="w3-container w3-center">
+              <br>
+              <p style="font-size:17px;color:black;">Joins World Bank</p>
+              <hr>
+              <p style="font-size:13px;">Switzerland joins World Bank and IMF but rejects membership of European Economic Area.</p>
             </div>
-        </div>
-    </div>
-    <br>
-    <div class="row text-center" style="border:none;">
-        <div class="col-sm-12">
-            <div class="card">
-                <div class="card-header" role="tab" id="headingOne">
-                    <h5 class="mb-0">
-                        <a data-toggle="collapse" href="#collapseThree" aria-expanded="true"
-                           aria-controls="collapseThree">
-                            <span id="slider_title"> Important Events </span>
-                        </a>
-                    </h5>
-                </div>
-
-                <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingOne"
-                     data-parent="#accordion">
-                    <div class="card-body">
-                        <div class="row">
-
-                            <!-- An Event Card Block START -->
-                            <!-- Set all three dates in a card... -->
-                            <div class="col-lg-2 col-md-4">
-                                <div class="w3-card-4 w3-round" style="width:100%">
-                                    <a onclick="sliderSlider(event)" style="cursor:pointer">
-                                        <img value="1992" src="img/imf.png" alt="" style="width:100%">
-                                    </a>
-                                    <div class="w3-container w3-center">
-                                        <br>
-                                        <p style="font-size:17px;color:black;">Joins World Bank</p>
-                                        <hr>
-                                        <p style="font-size:13px;">Some descriptions and some more description.</p>
-                                    </div>
-                                    <button onclick="sliderSlider(event)"
-                                            value="1992"
-                                            class="w3-button w3-block w3-round w3-light-grey w3-border"
-                                            style="font-size:17px;">
-                                        <i class="fa fa-map-o" aria-hidden="true"></i> 1992
-                                    </button>
-                                </div>
-                            </div>
-                            <!-- An Event Card Block END -->
-                            <!-- An Event Card Block START -->
-                            <div class="col-lg-2 col-md-4">
-                                <div class="w3-card-4 w3-round" style="width:100%">
-                                    <a onclick="sliderSlider(event)" style="cursor:pointer">
-                                        <img value="1999" src="img/revision.png" alt="" style="width:100%">
-                                    </a>
-                                    <div class="w3-container w3-center">
-                                        <br>
-                                        <p style="font-size:17px;color:black;">Constitution Revision</p>
-                                        <hr>
-                                        <p style="font-size:13px;">Some descriptions and some more description.</p>
-                                    </div>
-                                    <button onclick="sliderSlider(event)"
-                                            value="1999"
-                                            class="w3-button w3-block w3-round w3-light-grey w3-border"
-                                            style="font-size:17px;">
-                                        <i class="fa fa-map-o" aria-hidden="true"></i> 1999
-                                    </button>
-                                </div>
-                            </div>
-                            <!-- An Event Card Block END -->
-                            <!-- An Event Card Block START -->
-                            <div class="col-lg-2 col-md-4">
-                                <div class="w3-card-4 w3-round" style="width:100%;">
-                                    <a onclick="sliderSlider(event)" style="cursor:pointer">
-                                        <img value="2002" src="img/un.png" alt="" style="width:100%">
-                                    </a>
-                                    <div class="w3-container w3-center">
-                                        <br>
-                                        <p style="font-size:17px;color:black;">Becomes UN Member</p>
-                                        <hr>
-                                        <p style="font-size:13px;">Some descriptions and some more description.</p>
-                                    </div>
-                                    <button onclick="sliderSlider(event)"
-                                            value="2002"
-                                            class="w3-button w3-block w3-round w3-light-grey w3-border"
-                                            style="font-size:17px;">
-                                        <i class="fa fa-map-o" aria-hidden="true"></i> 2002
-                                    </button>
-                                </div>
-                            </div>
-                            <!-- An Event Card Block END -->
-                            <!-- An Event Card Block START -->
-                            <div class="col-lg-2 col-md-4">
-                                <div class="w3-card-4 w3-round" style="width:100%;">
-                                    <a onclick="sliderSlider(event)" style="cursor:pointer">
-                                        <img value="2005" src="img/schengen.png" alt="" style="width:100%">
-                                    </a>
-                                    <div class="w3-container w3-center">
-                                        <br>
-                                        <p style="font-size:17px;color:black;">Joins Schengen Area</p>
-                                        <hr>
-                                        <p style="font-size:13px;">Some descriptions and some more description.</p>
-                                    </div>
-                                    <button onclick="sliderSlider(event)"
-                                            value="2005"
-                                            class="w3-button w3-block w3-round w3-light-grey w3-border"
-                                            style="font-size:17px;">
-                                        <i class="fa fa-map-o" aria-hidden="true"></i> 2005
-                                    </button>
-                                </div>
-                            </div>
-                            <!-- An Event Card Block END -->
-                            <!-- An Event Card Block START -->
-                            <div class="col-lg-2 col-md-4">
-                                <div class="w3-card-4 w3-round" style="width:100%">
-                                    <a onclick="sliderSlider(event)" style="cursor:pointer">
-                                        <img value="2009" src="img/minaret.png" alt="" style="width:100%">
-                                    </a>
-                                    <div class="w3-container w3-center">
-                                        <br>
-                                        <p style="font-size:17px;color:black;">Minaret Referendum</p>
-                                        <hr>
-                                        <p style="font-size:13px;">Some descriptions and some more description.</p>
-                                    </div>
-                                    <button onclick="sliderSlider(event)"
-                                            value="2009"
-                                            class="w3-button w3-block w3-round w3-light-grey w3-border"
-                                            style="font-size:17px;">
-                                        <i class="fa fa-map-o" aria-hidden="true"></i> 2009
-                                    </button>
-                                </div>
-                            </div>
-                            <!-- An Event Card Block END -->
-                            <!-- An Event Card Block START -->
-                            <div class="col-lg-2 col-md-4">
-                                <div class="w3-card-4 w3-round" style="width:100%">
-                                    <a onclick="sliderSlider(event)" style="cursor:pointer">
-                                        <img value="2011" src="img/gun.png" alt="" style="width:100%">
-                                    </a>
-                                    <div class="w3-container w3-center">
-                                        <br>
-                                        <p style="font-size:17px;color:black;">Reject Tighter Gun Control</p>
-                                        <hr>
-                                        <p style="font-size:13px;">Some descriptions and some more description.</p>
-                                    </div>
-                                    <button onclick="sliderSlider(event)"
-                                            value="2011"
-                                            class="w3-button w3-block w3-round w3-light-grey w3-border"
-                                            style="font-size:17px;">
-                                        <i class="fa fa-map-o" aria-hidden="true"></i> 2011
-                                    </button>
-                                </div>
-                            </div>
-                            <!-- An Event Card Block END -->
-
-                        </div>
-                    </div>
-                </div>
+            <button onclick="sliderSlider(event)"
+                    value="1992"
+                    class="w3-button w3-block w3-round w3-light-grey w3-border" style="font-size:17px;">
+              <i class="fa fa-map-o" aria-hidden="true"></i> 1992</button>
+          </div>
+          </div>
+          <!-- An Event Card Block END -->
+          <!-- An Event Card Block START -->
+          <div class="col-lg-2 col-md-4">
+          <div class="w3-card-4 w3-round" style="width:100%">
+            <a onclick="sliderSlider(event)" style="cursor:pointer">
+              <img value="1999" src="img/revision.png" alt="" style="width:100%">
+            </a>
+            <div class="w3-container w3-center">
+              <br>
+              <p style="font-size:17px;color:black;">Constitution Revision</p>
+              <hr>
+              <p style="font-size:13px;">The Federal Constitution was wholly revised for the second time.</p>
             </div>
-        </div>
-    </div>
+            <button onclick="sliderSlider(event)"
+                    value="1999"
+                    class="w3-button w3-block w3-round w3-light-grey w3-border" style="font-size:17px;">
+              <i class="fa fa-map-o" aria-hidden="true"></i> 1999</button>
+          </div>
+          </div>
+          <!-- An Event Card Block END -->
+          <!-- An Event Card Block START -->
+          <div class="col-lg-2 col-md-4">
+          <div class="w3-card-4 w3-round" style="width:100%;">
+            <a onclick="sliderSlider(event)" style="cursor:pointer">
+              <img value="2002" src="img/un.png" alt="" style="width:100%">
+            </a>
+            <div class="w3-container w3-center">
+              <br>
+              <p style="font-size:17px;color:black;">Becomes UN Member</p>
+              <hr>
+              <p style="font-size:13px;">Parliament votes overwhelmingly in favour of United Nations membership.</p>
+            </div>
+            <button onclick="sliderSlider(event)"
+                    value="2002"
+                    class="w3-button w3-block w3-round w3-light-grey w3-border" style="font-size:17px;">
+              <i class="fa fa-map-o" aria-hidden="true"></i> 2002</button>
+          </div>
+          </div>
+          <!-- An Event Card Block END -->
+          <!-- An Event Card Block START -->
+          <div class="col-lg-2 col-md-4">
+          <div class="w3-card-4 w3-round" style="width:100%;">
+            <a onclick="sliderSlider(event)" style="cursor:pointer">
+              <img value="2005" src="img/schengen.png" alt="" style="width:100%">
+            </a>
+            <div class="w3-container w3-center">
+              <br>
+              <p style="font-size:17px;color:black;">Joins Schengen Area</p>
+              <hr>
+              <p style="font-size:13px;">Voters in referendum support joining EU Schengen.</p>
+            </div>
+            <button onclick="sliderSlider(event)"
+                    value="2005"
+                    class="w3-button w3-block w3-round w3-light-grey w3-border" style="font-size:17px;">
+              <i class="fa fa-map-o" aria-hidden="true"></i> 2005</button>
+          </div>
+          </div>
+          <!-- An Event Card Block END -->
+          <!-- An Event Card Block START -->
+          <div class="col-lg-2 col-md-4">
+          <div class="w3-card-4 w3-round" style="width:100%">
+            <a onclick="sliderSlider(event)" style="cursor:pointer">
+              <img value="2009" src="img/economy.png" alt="" style="width:100%">
+            </a>
+            <div class="w3-container w3-center">
+              <br>
+              <p style="font-size:17px;color:black;">Returns to Growth</p>
+              <hr>
+              <p style="font-size:13px;">Swiss economy returns to growth.</p>
+            </div>
+            <button onclick="sliderSlider(event)"
+                    value="2009"
+                    class="w3-button w3-block w3-round w3-light-grey w3-border" style="font-size:17px;">
+              <i class="fa fa-map-o" aria-hidden="true"></i> 2009</button>
+          </div>
+          </div>
+          <!-- An Event Card Block END -->
+          <!-- An Event Card Block START -->
+          <div class="col-lg-2 col-md-4">
+          <div class="w3-card-4 w3-round" style="width:100%">
+            <a onclick="sliderSlider(event)" style="cursor:pointer">
+              <img value="2011" src="img/gun.png" alt="" style="width:100%">
+            </a>
+            <div class="w3-container w3-center">
+              <br>
+              <p style="font-size:17px;color:black;">Rejects Tighter Gun Control</p>
+              <hr>
+              <p style="font-size:13px;">Voters in a referendum reject plans for tighter gun controls.</p>
+            </div>
+            <button onclick="sliderSlider(event)"
+                    value="2011"
+                    class="w3-button w3-block w3-round w3-light-grey w3-border" style="font-size:17px;">
+              <i class="fa fa-map-o" aria-hidden="true"></i> 2011</button>
+          </div>
+          </div>
+          <!-- An Event Card Block END -->
+
+      </div>
+     </div>
+   </div>
+</div>
+</div>
+</div>
 </div>
 
 <div class="row">
-    <div class="col-sm-3" style="margin-right:-30px;">
+  <div class="col-sm-3" style="margin-right:-30px;">
 
 
-        <div class="card">
-            <div class="card-header" role="tab" id="headingOneV5">
-                <h5 class="mb-0">
-                    <a id="filter_title" data-toggle="collapse" href="#collapseOneV5" aria-expanded="true"
-                       aria-controls="collapseOneV5">
+      <div class="card">
+        <div class="card-header" role="tab" id="headingOneV5">
+          <h5 class="mb-0">
+            <span id="filter_title">
               <span value="open" id="filter_controls">
 
+                 <br>
                  <div class="popup">
                   Filtering Controls
-                  <span class="popuptext" id="year_popup">
-                    Can't find any broadcast for the current year. Try changing the slider!
+                  <span class="popuptext" id="year_popup" style="font-family:'Geneva'";>
+                    Try Changing Timeline Slider!
                   </span>
-                  <span class="popuptext" id="no_popup">
-                    Can't find any broadcast. Try another filter!
+                  <span class="popuptext" id="no_popup" style="font-family:'Geneva'";>
+                    Try Another Filter!
                   </span>
                 </div>
               </span>
-                    </a>
-                </h5>
-            </div>
-
-            <div id="collapseOneV5" class="collapse show" role="tabpanel" aria-labelledby="headingOneV5"
-                 data-parent="#accordion">
-                <div class="card-body">
-                    <div class="form-group">
-
-
-                        <select id="genreList" title="genres" multiple="multiple">
-
-                            <!--<option value="0" selected>All</option>-->
-                        </select>
-
-                        <!-- <select id="themeList" title="themes" multiple="multiple">
-                            <option value="0" selected>All</option>
-                        </select> -->
-
-                    </div>
-                </div>
-            </div>
+            </span>
+          </h5>
         </div>
 
-        <div class="card">
-            <div class="card-header" role="tab" id="headingOneV2">
-                <h5 class="mb-0">
-                    <a id="news_title" data-toggle="collapse" href="#collapseOneV2" aria-expanded="true"
-                       aria-controls="collapseOneV2">
-                        <span value="open" id="slider_title_news"> News Related to Selected Canton </span>
-                    </a>
-                </h5>
-            </div>
+        <div id="collapseOneV5" class="collapse show" role="tabpanel" aria-labelledby="headingOneV5" data-parent="#accordion">
+          <div class="card-body">
+            <div class="form-group">
 
-            <div id="collapseOneV2" class="collapse show" role="tabpanel" aria-labelledby="headingOneV2"
-                 data-parent="#accordion">
-                <div class="card-body">
-                    <div class="form-group">
-                        <select style="height:240px;
+               <select id="genreList" title="genres" multiple="multiple">
+               </select>
+
+          </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header" role="tab" id="headingOneV2">
+          <h5 class="mb-0">
+            <a id="news_title" data-toggle="collapse" href="#collapseOneV2" aria-expanded="true" aria-controls="collapseOneV2">
+              <span value="open" id="slider_title_news"> News Related to Selected Canton </span>
+            </a>
+          </h5>
+        </div>
+
+        <div id="collapseOneV2" class="collapse show" role="tabpanel" aria-labelledby="headingOneV2" data-parent="#accordion">
+          <div class="card-body">
+            <div class="form-group">
+            <select style="height:267px;
                            width:112%;
-                           margin-left:-31px;
+                           margin-left:-25px;
                            margin-top:-20px;
-                           margin-bottom:-36px;" multiple class="form-control" id="selectNumber"
-                                id="exampleFormControlSelect2">
-                            <option>All</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
+                           margin-bottom:-36px;" multiple class="form-control"  id="selectNumber" id="exampleFormControlSelect2">
+              <option>All</option>
+            </select>
+          </div>
+          </div>
         </div>
-        <div class="card">
-            <div class="card-header" role="tab" id="headingTwoV2">
-                <h5 class="mb-0">
-                    <a id="news_details" class="collapsed" data-toggle="collapse" href="#collapseTwoV2"
-                       aria-expanded="false" aria-controls="collapseTwoV2">
-                        <span id="slider_title"> News Details</span>
-                    </a>
-                </h5>
-            </div>
-            <div id="collapseTwoV2" class="collapse show" role="tabpanel" aria-labelledby="headingTwoV2"
-                 data-parent="#accordion">
-                <div class="card-body">
+      </div>
+      <div class="card">
+        <div class="card-header" role="tab" id="headingTwoV2">
+          <h5 class="mb-0">
+            <a id="news_details" class="collapsed" data-toggle="collapse" href="#collapseTwoV2" aria-expanded="false" aria-controls="collapseTwoV2">
+              <span id="slider_title"> News Details</span>
+            </a>
+          </h5>
+        </div>
+        <div id="collapseTwoV2" class="collapse show" role="tabpanel" aria-labelledby="headingTwoV2" data-parent="#accordion">
+          <div class="card-body">
 
-                    <div class="form-group">
+            <div class="form-group">
               <textarea style="resize: none;
-                             height:240px;
+                             height:267px;
                              width:112%;
-                             margin-left:-31px;
+                             margin-left:-25px;
                              margin-top:-20px;
                              margin-bottom:-36px;"
-                        class="form-control" id="description" id="exampleFormControlTextarea1" rows="3">Excerpt of the selected new will appear here.
+                             class="form-control" id="description" id="exampleFormControlTextarea1" rows="3">Excerpt of the selected new will appear here.
               </textarea>
-                    </div>
-
-
-                </div>
-
-                <h4>
-                    <a href="heatmap.html">  Heatmap Visualization </a>
-                </h4>
             </div>
 
-        </div>
 
-    </div>
-    <div class="col-sm-9">
-        <div id="map"></div>
-    </div>
+
+          </div>
+        </div>
+      </div>
+
+  </div>
+  <div class="col-sm-9">
+    <div id="map"></div>
+  </div>
 </div>
 
-<div id="bottom_map">
+ <div id="bottom_map">
 
     <!-- <div class="container"> -->
-    <div class="row text-center">
+      <div class="row text-center">
         <div class="col-sm-12">
 
-            <div class="card">
-                <div class="card-header" role="tab" id="headingOne">
-                    <h5 class="mb-0">
-                        <a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            <span id="slider_title"> Timeline</span>
-                        </a>
-                    </h5>
-                </div>
-
-                <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne"
-                     data-parent="#accordion">
-                    <div class="card-body">
-                        <div id="slider"></div>
-                    </div>
-                </div>
+          <div class="card">
+            <div class="card-header" role="tab" id="headingOne">
+              <h5 class="mb-0">
+                <a data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  <span id="slider_title"> Timeline</span>
+                </a>
+              </h5>
             </div>
 
-            <br><br>
-            <br>
+            <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
+              <div class="card-body">
+                <div id="slider"></div>
+              </div>
+            </div>
+          </div>
+
+         <br><br>
+         <br>
 
         </div>
-    </div>
+      </div>
 
-</div>
+  </div>
 
 
-<footer class="footer">
-    <div id="footer_div" class="container text-center">
+    <footer class="footer">
+      <div id="footer_div" class="container text-center">
         <span class="text-muted">&copy; 2017
 
           <div class="popup" onclick="popup_function()" style="color:#5b93c3;"><u>SAM</u>
             <span class="popuptext" id="myPopup">Suha - Ahmad - Mohammad</span>
           </div>
           , All Rights Reserved.</span>
-    </div>
-</footer>
+      </div>
+    </footer>
 
-<script src="data/loc2coord_dict.js"></script>
-<!-- <script src="data/superedge_locations.js"></script> -->
+   <script src="data/loc2coord_dict.js"></script>
 
-<!--  Coding Dicttionaries  -->
-<script src="data/theme2code.js"></script>
-<script src="data/code2theme.js"></script>
-<script src="data/code2genre.js"></script>
-<script src="data/genre2code.js"></script>
-<script src="data/code2loc.js"></script>
-<script src="data/loc2code.js"></script>
+     <!--  Coding Dicttionaries  -->
+  <script src="data/theme2code.js"></script>
+  <script src="data/code2theme.js"></script>
+  <script src="data/code2genre.js"></script>
+  <script src="data/genre2code.js"></script>
+  <script src="data/code2loc.js"></script>
+  <script src="data/loc2code.js"></script>
 
-<script src="data/switzerland.js"></script>
-<script src="data/canton_connections.js"></script>
-<script src="data/canton_raw_connections.js"></script>
-<script src="data/canton_filter_connections.js"></script>
-<script src="data/canton_coordinates.js"></script>
-<script src="data/excerpts_filtered.js"></script>
-<script src="data/yearly_connections.js"></script>
-<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>-->
-<script src="js/map.js"></script>
-<!-- <script src="http://underscorejs.org/underscore.js"></script> -->
-<script src="js/timeline.js"></script>
+  <script src="data/switzerland.js"></script>
+  <script src="data/canton_connections.js"></script>
+  <script src="data/canton_raw_connections.js"></script>
+  <script src="data/canton_filter_connections.js"></script>
+  <script src="data/canton_coordinates.js"></script>
+  <script src="data/excerpts_filtered.js"></script>
+  <script src="data/yearly_connections.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/timeline.js"></script>
 
 
-</body>
+ </body>
