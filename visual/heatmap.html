@@ -271,10 +271,9 @@
 
 
             <div class="card-header" role="tab" id="headingTwoV3">
-                <h5 class="mb-0">
-                    <a id="filter-controls-collapsible" class="collapsed" data-toggle="collapse" href="#collapseTwoV3"
-                       aria-expanded="false" aria-controls="collapseTwoV3">
-                        <span id="filter-controls"> Filtering Controls</span>
+                <h4 class="mb-0">
+                    <a>
+                        <span id="filter-controls"> Filtering</span>
                     </a>
 
                     <h6><b> Genres </b></h6>
@@ -285,12 +284,20 @@
                     <!--<h6><b> Themes </b></h6>-->
 
                     <!--<select id="themeList" title="themes" multiple="multiple">-->
-                        <!--&lt;!&ndash;<option value="0" selected>All</option>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<option value="0" selected>All</option>&ndash;&gt;-->
 
                     <!--</select>-->
                     <!--<br>-->
+                </h4>
+                <br>
+                <br>
+                <br>
+                <h4>
+                    <a>
+                        <span id="playback"> Playback</span>
+                    </a>
 
-                    <h6><b> Playback Speed </b></h6>
+                    <h6><b> Speed </b></h6>
                     <br>
                     <br>
 
@@ -299,71 +306,94 @@
                     <br>
                     <br>
 
-                    <h6><b> Presents </b></h6>
-                    <a href="javascript:setPresent(presentWorld)">World</a>
+
+                    <h6><b> Reverb</b>
+                        <br>
+                        Number of days that the news effect lingers on the map
+                    </h6>
                     <br>
-                    <a href="javascript:setPresent(presentSwitzerland)">Switzerland</a>
-                    <br>
-                    <a href="javascript:setPresent(presentEurope)">Europe</a>
                     <br>
 
+                    <div id="slider-reverb" class="class-speed-handle">
+                    </div>
+                    <br>
+                    <br>
+                </h4>
 
-                </h5>
+                <h4>
+                    <a>
+                        <span id="playback"> Presents</span>
+                    </a>
 
-                <!--   -->
+                    <h6>
+                        <a href="javascript:setPresent(presentWorld)"><b>World</b></a>
+                        <br>
+                        <a href="javascript:setPresent(presentSwitzerland)"><b>Switzerland</b></a>
+                        <br>
+                        <a href="javascript:setPresent(presentEurope)"><b>Europe</b></a>
+                        <br>
+                    </h6>
+                </h4>
 
-
+                <br>
+                <br>
+                <br>
+                <h4>
+                    <a href="index.html"> Back to Main Page</a>
+                </h4>
             </div>
 
+
+
             <!--<div class="card-header" role="tab" id="headingOneV2">-->
-                <!--<h5 class="mb-0">-->
-                    <!--<a id="news_title" data-toggle="collapse" href="#collapseOneV2" aria-expanded="true"-->
-                       <!--aria-controls="collapseOneV2">-->
-                        <!--<span value="open" id="slider_title-1"> News Related to Selected Canton </span>-->
-                    <!--</a>-->
-                <!--</h5>-->
+            <!--<h5 class="mb-0">-->
+            <!--<a id="news_title" data-toggle="collapse" href="#collapseOneV2" aria-expanded="true"-->
+            <!--aria-controls="collapseOneV2">-->
+            <!--<span value="open" id="slider_title-1"> News Related to Selected Canton </span>-->
+            <!--</a>-->
+            <!--</h5>-->
             <!--</div>-->
 
             <!--<div id="collapseOneV2" class="collapse show" role="tabpanel" aria-labelledby="headingOneV2"-->
-                 <!--data-parent="#accordion">-->
-                <!--<div class="card-body">-->
-                    <!--<div class="form-group">-->
-                        <!--<select style="height:200px;-->
-                           <!--width:112%;-->
-                           <!--margin-left:-20px;-->
-                           <!--margin-top:-20px;-->
-                           <!--margin-bottom:-36px;" multiple class="form-control" id="selectNumber"-->
-                                <!--id="exampleFormControlSelect2">-->
-                            <!--<option>All</option>-->
-                        <!--</select>-->
-                    <!--</div>-->
-                <!--</div>-->
+            <!--data-parent="#accordion">-->
+            <!--<div class="card-body">-->
+            <!--<div class="form-group">-->
+            <!--<select style="height:200px;-->
+            <!--width:112%;-->
+            <!--margin-left:-20px;-->
+            <!--margin-top:-20px;-->
+            <!--margin-bottom:-36px;" multiple class="form-control" id="selectNumber"-->
+            <!--id="exampleFormControlSelect2">-->
+            <!--<option>All</option>-->
+            <!--</select>-->
+            <!--</div>-->
+            <!--</div>-->
             <!--</div>-->
 
             <!--<div class="card-header" role="tab" id="headingTwoV2">-->
-                <!--<h5 class="mb-0">-->
-                    <!--<a id="news_details" class="collapsed" data-toggle="collapse" href="#collapseTwoV2"-->
-                       <!--aria-expanded="false" aria-controls="collapseTwoV2">-->
-                        <!--<span id="slider_title-2"> News Details</span>-->
-                    <!--</a>-->
-                <!--</h5>-->
+            <!--<h5 class="mb-0">-->
+            <!--<a id="news_details" class="collapsed" data-toggle="collapse" href="#collapseTwoV2"-->
+            <!--aria-expanded="false" aria-controls="collapseTwoV2">-->
+            <!--<span id="slider_title-2"> News Details</span>-->
+            <!--</a>-->
+            <!--</h5>-->
             <!--</div>-->
             <!--<div id="collapseTwoV2" class="collapse show" role="tabpanel" aria-labelledby="headingTwoV2"-->
-                 <!--data-parent="#accordion">-->
-                <!--<div class="card-body">-->
+            <!--data-parent="#accordion">-->
+            <!--<div class="card-body">-->
 
-                    <!--<div class="form-group">-->
-              <!--<textarea style="resize: none;-->
-                             <!--height:216px;-->
-                             <!--width:112%;-->
-                             <!--margin-left:-20px;-->
-                             <!--margin-top:-20px;-->
-                             <!--margin-bottom:-36px;"-->
-                        <!--class="form-control" id="description" id="exampleFormControlTextarea1" rows="3">-->
-                <!--Excerpt of the selected new will appear here.-->
-              <!--</textarea>-->
-                    <!--</div>-->
-                <!--</div>-->
+            <!--<div class="form-group">-->
+            <!--<textarea style="resize: none;-->
+            <!--height:216px;-->
+            <!--width:112%;-->
+            <!--margin-left:-20px;-->
+            <!--margin-top:-20px;-->
+            <!--margin-bottom:-36px;"-->
+            <!--class="form-control" id="description" id="exampleFormControlTextarea1" rows="3">-->
+            <!--Excerpt of the selected new will appear here.-->
+            <!--</textarea>-->
+            <!--</div>-->
+            <!--</div>-->
             <!--</div>-->
 
         </div>
