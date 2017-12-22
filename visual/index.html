@@ -52,6 +52,12 @@
   <script src="https://use.fontawesome.com/aa539bf0ef.js"></script>
   <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
 
+  <!-- ! -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+
+
 
  </head>
  <body>
@@ -213,6 +219,48 @@
 <div class="row">
   <div class="col-sm-3" style="margin-right:-30px;">
 
+
+      <div class="card">
+        <div class="card-header" role="tab" id="headingOneV5">
+          <h5 class="mb-0">
+            <a id="filter_title" data-toggle="collapse" href="#collapseOneV5" aria-expanded="true" aria-controls="collapseOneV5">
+              <span value="open" id="filter_controls">
+
+                 <div class="popup">
+                  Filtering Controls
+                  <span class="popuptext" id="year_popup">
+                    Can't find any broadcast for the current year. Try changing the slider!
+                  </span>
+                  <span class="popuptext" id="no_popup">
+                    Can't find any broadcast. Try another filter!
+                  </span>
+                </div>
+              </span>
+            </a>
+          </h5>
+        </div>
+
+        <div id="collapseOneV5" class="collapse show" role="tabpanel" aria-labelledby="headingOneV5" data-parent="#accordion">
+          <div class="card-body">
+            <div class="form-group">
+
+
+
+
+               <select id="genreList" title="genres" multiple="multiple">
+
+                   <!--<option value="0" selected>All</option>-->
+               </select>
+
+             <!-- <select id="themeList" title="themes" multiple="multiple">
+                 <option value="0" selected>All</option>
+             </select> -->
+
+          </div>
+          </div>
+        </div>
+      </div>
+
       <div class="card">
         <div class="card-header" role="tab" id="headingOneV2">
           <h5 class="mb-0">
@@ -313,11 +361,20 @@
     </footer>
 
    <script src="data/loc2coord_dict.js"></script>
-   <script src="data/superedge_locations.js"></script>
+   <!-- <script src="data/superedge_locations.js"></script> -->
+
+     <!--  Coding Dicttionaries  -->
+  <script src="data/theme2code.js"></script>
+  <script src="data/code2theme.js"></script>
+  <script src="data/code2genre.js"></script>
+  <script src="data/genre2code.js"></script>
+  <script src="data/code2loc.js"></script>
+  <script src="data/loc2code.js"></script>
 
   <script src="data/switzerland.js"></script>
   <script src="data/canton_connections.js"></script>
   <script src="data/canton_raw_connections.js"></script>
+  <script src="data/canton_filter_connections.js"></script>
   <script src="data/canton_coordinates.js"></script>
   <script src="data/excerpts_filtered.js"></script>
   <script src="data/yearly_connections.js"></script>

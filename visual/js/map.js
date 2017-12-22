@@ -1,15 +1,271 @@
-// Assign Dummy Density and Lines
-const MAX_NEWS_NUMBER = 30;
 var YEAR = '1990';
 var E;
 var ID='all';
+var parseDate = d3.timeParse("%d/%m/%Y");
+const allIncluded = cantonRawConnections;
+
+// Filter START
+var available_genres;
+var available_themes;
+var selected_genres;
+var selected_themes;
+
+var dataset;
+var filtered_data;
+
+var current_genres = new Array();
+var current_themes = new Array();
+
+function clearSelected(){
+   var elements = document.getElementById("genreList").options;
+   for(var i = 0; i < elements.length; i++){
+     elements[i].selected = false;
+   }
+ }
+
+
+function processFilters() {
+  // console.log(current_genres);
+  // console.log(current_themes);
+  if (current_genres.length == 0) {
+    cantonRawConnections = allIncluded;
+  } else {
+    if (cantonFilterConnections[current_genres[0]]) {
+      cantonRawConnections = cantonFilterConnections[current_genres[0]];
+
+      let n = 0;
+      for (i of Object.keys(cantonRawConnections)) {n += cantonRawConnections[i][YEAR].length};
+      if (n == 0) {
+        // console.log("Can't find any broadcast in the current year for the selected filter!")
+        var popup = document.getElementById("year_popup");
+        popup.classList.toggle("show");
+        setTimeout(function() {
+            popup.classList.toggle("show");
+        }, 5000);
+      }
+
+    } else {
+      // console.log("Can't find any broadcast for the selected filter!")
+      var popup = document.getElementById("no_popup");
+      popup.classList.toggle("show");
+      setTimeout(function() {
+          popup.classList.toggle("show");
+      }, 5000);
+
+      cantonRawConnections = allIncluded;
+    }
+  }
+  if (E) {
+    removeMarkers()
+    removeSuperEdge()
+    drawSuperEdge(E,'all');
+    show_menu(E);
+  } else {
+    removeMarkers()
+    removeSuperEdge()
+  }
+  geojson.setStyle(style);
+  clearSelected()
+}
+
+function selected_elements(select) {
+    var hasSelection = true;
+    var i;
+    var selected_items = new Array();
+    for (i = 0; i < select.options.length; i += 1) {
+        if (select.options[i].selected) {
+            selected_items.push(select.options[i].text);
+            hasSelection = false;
+        }
+    }
+    return [hasSelection,selected_items];
+}
+
+// var cantonConnections_filtered = cantonConnections;
+// var cantonRawConnections_filtered = cantonRawConnections;
+
+d3.csv("data/id_genre_theme_location_date.csv", prepare, function (error, data) {
+    dataset = data;
+    filtered_data = data;
+
+    // calcAvailableOptions();
+    // Genres
+    let all_genres_options = [];
+    for (r = 0; r < filtered_data.length; r++) {
+        for (i = 0; i < filtered_data[r].genre.length; i++) {
+            all_genres_options[all_genres_options.length] = filtered_data[r].genre[i];
+        }
+    }
+    available_genres = Array.from(new Set(all_genres_options));
+
+    // Themes
+    let all_themes_options = [];
+    for (r = 0; r < filtered_data.length; r++) {
+        for (i = 0; i < filtered_data[r].theme.length; i++) {
+            // all_themes_options.push(filtered_data[r].theme[i]);
+            all_themes_options[all_themes_options.length] = filtered_data[r].theme[i];
+
+        }
+    }
+    available_themes = Array.from(new Set(all_themes_options));
+
+    // console.log(data);
+    if (error) {
+        console.log(error);
+    }
+
+    // Adding Genres to List
+    d3.select('body')
+        .select('#genreList')
+        .selectAll('option')
+        .append("option")
+        .data(available_genres)
+        .enter()
+        .append('option')
+        .attr('value', function (d, i) {
+            return i
+        })
+        .text(function (d) {
+            return d
+        });
+
+    // Adding Themes to List
+    d3.select('body')
+        .select('#themeList')
+        .selectAll('option')
+        .append("option")
+        .data(available_themes)
+        .enter()
+        .append('option')
+        .attr('value', function (d, i) {
+            return i
+        })
+        .text(function (d) {
+            return d
+        });
+
+    //  Creating genres selection list
+    $('#genreList').select2({
+        closeOnSelect: false,
+        width: '100%',
+        placeholder: 'Filter on genre(s)'
+        // theme: "classic",
+    });
+
+    // Event Listener for the list.
+    $('#genreList').on('change', function (e) {
+      selections = selected_elements(this);
+      if (selections[0]) {
+        current_genres = Array();
+      } else {
+        selected_genres = selections[1];
+        current_genres = filter_genre();
+      }
+      processFilters()
+    });
+
+    //  Creating genres selection list
+    $('#themeList').select2({
+        closeOnSelect: false,
+        width: '100%',
+        placeholder: 'Filter on theme(s)',
+        minimumInputLength: 3,
+        // theme: "classic",
+    });
+
+    // Event Listener for the list.
+    $('#themeList').on('change', function (e) {
+      selections = selected_elements(this);
+      if (selections[0]) {
+        current_themes = Array();
+      } else {
+        selected_themes = selections[1];
+        current_themes = filter_theme();
+      }
+      processFilters()
+    });
+
+});
+
+function prepare(d) {
+    d.id = parseInt(d.id);
+    d.date = parseDate(d.publicationDate);
+    d.genre_code = JSON.parse(d.genre_code);
+    d.theme_code = JSON.parse(d.theme_code);
+    d.loc_code = JSON.parse(d.loc_code)
+    d.genre = [];
+    d.theme = [];
+    d.loc = [];
+
+    // Processing Code to Genre
+    for (i = 0; i < d.genre_code.length; i++) {
+        d.genre.push(code2genre[d.genre_code[i]]);
+    }
+
+    // Processing Code to Theme
+    for (i = 0; i < d.theme_code.length; i++) {
+        d.theme.push(code2theme[d.theme_code[i]])
+    }
+
+    // Processing Code to Location
+    for (i = 0; i < d.loc_code.length; i++) {
+        d.loc.push(code2loc[d.loc_code[i]])
+    }
+
+    return d;
+}
+
+
+function intersect(a, b) {
+    return [...new Set(a)].filter(x => new Set(b).has(x));
+}
+
+function filter_genre(d) {
+
+    // Find the codes for the currently selected items
+    selected_genre_codes = [];
+    try {
+        for (i = 0; i < selected_genres.length; i++) {
+            selected_genre_codes[selected_genre_codes.length] = genre2code[selected_genres[i]];
+        }
+    }
+    catch (e) {
+        return false;
+    }
+
+    // filter data and keep only the samples that have matching codes
+    // matching_codes = intersect(d.genre_code, selected_genre_codes);
+
+    return (selected_genre_codes)
+}
+
+function filter_theme(d) {
+
+    // Find the codes for the currently selected items
+    selected_theme_codes = [];
+    try {
+        for (i = 0; i < selected_themes.length; i++) {
+            selected_theme_codes[selected_theme_codes.length] = theme2code[selected_themes[i]];
+        }
+    }
+    catch (e) {
+        return false;
+    }
+
+    // filter data and keep only the samples that have matching codes
+    // matching_codes = intersect(d.genre_code, selected_genres_codes);
+
+    return (selected_theme_codes)
+}
+
+// Filter END
+
 // import * as excerpts from '../data/excerpts_filtered.js';
 // console.log(excerpts['28'])
 // Assign Density WRT. Connection Count
 for (var i = 0; i < swiss_data.features.length; i++) {
     var canton_name = swiss_data.features[i].properties.name;
 
-    // IMPROVE > NOT JUST ONE YEAR
     swiss_data.features[i].properties.density = cantonRawConnections[canton_name][YEAR].length;
 }
 //function to change densities by year
@@ -330,7 +586,6 @@ function onClick(e) {
     drawSuperEdge(E,connection_id);
     // window.location.href = "#collapseOneV2";
     document.getElementById('selectNumber').value = connection_id+","+excerpts[connection_id]["excerpt"]
-
     // if ($("#news_title").attr("aria-expanded")=="true"){$("#slider_title_news").click();}
 }
 
@@ -379,15 +634,18 @@ function removeMarkers() {
 function toInt(n){ return Math.round(Number(n)); };
 
 function drawSuperEdge (e,id) {
+
   // Get Connections of the Target "e"
   // Get Connections from an External File
   canton_name = e.target.feature.properties.name;
 
   // news related to the choosen new
-  for (news of cantonRawConnections[canton_name][YEAR]) {
-    if (news['id']==id){
-      connection_list_news = [news]
-      break
+  if (id !='all'|| id=='All'){
+    for (news of cantonRawConnections[canton_name][YEAR]) {
+      if (news['id']==id){
+        connection_list_news = [news]
+        break
+      }
     }
   }
 
@@ -478,7 +736,6 @@ function clear_description(){
   input.innerHTML = 'Excerpt of the selected new will appear here.';
 }
 // Color Map START
-// PROCESS BOOK > INTERVAL & COLOR CHOICE
 function getColor(d) {
     return d > 40 ? '#084594':
            d > 30 ? '#2171b5':
