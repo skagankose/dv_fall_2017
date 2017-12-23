@@ -4,7 +4,7 @@ We are [Ahmad Ajalloeian](https://github.com/#), [Mohammad Yaghini](https://gith
 The visualization can be reached from [here](https://skagankose.github.io/dv_fall_2017/visual/).<br/>
 The process book can be reached from [here](https://skagankose.github.io/dv_fall_2017/process_book.pdf).<br/>
 If figure are problematic, [here](https://skagankose.github.io/dv_fall_2017/process_book.pdf) is the backup process book .<br/>
-Screen Cast can be reached from [here](https://www.youtube.com/watch?v=HRcZTH6ISOU&feature=youtu.be).<br/>
+A **screencast** can be reached from [here](https://youtu.be/jEe5aq0uuMg).<br/>
 The original repository that contains all the code can be reached from [here](https://github.com/m-yaghini/tv_mirror_viz).
 
 ## Instructions About Visualization
